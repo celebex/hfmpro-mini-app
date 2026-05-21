@@ -84,6 +84,37 @@
       color: #ef4444 !important;
       font-weight: 800 !important;
     }
+
+    /* Premium LED Neon Glowing Effects */
+    @keyframes glow-pulse-amber {
+      0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.25), inset 0 0 4px rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.35); }
+      50% { box-shadow: 0 0 18px rgba(245, 158, 11, 0.75), inset 0 0 10px rgba(245, 158, 11, 0.4); border-color: rgba(245, 158, 11, 0.9); }
+    }
+    @keyframes glow-pulse-red {
+      0%, 100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.25), inset 0 0 4px rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.35); }
+      50% { box-shadow: 0 0 18px rgba(239, 68, 68, 0.75), inset 0 0 10px rgba(239, 68, 68, 0.4); border-color: rgba(239, 68, 68, 0.9); }
+    }
+    @keyframes glow-pulse-emerald {
+      0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.25), inset 0 0 4px rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.35); }
+      50% { box-shadow: 0 0 18px rgba(16, 185, 129, 0.75), inset 0 0 10px rgba(16, 185, 129, 0.4); border-color: rgba(16, 185, 129, 0.9); }
+    }
+    @keyframes glow-pulse-blue {
+      0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.25), inset 0 0 4px rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.35); }
+      50% { box-shadow: 0 0 18px rgba(59, 130, 246, 0.75), inset 0 0 10px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.9); }
+    }
+    
+    .glow-amber-active {
+      animation: glow-pulse-amber 1.8s infinite ease-in-out !important;
+    }
+    .glow-red-active {
+      animation: glow-pulse-red 1.8s infinite ease-in-out !important;
+    }
+    .glow-emerald-active {
+      animation: glow-pulse-emerald 1.8s infinite ease-in-out !important;
+    }
+    .glow-blue-active {
+      animation: glow-pulse-blue 1.8s infinite ease-in-out !important;
+    }
   </style>
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col pb-16 md:pb-0">
@@ -185,7 +216,7 @@
     <div id="tab-dashboard" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-3.5">
 
       <!-- MOBILE ONLY: PREMIUM HORIZONTAL LIVE PRICE TICKER (VISIBLE ON MOBILE, HIDDEN ON DESKTOP) -->
-      <div class="md:hidden w-full overflow-x-auto flex gap-2 pb-2.5 scrollbar-none snap-x snap-mandatory">
+      <div id="mobile-ticker-container" class="md:hidden w-full overflow-x-auto flex gap-2 pb-2.5 scrollbar-none snap-x snap-mandatory">
         <!-- XAUUSD -->
         <button onclick="selectAsset('XAUUSD', 'METAL')" id="mobile-btn-XAUUSD" class="mobile-asset-btn snap-start flex-none w-[110px] bg-black text-white border border-black/80 rounded-xl p-2 flex items-center justify-between transition-all">
           <div class="flex flex-col items-start">
@@ -1048,11 +1079,18 @@
         btn.className = "mobile-asset-btn snap-start flex-none w-[110px] bg-white border border-gray-150 rounded-xl p-2 flex items-center justify-between transition-all";
         const valEl = btn.querySelector('.price-val-mobile');
         if (valEl) valEl.className = "price-val-mobile text-xs font-black tracking-tight text-gray-500 mt-0.5 transition-all";
+        btn.classList.remove('glow-amber-active', 'glow-emerald-active', 'glow-blue-active', 'glow-red-active');
       });
 
       const activeMobileBtn = document.getElementById(`mobile-btn-${pair}`);
       if (activeMobileBtn) {
-        activeMobileBtn.className = "mobile-asset-btn snap-start flex-none w-[110px] bg-black text-white border border-black/80 rounded-xl p-2 flex items-center justify-between transition-all shadow-sm";
+        let glowClass = 'glow-red-active';
+        if (pair === 'XAUUSD') glowClass = 'glow-amber-active';
+        else if (pair === 'BTCUSD') glowClass = 'glow-emerald-active';
+        else if (pair === 'EURUSD') glowClass = 'glow-blue-active';
+        else if (pair === 'GBPUSD') glowClass = 'glow-red-active';
+
+        activeMobileBtn.className = `mobile-asset-btn snap-start flex-none w-[110px] bg-black text-white border border-black/80 rounded-xl p-2 flex items-center justify-between transition-all shadow-sm ${glowClass}`;
         const valEl = activeMobileBtn.querySelector('.price-val-mobile');
         if (valEl) valEl.className = "price-val-mobile text-xs font-black tracking-tight text-white mt-0.5 transition-all";
       }
@@ -1463,6 +1501,40 @@
 
 
 
+    // Infinite Auto Scrolling Ticker with pause-on-interaction
+    let tickerInterval = null;
+    let isUserInteracting = false;
+    
+    function startMobileTicker() {
+      const container = document.getElementById('mobile-ticker-container');
+      if (!container) return;
+      
+      if (tickerInterval) clearInterval(tickerInterval);
+      
+      let scrollDirection = 1; // 1 = forward, -1 = backward
+      
+      tickerInterval = setInterval(() => {
+        if (isUserInteracting) return;
+        
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        if (maxScroll <= 0) return;
+        
+        container.scrollLeft += 0.5 * scrollDirection;
+        
+        if (container.scrollLeft >= maxScroll - 1) {
+          scrollDirection = -1;
+        } else if (container.scrollLeft <= 1) {
+          scrollDirection = 1;
+        }
+      }, 30);
+      
+      container.addEventListener('touchstart', () => { isUserInteracting = true; });
+      container.addEventListener('touchend', () => { setTimeout(() => { isUserInteracting = false; }, 2500); });
+      container.addEventListener('mousedown', () => { isUserInteracting = true; });
+      container.addEventListener('mouseup', () => { setTimeout(() => { isUserInteracting = false; }, 2500); });
+    }
+
+
     // Bulletproof direct invocation as soon as script compiles
     function initializeApp() {
       // Initialize price displays with default static prices
@@ -1473,6 +1545,9 @@
       selectAsset('XAUUSD', 'METAL');
       updateMarketClockAndSessions();
       setInterval(updateMarketClockAndSessions, 1000);
+      
+      // Start Mobile Ticker
+      startMobileTicker();
       
       // Start Realtime Price Engine
       fetchRealtimePrices();
