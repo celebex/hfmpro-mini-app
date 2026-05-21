@@ -81,7 +81,9 @@
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <!-- Logo and Status -->
       <div class="flex items-center gap-3">
-        <img src="logo.jpg" alt="HFM PRO AI Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg border border-brand-500/30" />
+        <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-lg border border-dark-700 flex items-center justify-center overflow-hidden">
+          <img src="logo.jpg" alt="HFM PRO AI Logo" class="w-full h-full object-contain rounded-lg" />
+        </div>
         <div>
           <h1 class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-white via-gray-100 to-brand-400 bg-clip-text text-transparent flex items-center gap-1.5">
             𝐂𝐔𝐀𝐍𝐎𝐋𝐎𝐆𝐘 <span class="text-brand-400">|</span> 𝐇𝐅𝐌 𝐏𝐑𝐎 𝐀𝐈
@@ -94,8 +96,37 @@
       </div>
 
       <!-- Quick Stats / Badges (Hidden) -->
-      <div class="flex items-center gap-3 flex-wrap">
-        <div id="tg-user-avatar" class="hidden sm:flex items-center gap-2 pl-3">
+      <div class="flex items-center gap-4 flex-wrap">
+        <!-- Market Sessions and Live Clock -->
+        <div class="flex items-center gap-4 bg-dark-950/70 border border-dark-800 rounded-xl px-3 py-1.5 text-[11px] font-mono">
+          <!-- Live Clock -->
+          <div class="flex items-center gap-1.5 text-gray-300 border-r border-dark-800 pr-3">
+            <i class="fa-regular fa-clock text-brand-500 animate-pulse"></i>
+            <span id="live-clock" class="font-bold text-gray-100">00:00:00 WIB</span>
+          </div>
+          
+          <!-- Sessions -->
+          <div class="flex items-center gap-3">
+            <div id="sess-sydney" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-700"></span>
+              <span class="text-gray-500 font-semibold text-[10px]">SYD</span>
+            </div>
+            <div id="sess-tokyo" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-700"></span>
+              <span class="text-gray-500 font-semibold text-[10px]">TYO</span>
+            </div>
+            <div id="sess-london" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-700"></span>
+              <span class="text-gray-500 font-semibold text-[10px]">LDN</span>
+            </div>
+            <div id="sess-newyork" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-700"></span>
+              <span class="text-gray-500 font-semibold text-[10px]">NYC</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="tg-user-avatar" class="hidden sm:flex items-center gap-2 pl-2 border-l border-dark-800">
           <img id="user-photo" src="" alt="user" class="w-8 h-8 rounded-full border border-brand-500 hidden" />
           <span id="user-first-name" class="text-xs font-semibold text-brand-400"></span>
         </div>
@@ -468,9 +499,17 @@
         chartInstance.destroy();
       }
 
-      const isWait = label === 'GBPUSD';
-      const borderColor = isWait ? '#9ca3af' : '#ef4444';
-      const bgColor = isWait ? 'rgba(156, 163, 175, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+      const decision = assetParameters[label].decision;
+      let borderColor = '#9ca3af'; // gray/neutral
+      let bgColor = 'rgba(156, 163, 175, 0.05)';
+      
+      if (decision.includes('BUY')) {
+        borderColor = '#10b981'; // emerald-500
+        bgColor = 'rgba(16, 185, 129, 0.08)';
+      } else if (decision.includes('SELL')) {
+        borderColor = '#ef4444'; // red-500
+        bgColor = 'rgba(239, 68, 68, 0.08)';
+      }
 
       chartInstance = new Chart(ctx, {
         type: 'line',
@@ -533,16 +572,31 @@
       document.getElementById('signal-decision').innerText = param.decision;
       document.getElementById('signal-confidence').innerText = `Confidence Score: ${param.confidence}`;
 
-      // Set colors for WAIT decision
+      // Set colors dynamically based on signal decision text (BUY: green/emerald, SELL: red, WAIT: white/neutral)
       const isWait = pair === 'GBPUSD';
       const decBadge = document.getElementById('signal-decision-badge');
       const decText = document.getElementById('signal-decision');
-      if (isWait) {
-        decBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-red-950 border border-red-500/50 text-red-400 rounded-full text-xs font-bold mb-1";
-        decText.className = "text-3xl font-black tracking-tight text-red-400 mt-1";
+      const signalGlow = document.getElementById('signal-glow');
+
+      if (param.decision.includes('BUY')) {
+        decBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 rounded-full text-xs font-bold mb-1 shadow-inner";
+        decText.className = "text-3xl font-black tracking-tight text-emerald-400 mt-1 filter drop-shadow-[0_0_12px_rgba(16,185,129,0.3)]";
+        if (signalGlow) {
+          signalGlow.className = "absolute -left-16 -bottom-16 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl transition-all duration-300";
+        }
+      } else if (param.decision.includes('SELL')) {
+        decBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-red-950/60 border border-red-500/30 text-red-400 rounded-full text-xs font-bold mb-1 shadow-inner";
+        decText.className = "text-3xl font-black tracking-tight text-red-400 mt-1 filter drop-shadow-[0_0_12px_rgba(239,68,68,0.3)]";
+        if (signalGlow) {
+          signalGlow.className = "absolute -left-16 -bottom-16 w-32 h-32 bg-red-500/10 rounded-full blur-3xl transition-all duration-300";
+        }
       } else {
-        decBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-brand-950 border border-brand-500/50 text-brand-400 rounded-full text-xs font-bold mb-1";
-        decText.className = "text-3xl font-black tracking-tight text-brand-400 mt-1";
+        // Neutral / WAIT / STANDBY
+        decBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-dark-800 border border-dark-700 text-gray-300 rounded-full text-xs font-bold mb-1 shadow-inner";
+        decText.className = "text-3xl font-black tracking-tight text-gray-100 mt-1";
+        if (signalGlow) {
+          signalGlow.className = "absolute -left-16 -bottom-16 w-32 h-32 bg-gray-500/5 rounded-full blur-3xl transition-all duration-300";
+        }
       }
 
       // Format targets
@@ -572,24 +626,35 @@
       document.getElementById('voter3-analysis').innerText = param.expert3;
       document.getElementById('cro-analysis').innerText = param.cro;
 
-      // Adjust Experts actions badge colors
+      // Declare badge elements
       const v1Badge = document.getElementById('voter1-action');
       const v2Badge = document.getElementById('voter2-action');
       const v3Badge = document.getElementById('voter3-action');
       const croBadge = document.getElementById('cro-action');
 
+      // Helper to style badges dynamically
+      function styleBadgeByText(badge, text) {
+        if (!badge) return;
+        badge.innerText = text;
+        if (text.includes("BUY") || text.includes("APPROVED")) {
+          badge.className = "bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner";
+        } else if (text.includes("SELL") || text.includes("REJECTED") || text.includes("VETO")) {
+          badge.className = "bg-red-950/80 border border-red-500/50 text-red-400 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner";
+        } else {
+          badge.className = "bg-dark-800 border border-dark-700 text-gray-400 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner";
+        }
+      }
+
       if (isWait) {
-        v1Badge.innerText = "WAIT (51%)";
-        v2Badge.innerText = "WAIT (50%)";
-        v3Badge.innerText = "WAIT (48%)";
-        croBadge.innerText = "VETO REJECTED";
-        croBadge.className = "bg-red-500 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full";
+        styleBadgeByText(v1Badge, "WAIT (51%)");
+        styleBadgeByText(v2Badge, "WAIT (50%)");
+        styleBadgeByText(v3Badge, "WAIT (48%)");
+        styleBadgeByText(croBadge, "VETO REJECTED");
       } else {
-        v1Badge.innerText = pair === 'BTCUSD' ? "BUY (95%)" : "BUY (92%)";
-        v2Badge.innerText = pair === 'BTCUSD' ? "BUY (91%)" : "BUY (85%)";
-        v3Badge.innerText = pair === 'BTCUSD' ? "BUY (90%)" : "BUY (80%)";
-        croBadge.innerText = "APPROVED";
-        croBadge.className = "bg-brand-500 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full";
+        styleBadgeByText(v1Badge, pair === 'BTCUSD' ? "BUY (95%)" : "BUY (92%)");
+        styleBadgeByText(v2Badge, pair === 'BTCUSD' ? "BUY (91%)" : "BUY (85%)");
+        styleBadgeByText(v3Badge, pair === 'BTCUSD' ? "BUY (90%)" : "BUY (80%)");
+        styleBadgeByText(croBadge, "APPROVED");
       }
 
       renderChart(param.chartData, pair, type);
@@ -610,9 +675,51 @@
       }, 1500);
     }
 
+    function updateMarketClockAndSessions() {
+      const now = new Date();
+      
+      // Update Realtime clock (WIB / GMT+7)
+      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) + ' WIB';
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) clockEl.innerText = timeStr;
+      
+      // Calculate active sessions based on UTC hours (0-23)
+      const utcHour = now.getUTCHours();
+      
+      // Sydney: 22:00 - 07:00 UTC
+      const isSydneyActive = (utcHour >= 22 || utcHour < 7);
+      // Tokyo: 00:00 - 09:00 UTC
+      const isTokyoActive = (utcHour >= 0 && utcHour < 9);
+      // London: 08:00 - 17:00 UTC
+      const isLondonActive = (utcHour >= 8 && utcHour < 17);
+      // New York: 13:00 - 22:00 UTC
+      const isNewYorkActive = (utcHour >= 13 && utcHour < 22);
+      
+      updateSessionStatus('sess-sydney', isSydneyActive);
+      updateSessionStatus('sess-tokyo', isTokyoActive);
+      updateSessionStatus('sess-london', isLondonActive);
+      updateSessionStatus('sess-newyork', isNewYorkActive);
+    }
+    
+    function updateSessionStatus(id, isActive) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const dot = el.querySelector('span:first-child');
+      const label = el.querySelector('span:last-child');
+      if (isActive) {
+        dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.7)]";
+        label.className = "text-emerald-400 font-extrabold";
+      } else {
+        dot.className = "w-1.5 h-1.5 rounded-full bg-gray-700";
+        label.className = "text-gray-500 font-semibold";
+      }
+    }
+
     // Initial load
     window.onload = function() {
       selectAsset('XAUUSD', 'METAL');
+      updateMarketClockAndSessions();
+      setInterval(updateMarketClockAndSessions, 1000);
     };
   </script>
 </body>
