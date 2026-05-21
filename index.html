@@ -442,7 +442,7 @@
         <p class="text-xs md:text-sm text-red-100 mt-1 max-w-xl">Dapatkan Akun Premium Tanpa Swap, Eksekusi Tercepat, dan Spread Terendah di Indonesia. Nikmati deposit instan menggunakan Bank Lokal.</p>
         
         <div class="flex flex-wrap gap-2 mt-4.5">
-          <a href="https://register.hfm-indo.com/sv/id/new-live-account/?refid=30524829" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 hover:bg-red-50 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95">
+          <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 hover:bg-red-50 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95">
             <i class="fa-solid fa-user-plus"></i> Daftar Akun Live HFM
           </a>
           <button onclick="switchTab('hfm-broker')" class="inline-flex items-center gap-1.5 bg-black/30 hover:bg-black/40 text-white border border-white/20 font-bold text-xs py-2.5 px-4 rounded-xl transition-all">
@@ -596,7 +596,7 @@
           </p>
           
           <div class="mt-4">
-            <a href="https://register.hfm-indo.com/sv/id/new-live-account/?refid=30524829" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-900/30 hover:shadow-brand-900/50 active:scale-95 border border-brand-500/30">
+            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-900/30 hover:shadow-brand-900/50 active:scale-95 border border-brand-500/30">
               <i class="fa-solid fa-crown text-yellow-400 animate-pulse"></i> ACTIVATE PRO ACCOUNT NOW
             </a>
           </div>
@@ -667,6 +667,127 @@
       const logEl = document.getElementById('log-display');
       if (logEl) {
         logEl.innerText = message;
+      }
+    }
+
+    // Custom Smart Anti-Block HFM Registration Link Handler
+    function handleRegisterClick(event) {
+      event.preventDefault();
+      const url = "https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829";
+      const btn = event.currentTarget;
+      
+      if (btn.classList.contains('loading-verification')) return;
+      
+      btn.classList.add('loading-verification');
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI JALUR...`;
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1800);
+      
+      // Attempt connection to see if DNS resolves / not blocked
+      fetch('https://register.hfmtrade-ind.com/favicon.ico', { mode: 'no-cors', signal: controller.signal })
+        .then(() => {
+          clearTimeout(timeoutId);
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('loading-verification');
+          window.open(url, '_blank');
+        })
+        .catch(() => {
+          clearTimeout(timeoutId);
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('loading-verification');
+          
+          // Show interactive Anti-Block helper
+          showAntiBlockModal(url);
+        });
+    }
+
+    function showAntiBlockModal(targetUrl) {
+      const existingModal = document.getElementById('antiblock-modal');
+      if (existingModal) existingModal.remove();
+
+      const modalHtml = `
+        <div id="antiblock-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 transition-all duration-300 scale-95" style="z-index: 999999;">
+          <div class="bg-gradient-to-b from-slate-900 via-slate-950 to-black border border-red-500/30 rounded-3xl p-6 max-w-sm w-full relative shadow-2xl shadow-red-950/20">
+            
+            <button onclick="closeAntiBlockModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-all text-sm w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex flex-col items-center text-center gap-2">
+              <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 text-lg animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+                <i class="fa-solid fa-earth-asia"></i>
+              </div>
+              <h3 class="text-xs font-black tracking-widest text-red-500 uppercase mt-2">
+                ⚠️ KONEKSI TERBLOKIR (ISP)
+              </h3>
+              <p class="text-[10px] text-gray-400 max-w-xs leading-relaxed">
+                Situs resmi HFM terdeteksi diblokir oleh Internet Positif (ISP lokal Anda). Gunakan langkah mudah berikut untuk mengakses secara aman:
+              </p>
+            </div>
+
+            <div class="space-y-2.5 mt-4">
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded uppercase">Metode 1</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Secure DNS (Tercepat & Gratis)</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">
+                  Aktifkan DNS Aman di Browser Anda: <br>
+                  • <strong>Chrome/Edge:</strong> Setelan ➜ Privasi & Keamanan ➜ Gunakan DNS Aman ➜ Pilih <strong>Cloudflare (1.1.1.1)</strong>.
+                </p>
+              </div>
+
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded uppercase">Metode 2</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Cloudflare 1.1.1.1 WARP</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">
+                  Unduh aplikasi resmi <strong>1.1.1.1</strong> di Play Store / App Store. Aktifkan sekali sentuh untuk membuka semua blokir internet secara aman.
+                </p>
+              </div>
+
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded uppercase">Metode 3</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Gunakan VPN Anda</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">
+                  Aktifkan aplikasi VPN terpercaya pilihan Anda di handphone sebelum mengklik tombol buka pendaftaran kembali.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-4.5 space-y-2">
+              <a href="${targetUrl}" target="_blank" onclick="closeAntiBlockModal()" class="w-full bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black py-2.5 rounded-xl transition-all shadow-lg text-[10px] text-center block uppercase tracking-wider border border-brand-500/30">
+                🚀 COBA BUKA SEKARANG JUGA
+              </a>
+              <button onclick="closeAntiBlockModal()" class="w-full text-[8.5px] text-gray-500 hover:text-gray-300 font-bold transition-all text-center block uppercase tracking-wider py-1">
+                KEMBALI KE MINI APP
+              </button>
+            </div>
+
+          </div>
+        </div>
+      `;
+
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      
+      const modal = document.getElementById('antiblock-modal');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0', 'scale-95');
+        modal.classList.add('opacity-100', 'scale-100');
+      }, 50);
+    }
+
+    function closeAntiBlockModal() {
+      const modal = document.getElementById('antiblock-modal');
+      if (modal) {
+        modal.classList.remove('opacity-100', 'scale-100');
+        modal.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => modal.remove(), 300);
       }
     }
 
