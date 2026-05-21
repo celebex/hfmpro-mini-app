@@ -183,12 +183,48 @@
 
     <!-- TAB 1: INTERACTIVE SIGNAL DASHBOARD (DEFAULT) -->
     <div id="tab-dashboard" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-3.5">
+
+      <!-- MOBILE ONLY: PREMIUM HORIZONTAL LIVE PRICE TICKER (VISIBLE ON MOBILE, HIDDEN ON DESKTOP) -->
+      <div class="md:hidden w-full overflow-x-auto flex gap-2 pb-2.5 scrollbar-none snap-x snap-mandatory">
+        <!-- XAUUSD -->
+        <button onclick="selectAsset('XAUUSD', 'METAL')" id="mobile-btn-XAUUSD" class="mobile-asset-btn snap-start flex-none w-[110px] bg-black text-white border border-black/80 rounded-xl p-2 flex items-center justify-between transition-all">
+          <div class="flex flex-col items-start">
+            <span class="text-[9px] font-bold text-gray-400 uppercase">XAU/USD</span>
+            <span id="mobile-price-XAUUSD" class="price-val-mobile text-xs font-black tracking-tight text-white mt-0.5 transition-all">Loading...</span>
+          </div>
+          <i class="fa-solid fa-coins text-amber-500 text-xs"></i>
+        </button>
+        <!-- EURUSD -->
+        <button onclick="selectAsset('EURUSD', 'FOREX')" id="mobile-btn-EURUSD" class="mobile-asset-btn snap-start flex-none w-[110px] bg-white border border-gray-150 rounded-xl p-2 flex items-center justify-between transition-all">
+          <div class="flex flex-col items-start">
+            <span class="text-[9px] font-bold text-gray-400 uppercase">EUR/USD</span>
+            <span id="mobile-price-EURUSD" class="price-val-mobile text-xs font-black tracking-tight text-gray-500 mt-0.5 transition-all">Loading...</span>
+          </div>
+          <i class="fa-solid fa-euro-sign text-gray-400 text-xs"></i>
+        </button>
+        <!-- BTCUSD -->
+        <button onclick="selectAsset('BTCUSD', 'CRYPTO')" id="mobile-btn-BTCUSD" class="mobile-asset-btn snap-start flex-none w-[110px] bg-white border border-gray-150 rounded-xl p-2 flex items-center justify-between transition-all">
+          <div class="flex flex-col items-start">
+            <span class="text-[9px] font-bold text-gray-400 uppercase">BTC/USD</span>
+            <span id="mobile-price-BTCUSD" class="price-val-mobile text-xs font-black tracking-tight text-gray-500 mt-0.5 transition-all">Loading...</span>
+          </div>
+          <i class="fa-brands fa-bitcoin text-amber-500 text-xs"></i>
+        </button>
+        <!-- GBPUSD -->
+        <button onclick="selectAsset('GBPUSD', 'FOREX')" id="mobile-btn-GBPUSD" class="mobile-asset-btn snap-start flex-none w-[110px] bg-white border border-gray-150 rounded-xl p-2 flex items-center justify-between transition-all">
+          <div class="flex flex-col items-start">
+            <span class="text-[9px] font-bold text-gray-400 uppercase">GBP/USD</span>
+            <span id="mobile-price-GBPUSD" class="price-val-mobile text-xs font-black tracking-tight text-gray-500 mt-0.5 transition-all">Loading...</span>
+          </div>
+          <i class="fa-solid fa-sterling-sign text-blue-500 text-xs"></i>
+        </button>
+      </div>
       
       <!-- LEFT SIDEBAR: SELECTORS AND SIGNAL CARD (cols-4) -->
       <section class="lg:col-span-4 flex flex-col gap-3.5">
 
         <!-- ASSET DIRECTORY SELECTOR -->
-        <div class="premium-card rounded-2xl p-4 flex flex-col justify-between">
+        <div class="premium-card rounded-2xl p-4 flex flex-col justify-between hidden md:block">
           <div>
             <div class="flex items-center justify-between mb-3.5">
               <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -381,7 +417,7 @@
             <div class="p-3 bg-gray-50/70 border border-gray-100 rounded-xl relative">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
-                  <i class="fa-solid fa-cube text-brand-500"></i> MQL5 SMC Order Block Detector
+                  <i class="fa-solid fa-cube text-brand-500"></i> SMC Order Block Detector
                 </span>
                 <span id="voter1-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">BUY (92%)</span>
               </div>
@@ -392,7 +428,7 @@
             <div class="p-3 bg-gray-50/70 border border-gray-100 rounded-xl relative">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
-                  <i class="fa-solid fa-align-left text-brand-500"></i> MQL5 Volume Profile (POC Zone)
+                  <i class="fa-solid fa-align-left text-brand-500"></i> Volume Profile (POC Zone)
                 </span>
                 <span id="voter2-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">BUY (85%)</span>
               </div>
@@ -403,7 +439,7 @@
             <div class="p-3 bg-gray-50/70 border border-gray-100 rounded-xl relative">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
-                  <i class="fa-solid fa-chart-line text-brand-500"></i> MQL5 VWAP Institutional Bands
+                  <i class="fa-solid fa-chart-line text-brand-500"></i> VWAP Institutional Bands
                 </span>
                 <span id="voter3-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">BUY (80%)</span>
               </div>
@@ -986,12 +1022,12 @@
       currentAsset = pair;
       currentType = type;
 
-      // Update active asset button styles
+      // Update active asset button styles (Desktop)
       document.querySelectorAll('.asset-btn').forEach(btn => {
         btn.className = "asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100";
       });
 
-      // Update all price tags to inactive styles
+      // Update all price tags to inactive styles (Desktop)
       document.querySelectorAll('.price-val').forEach(el => {
         el.className = "price-val text-[10px] text-gray-500 font-semibold transition-all";
       });
@@ -1001,10 +1037,24 @@
         activeBtn.className = "asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm";
       }
 
-      // Update the active price tag to active style
+      // Update the active price tag to active style (Desktop)
       const activePriceEl = document.getElementById(`price-${pair}`);
       if (activePriceEl) {
         activePriceEl.className = "price-val text-[10px] text-gray-300 font-bold transition-all";
+      }
+
+      // Update active asset button styles (Mobile)
+      document.querySelectorAll('.mobile-asset-btn').forEach(btn => {
+        btn.className = "mobile-asset-btn snap-start flex-none w-[110px] bg-white border border-gray-150 rounded-xl p-2 flex items-center justify-between transition-all";
+        const valEl = btn.querySelector('.price-val-mobile');
+        if (valEl) valEl.className = "price-val-mobile text-xs font-black tracking-tight text-gray-500 mt-0.5 transition-all";
+      });
+
+      const activeMobileBtn = document.getElementById(`mobile-btn-${pair}`);
+      if (activeMobileBtn) {
+        activeMobileBtn.className = "mobile-asset-btn snap-start flex-none w-[110px] bg-black text-white border border-black/80 rounded-xl p-2 flex items-center justify-between transition-all shadow-sm";
+        const valEl = activeMobileBtn.querySelector('.price-val-mobile');
+        if (valEl) valEl.className = "price-val-mobile text-xs font-black tracking-tight text-white mt-0.5 transition-all";
       }
 
       // Load static data
@@ -1328,18 +1378,32 @@
 
     function updatePriceUI(pair, newPrice, oldPrice) {
       const el = document.getElementById(`price-${pair}`);
-      if (!el) return;
-      
       const precision = (pair === 'EURUSD' || pair === 'GBPUSD') ? 5 : 2;
-      el.innerText = newPrice.toFixed(precision);
       
-      const isActive = (currentAsset === pair);
-      if (newPrice > oldPrice) {
-        el.className = `price-val text-[10px] font-bold transition-all ${isActive ? 'text-emerald-300' : 'text-emerald-600'}`;
-      } else if (newPrice < oldPrice) {
-        el.className = `price-val text-[10px] font-bold transition-all ${isActive ? 'text-red-300' : 'text-red-500'}`;
-      } else {
-        el.className = `price-val text-[10px] font-semibold transition-all ${isActive ? 'text-gray-300' : 'text-gray-500'}`;
+      if (el) {
+        el.innerText = newPrice.toFixed(precision);
+        const isActive = (currentAsset === pair);
+        if (newPrice > oldPrice) {
+          el.className = `price-val text-[10px] font-bold transition-all ${isActive ? 'text-emerald-300' : 'text-emerald-600'}`;
+        } else if (newPrice < oldPrice) {
+          el.className = `price-val text-[10px] font-bold transition-all ${isActive ? 'text-red-300' : 'text-red-500'}`;
+        } else {
+          el.className = `price-val text-[10px] font-semibold transition-all ${isActive ? 'text-gray-300' : 'text-gray-500'}`;
+        }
+      }
+
+      // Update mobile price elements dynamically
+      const mobileEl = document.getElementById(`mobile-price-${pair}`);
+      if (mobileEl) {
+        mobileEl.innerText = newPrice.toFixed(precision);
+        const isActive = (currentAsset === pair);
+        if (newPrice > oldPrice) {
+          mobileEl.className = `price-val-mobile text-xs font-black tracking-tight transition-all ${isActive ? 'text-emerald-300' : 'text-emerald-600'}`;
+        } else if (newPrice < oldPrice) {
+          mobileEl.className = `price-val-mobile text-xs font-black tracking-tight transition-all ${isActive ? 'text-red-300' : 'text-red-500'}`;
+        } else {
+          mobileEl.className = `price-val-mobile text-xs font-black tracking-tight transition-all ${isActive ? 'text-gray-300' : 'text-gray-500'}`;
+        }
       }
     }
 
@@ -1401,6 +1465,11 @@
 
     // Bulletproof direct invocation as soon as script compiles
     function initializeApp() {
+      // Initialize price displays with default static prices
+      for (const pair in assetParameters) {
+        updatePriceUI(pair, assetParameters[pair].basePrice, assetParameters[pair].basePrice);
+      }
+
       selectAsset('XAUUSD', 'METAL');
       updateMarketClockAndSessions();
       setInterval(updateMarketClockAndSessions, 1000);
