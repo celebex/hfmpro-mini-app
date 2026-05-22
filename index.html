@@ -500,21 +500,165 @@
         </div>
       </div>
 
-      <!-- TRADING LOUNGE MUSIC PLAYER (SOUNDCLOUD LAGU BARAT / POP HITS 100% VALID & BEBAS PILIH) -->
+      <!-- LIGHTWEIGHT MUSIC PLAYER (AUTO-LOOP & PLAY ON FIRST CLICK) -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
             <i class="fa-solid fa-music text-brand-500"></i> Trading Lounge Music
           </h3>
-          <span class="text-[8px] md:text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-            <i class="fa-brands fa-soundcloud text-brand-500"></i> SOUNDCLOUD
+          <span class="text-[8px] md:text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+            <i class="fa-solid fa-repeat text-emerald-500"></i> AUTO-LOOP
           </span>
         </div>
-        <div class="w-full overflow-hidden rounded-xl bg-white shadow-inner flex items-center justify-center border border-gray-100">
-          <!-- SoundCloud Lightweight Player (7clouds Pop Music - Full Barat, Full Lagu, Tidak Terpotong) -->
-          <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/7clouds/sets/pop-music&color=%23ef4444&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        
+        <!-- Custom Lightweight Audio Player -->
+        <div class="w-full bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-100 shadow-inner">
+          <!-- Hidden Audio Element with Loop -->
+          <audio id="music-player" loop preload="metadata">
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          
+          <!-- Player Controls -->
+          <div class="flex items-center gap-3">
+            <!-- Play/Pause Button -->
+            <button id="play-pause-btn" onclick="togglePlay()" class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-500 to-red-600 hover:from-brand-400 hover:to-red-500 text-white flex items-center justify-center shadow-lg transition-all active:scale-95 shrink-0">
+              <i id="play-icon" class="fa-solid fa-play text-lg ml-0.5"></i>
+              <i id="pause-icon" class="fa-solid fa-pause text-lg hidden"></i>
+            </button>
+            
+            <!-- Track Info -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse hidden" id="playing-indicator"></div>
+                <span class="text-xs font-bold text-gray-700 truncate">Lofi Chill Beats</span>
+              </div>
+              <p class="text-[10px] text-gray-500 truncate">Relaxing Music for Trading</p>
+            </div>
+            
+            <!-- Volume Control -->
+            <div class="flex items-center gap-1.5 shrink-0">
+              <i class="fa-solid fa-volume-low text-gray-400 text-xs"></i>
+              <input type="range" id="volume-slider" min="0" max="100" value="70" 
+                onchange="setVolume(this.value)" 
+                class="w-20 h-1.5 bg-gray-300 rounded-full appearance-none cursor-pointer accent-brand-500">
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="mt-3 flex items-center gap-2">
+            <span id="current-time" class="text-[9px] font-mono text-gray-500 w-10 text-right">0:00</span>
+            <div class="flex-1 h-1.5 bg-gray-300 rounded-full overflow-hidden cursor-pointer relative" onclick="seekAudio(event)">
+              <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-red-500 rounded-full" style="width: 0%"></div>
+            </div>
+            <span id="duration" class="text-[9px] font-mono text-gray-500 w-10">--:--</span>
+          </div>
+          
+          <!-- Status Message -->
+          <p id="player-status" class="text-[9px] text-gray-400 mt-2 text-center">Click play button to start music</p>
         </div>
       </div>
+
+      <script>
+        // Lightweight Music Player with Auto-Loop and Play-on-Click
+        const audioPlayer = document.getElementById('music-player');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const playingIndicator = document.getElementById('playing-indicator');
+        const playerStatus = document.getElementById('player-status');
+        const volumeSlider = document.getElementById('volume-slider');
+        
+        let isPlaying = false;
+        let userInteracted = false;
+        
+        // Format time in MM:SS
+        function formatTime(seconds) {
+          if (isNaN(seconds)) return '--:--';
+          const mins = Math.floor(seconds / 60);
+          const secs = Math.floor(seconds % 60);
+          return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Toggle Play/Pause - User Interaction Safe
+        function togglePlay() {
+          userInteracted = true;
+          
+          if (isPlaying) {
+            audioPlayer.pause();
+            isPlaying = false;
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+            playingIndicator.classList.add('hidden');
+            playerStatus.textContent = 'Music paused';
+          } else {
+            audioPlayer.play().then(() => {
+              isPlaying = true;
+              playIcon.classList.add('hidden');
+              pauseIcon.classList.remove('hidden');
+              playingIndicator.classList.remove('hidden');
+              playerStatus.textContent = 'Now playing • Auto-loop enabled';
+            }).catch(error => {
+              console.log('Playback failed:', error);
+              playerStatus.textContent = 'Click again to play';
+            });
+          }
+        }
+        
+        // Set Volume
+        function setVolume(value) {
+          audioPlayer.volume = value / 100;
+          localStorage.setItem('musicVolume', value);
+        }
+        
+        // Seek Audio on Progress Bar Click
+        function seekAudio(event) {
+          if (!userInteracted) {
+            togglePlay();
+            return;
+          }
+          
+          const rect = event.currentTarget.getBoundingClientRect();
+          const percent = (event.clientX - rect.left) / rect.width;
+          audioPlayer.currentTime = percent * audioPlayer.duration;
+        }
+        
+        // Update Progress Bar
+        audioPlayer.addEventListener('timeupdate', () => {
+          const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+          progressBar.style.width = `${percent}%`;
+          currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        });
+        
+        // Load Duration Metadata
+        audioPlayer.addEventListener('loadedmetadata', () => {
+          durationEl.textContent = formatTime(audioPlayer.duration);
+        });
+        
+        // Auto-Loop Handler (Extra Safety)
+        audioPlayer.addEventListener('ended', () => {
+          audioPlayer.currentTime = 0;
+          audioPlayer.play().catch(e => console.log('Loop playback failed:', e));
+        });
+        
+        // Restore Volume from LocalStorage
+        window.addEventListener('DOMContentLoaded', () => {
+          const savedVolume = localStorage.getItem('musicVolume') || 70;
+          volumeSlider.value = savedVolume;
+          audioPlayer.volume = savedVolume / 100;
+        });
+        
+        // Reset player state when tab changes (optional optimization)
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden && isPlaying) {
+            // Continue playing in background for better UX
+            // Or uncomment below to pause when tab is hidden
+            // togglePlay();
+          }
+        });
+      </script>
 
     </div>
 
