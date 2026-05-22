@@ -184,7 +184,7 @@
               <span class="text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2 py-0.5 rounded-full">REALTIME FEED</span>
             </div>
 
-            <!-- Assets Matrix Grid (Fixed 6 Pairs) -->
+            <!-- Assets Matrix Grid (Realtime Synchronized) -->
             <div class="grid grid-cols-2 gap-2 mb-3.5">
               <button onclick="selectAsset('XAUUSD', 'METAL')" id="btn-XAUUSD" class="asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm">
                 <div class="flex flex-col items-start">
@@ -221,12 +221,12 @@
                 </div>
                 <i class="fa-solid fa-sterling-sign text-red-500"></i>
               </button>
-              <button onclick="selectAsset('USDJPY', 'FOREX')" id="btn-USDJPY" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
+              <button onclick="selectAsset('AUDUSD', 'FOREX')" id="btn-AUDUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
                 <div class="flex flex-col items-start">
-                  <span>USD/JPY</span>
-                  <span id="price-USDJPY" class="price-val text-[10px] text-gray-500 font-semibold transition-all">Loading...</span>
+                  <span>AUD/USD</span>
+                  <span id="price-AUDUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">Loading...</span>
                 </div>
-                <i class="fa-solid fa-yen-sign text-emerald-600"></i>
+                <i class="fa-solid fa-dollar-sign text-emerald-600"></i>
               </button>
             </div>
 
@@ -456,7 +456,7 @@
         </div>
       </div>
 
-      <!-- FOREX MARKET OVERVIEW WIDGET (TANPA KOLOM ASK) -->
+      <!-- FOREX MARKET OVERVIEW WIDGET (TANPA KOLOM ASK, SINKRON REALTIME) -->
       <div class="premium-card rounded-2xl p-3 md:p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -507,9 +507,9 @@
                 <td class="p-2.5 md:p-3 text-center"><span class="bg-gray-100 text-gray-500 border border-gray-200 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">⚪ WAIT</span></td>
               </tr>
               <tr class="hover:bg-gray-50/50 transition-colors">
-                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-yen-sign text-emerald-600"></i> USDJPY</td>
-                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-USDJPY">156.402</td>
-                <td class="p-2.5 md:p-3 text-red-600 font-bold text-center">-0.32%</td>
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-dollar-sign text-emerald-600"></i> AUDUSD</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-AUDUSD">0.66500</td>
+                <td class="p-2.5 md:p-3 text-red-600 font-bold text-center">-0.12%</td>
                 <td class="p-2.5 md:p-3 text-center"><span class="bg-red-50 text-brand-600 border border-brand-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🔴 BEARISH</span></td>
               </tr>
             </tbody>
@@ -517,19 +517,16 @@
         </div>
       </div>
 
-      <!-- TRADING LOUNGE MUSIC PLAYER (PENGGANTI KALENDER) -->
+      <!-- TRADING LOUNGE MUSIC PLAYER (PENGGANTI KALENDER - SPOTIFY OFFICIAL) -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
             <i class="fa-solid fa-music text-brand-500"></i> Trading Lounge Music
           </h3>
-          <span class="text-[8px] md:text-[9px] bg-brand-50 text-brand-600 border border-brand-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-            <i class="fa-solid fa-headphones"></i> CHILL & FOCUS
-          </span>
         </div>
-        <div class="w-full overflow-hidden rounded-xl bg-black shadow-inner flex items-center justify-center">
-          <!-- YouTube Lofi Girl Radio Stream (Sangat ringan dan berfungsi di Mini App) -->
-          <iframe width="100%" height="220" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&controls=1&showinfo=0&rel=0" title="Lofi Hip Hop Radio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-xl"></iframe>
+        <div class="w-full overflow-hidden rounded-xl bg-gray-50 shadow-inner flex items-center justify-center">
+          <!-- Spotify Official Lofi Playlist Embed (Valid, Ringan, bisa ganti lagu) -->
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWWQRwui0ExPn?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
       </div>
 
@@ -614,7 +611,7 @@
   <!-- RE-ENGINEERING CONTEXT SYSTEM LOGS & TELEGRAM PROFILE -->
   <footer class="max-w-7xl w-full mx-auto p-3 pt-0 flex flex-col gap-3">
     
-    <!-- Telegram User Profile Container (Hanya 1 dan Paling Bawah) -->
+    <!-- Telegram User Profile Container (Diposisikan Paling Bawah di atas System Log) -->
     <div id="tg-profile-footer" class="premium-card rounded-2xl p-3 bg-white border border-gray-150 flex flex-row items-center justify-between shadow-sm">
       <div class="flex items-center gap-3">
         <!-- Avatar / Foto Profil -->
@@ -687,8 +684,7 @@
     }
 
     function getPrecision(pair) {
-      if (pair === 'EURUSD' || pair === 'GBPUSD') return 5;
-      if (pair === 'USDJPY') return 3;
+      if (pair === 'EURUSD' || pair === 'GBPUSD' || pair === 'AUDUSD') return 5;
       return 2; // Default for XAU, BTC, ETH
     }
 
@@ -823,14 +819,14 @@
       writeLog(`Timeframe updated to: ${tf === 'D' ? 'DAILY (MTF)' : tf + 'M'}`);
     }
 
-    // FUNGSI UNTUK SINKRONISASI CHART DENGAN SUMBER DATA BINANCE/OPENER API (SANGAT AKURAT)
+    // FUNGSI UNTUK SINKRONISASI CHART DENGAN SUMBER DATA BINANCE API (SANGAT AKURAT)
     function loadTradingViewChart(pair, timeframe) {
-      let tvSymbol = "OANDA:XAUUSD";
-      if (pair === 'EURUSD') tvSymbol = "FX:EURUSD";
+      let tvSymbol = "BINANCE:PAXGUSDT"; // Gold Proxy Binance
+      if (pair === 'EURUSD') tvSymbol = "BINANCE:EURUSDT";
       if (pair === 'BTCUSD') tvSymbol = "BINANCE:BTCUSDT";
       if (pair === 'ETHUSD') tvSymbol = "BINANCE:ETHUSDT";
-      if (pair === 'GBPUSD') tvSymbol = "FX:GBPUSD";
-      if (pair === 'USDJPY') tvSymbol = "FX:USDJPY"; 
+      if (pair === 'GBPUSD') tvSymbol = "BINANCE:GBPUSDT";
+      if (pair === 'AUDUSD') tvSymbol = "BINANCE:AUDUSDT"; 
 
       const container = document.getElementById('tradingview-container');
       if (!container) return;
@@ -894,12 +890,12 @@
         expert1: '', expert2: '', expert3: '', cro: '',
         chartData: [1.26900, 1.26750, 1.26800, 1.26650, 1.26850, 1.26800, 1.26850]
       },
-      USDJPY: {
-        basePrice: 156.402, grade: 'GRADE B', decision: '📉 SELL NOW', confidence: '71% | Risk: MEDIUM',
+      AUDUSD: {
+        basePrice: 0.66500, grade: 'GRADE B', decision: '📉 SELL NOW', confidence: '71% | Risk: MEDIUM',
         slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.10 Lot',
-        atr: '0.85', adr: '1.50', slope: '-0.15 (Bearish)', sweep: '', vsa: '', camarilla: '',
+        atr: '0.00045', adr: '0.00620', slope: '-0.00015 (Bearish)', sweep: '', vsa: '', camarilla: '',
         expert1: '', expert2: '', expert3: '', cro: '',
-        chartData: [157.10, 156.80, 156.90, 156.20, 156.50, 156.30, 156.40]
+        chartData: [0.66710, 0.66680, 0.66690, 0.66520, 0.66550, 0.66530, 0.66500]
       }
     };
 
@@ -915,7 +911,7 @@
       const sma = sum / param.priceHistory.length;
       const diffPct = ((newPrice - sma) / sma) * 100;
 
-      let threshold = (pair === 'BTCUSD' || pair === 'ETHUSD') ? 0.015 : (pair === 'USDJPY' ? 0.005 : 0.003);
+      let threshold = (pair === 'BTCUSD' || pair === 'ETHUSD') ? 0.015 : 0.003;
 
       if (diffPct > threshold * 1.5) {
         param.decision = '🔥 STRONG BUY'; param.grade = 'GRADE A+';
@@ -1077,7 +1073,6 @@
         let lotVal = 0.05;
         if (pair === 'XAUUSD') lotVal = 100 / (riskPoints * 100);
         else if (pair === 'BTCUSD' || pair === 'ETHUSD') lotVal = 100 / riskPoints;
-        else if (pair === 'USDJPY') lotVal = 100 / (riskPoints * 10);
         else { const pips = riskPoints / 0.0001; lotVal = 100 / (pips * 10); }
         param.lot = `${Math.max(0.01, Math.min(5.0, lotVal)).toFixed(2)} Lot`;
 
@@ -1098,7 +1093,6 @@
         let lotVal = 0.05;
         if (pair === 'XAUUSD') lotVal = 100 / (riskPoints * 100);
         else if (pair === 'BTCUSD' || pair === 'ETHUSD') lotVal = 100 / riskPoints;
-        else if (pair === 'USDJPY') lotVal = 100 / (riskPoints * 10);
         else { const pips = riskPoints / 0.0001; lotVal = 100 / (pips * 10); }
         param.lot = `${Math.max(0.01, Math.min(5.0, lotVal)).toFixed(2)} Lot`;
 
@@ -1159,10 +1153,9 @@
       if (e3El) e3El.innerText = param.expert3;
     }
 
-    // FUNGSI UTAMA 1: Fetch API Data Aktual
+    // FUNGSI API DATA AKTUAL YANG SINKRON DENGAN CHART
     async function fetchRealtimePrices() {
       try {
-        // Tarik data Binance Ticker (sangat akurat dan live)
         const response = await fetch('https://api.binance.com/api/v3/ticker/price');
         const data = await response.json();
         
@@ -1179,46 +1172,28 @@
             updatePriceUI(pair, newPrice, oldPrice);
         };
 
-        // Kripto & Gold Approximation via Binance
+        // Kripto, Gold & Major Forex Approximation via Binance
         if(prices['PAXGUSDT']) processNewPrice('XAUUSD', prices['PAXGUSDT']);
         if(prices['BTCUSDT']) processNewPrice('BTCUSD', prices['BTCUSDT']);
         if(prices['ETHUSDT']) processNewPrice('ETHUSD', prices['ETHUSDT']);
+        if(prices['EURUSDT']) processNewPrice('EURUSD', prices['EURUSDT']);
+        if(prices['GBPUSDT']) processNewPrice('GBPUSD', prices['GBPUSDT']);
+        if(prices['AUDUSDT']) processNewPrice('AUDUSD', prices['AUDUSDT']);
         
       } catch(e) { console.warn("Binance API fetch failed:", e); }
-
-      try {
-        // Tarik data Forex dari OpenER 
-        const responseFx = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (responseFx.ok) {
-          const fxData = await responseFx.json();
-          
-          const processNewFxPrice = (pair, newPrice) => {
-            if(!newPrice) return;
-            const oldPrice = assetParameters[pair].basePrice;
-            assetParameters[pair].basePrice = newPrice;
-            evaluateMarketTrend(pair, newPrice);
-            updatePriceUI(pair, newPrice, oldPrice);
-          };
-
-          if(fxData.rates?.EUR) processNewFxPrice('EURUSD', 1 / fxData.rates.EUR);
-          if(fxData.rates?.GBP) processNewFxPrice('GBPUSD', 1 / fxData.rates.GBP);
-          if(fxData.rates?.JPY) processNewFxPrice('USDJPY', fxData.rates.JPY);
-        }
-      } catch(e) { console.warn("OpenER fetch failed:", e); }
       
       updateDashboardPrices();
       updateSignalUI(currentAsset);
     }
 
-    // FUNGSI UTAMA 2: Tick Market Organik UI (Flash/Berkedip setiap 1.5 detik)
+    // FUNGSI TICK ORGANIK: Mensimulasikan detak bursa di UI (Realtime Berkedip)
     function applyMarketTick() {
       Object.keys(assetParameters).forEach(pair => {
         const oldPrice = assetParameters[pair].basePrice;
         
-        // Volatilitas tick berkedip untuk UI agar tidak terkesan diam/mati
+        // Volatilitas kedipan disesuaikan asetnya
         let volatility = 0.00015;
         if(pair === 'BTCUSD' || pair === 'ETHUSD') volatility = 0.0003;
-        else if(pair === 'USDJPY') volatility = 0.00005;
 
         const newPrice = oldPrice * (1 + (Math.random() - 0.5) * volatility);
         assetParameters[pair].basePrice = newPrice;
@@ -1317,11 +1292,11 @@
       // Detak Jam WIB (Setiap 1 Detik)
       setInterval(updateMarketClockAndSessions, 1000);
       
-      // Ambil Harga Aktual dari API di belakang layar (10 Detik Sekali)
+      // Ambil Harga dari API Binance (Sangat Cepat & Sinkron)
       fetchRealtimePrices();
-      setInterval(fetchRealtimePrices, 10000); 
+      setInterval(fetchRealtimePrices, 3000); 
       
-      // UI Tick berkedip tiap 1,5 detik menyimulasikan order book asli
+      // Detak Tick UI Real-time berkedip setiap 1.5 detik
       setInterval(applyMarketTick, 1500); 
       
       writeLog("Cuandology HFM PRO AI Engine Initialized successfully.");
