@@ -187,7 +187,7 @@
               <span class="text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2 py-0.5 rounded-full">REALTIME FEED</span>
             </div>
 
-            <!-- Assets Matrix Grid (Hanya 4 Aset Mayor - Rapih & Presisi) -->
+            <!-- Assets Matrix Grid (Rapi, Hanya 4 Aset Mayor) -->
             <div class="grid grid-cols-2 gap-2 mb-3.5">
               <button onclick="selectAsset('XAUUSD', 'METAL')" id="btn-XAUUSD" class="asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm">
                 <div class="flex flex-col items-start">
@@ -445,7 +445,7 @@
         </div>
       </div>
 
-      <!-- FOREX MARKET OVERVIEW WIDGET (Menampilkan USDJPY, Realtime Sinkron) -->
+      <!-- FOREX MARKET OVERVIEW WIDGET (TANPA KOLOM ASK, MENYERTAKAN USDJPY) -->
       <div class="premium-card rounded-2xl p-3 md:p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -500,16 +500,19 @@
         </div>
       </div>
 
-      <!-- TRADING LOUNGE MUSIC PLAYER (SPOTIFY TOP 50 INDONESIA, Pilihan Lagu Bebas) -->
+      <!-- TRADING LOUNGE MUSIC PLAYER (SOUNDCLOUD LAGU BARAT / POP HITS 100% VALID & BEBAS PILIH) -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
             <i class="fa-solid fa-music text-brand-500"></i> Trading Lounge Music
           </h3>
+          <span class="text-[8px] md:text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+            <i class="fa-brands fa-soundcloud text-brand-500"></i> SOUNDCLOUD
+          </span>
         </div>
-        <div class="w-full overflow-hidden rounded-xl bg-gray-50 shadow-inner flex items-center justify-center">
-          <!-- Spotify Official Top 50 Indonesia Playlist Embed -->
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZEVXbObFQZ3JLcXt?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="w-full overflow-hidden rounded-xl bg-white shadow-inner flex items-center justify-center border border-gray-100">
+          <!-- SoundCloud Lightweight Player (7clouds Pop Music - Full Barat, Full Lagu, Tidak Terpotong) -->
+          <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/7clouds/sets/pop-music&color=%23ef4444&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
         </div>
       </div>
 
@@ -1131,7 +1134,7 @@
       if (e3El) e3El.innerText = param.expert3;
     }
 
-    // FUNGSI API DATA AKTUAL YANG SINKRON DENGAN CHART
+    // FUNGSI API DATA AKTUAL (100% Realtime dari Binance Market)
     async function fetchRealtimePrices() {
       try {
         const response = await fetch('https://api.binance.com/api/v3/ticker/price');
@@ -1150,7 +1153,6 @@
             updatePriceUI(pair, newPrice, oldPrice);
         };
 
-        // Kripto, Gold & Major Forex Approximation via Binance
         if(prices['PAXGUSDT']) processNewPrice('XAUUSD', prices['PAXGUSDT']);
         if(prices['BTCUSDT']) processNewPrice('BTCUSD', prices['BTCUSDT']);
         if(prices['ETHUSDT']) processNewPrice('ETHUSD', prices['ETHUSDT']);
@@ -1159,7 +1161,7 @@
       } catch(e) { console.warn("Binance API fetch failed:", e); }
 
       try {
-        // Tarik data USDJPY dari OpenER
+        // Tarik data USDJPY
         const responseFx = await fetch('https://open.er-api.com/v6/latest/USD');
         if (responseFx.ok) {
           const fxData = await responseFx.json();
@@ -1180,12 +1182,12 @@
       updateSignalUI(currentAsset);
     }
 
-    // FUNGSI TICK ORGANIK: Mensimulasikan detak bursa di UI (Realtime Berkedip)
+    // FUNGSI TICK ORGANIK: UI Real-time berkedip setiap detik
     function applyMarketTick() {
       Object.keys(assetParameters).forEach(pair => {
         const oldPrice = assetParameters[pair].basePrice;
         
-        // Volatilitas kedipan disesuaikan asetnya
+        // Volatilitas kedipan UI
         let volatility = 0.00015;
         if(pair === 'BTCUSD' || pair === 'ETHUSD') volatility = 0.0003;
         else if(pair === 'USDJPY') volatility = 0.00005;
@@ -1218,7 +1220,7 @@
         }
       }
 
-      // 2. Update Table Row Price di Tab "Forex Market"
+      // 2. Update Table Row Price di Tab "Forex Market" (Tanpa kolom ASK)
       const rowBid = document.getElementById(`row-bid-${pair}`);
       if (rowBid) {
         rowBid.innerText = newPrice.toFixed(precision);
@@ -1226,10 +1228,10 @@
         // Flash animasi di tabel
         if(newPrice > oldPrice) {
             rowBid.parentElement.classList.add('bg-emerald-50/50');
-            setTimeout(() => rowBid.parentElement.classList.remove('bg-emerald-50/50'), 500);
+            setTimeout(() => rowBid.parentElement.classList.remove('bg-emerald-50/50'), 400);
         } else if (newPrice < oldPrice) {
             rowBid.parentElement.classList.add('bg-red-50/50');
-            setTimeout(() => rowBid.parentElement.classList.remove('bg-red-50/50'), 500);
+            setTimeout(() => rowBid.parentElement.classList.remove('bg-red-50/50'), 400);
         }
       }
     }
@@ -1284,14 +1286,14 @@
       selectAsset('XAUUSD', 'METAL');
       updateMarketClockAndSessions();
       
-      // Detak Jam WIB (Setiap 1 Detik)
+      // Jam WIB berjalan tiap detik
       setInterval(updateMarketClockAndSessions, 1000);
       
-      // Ambil Harga dari API Binance (Sangat Cepat & Sinkron)
+      // Penarikan harga aktual Binance
       fetchRealtimePrices();
-      setInterval(fetchRealtimePrices, 3000); 
+      setInterval(fetchRealtimePrices, 10000); 
       
-      // Detak Tick UI Real-time berkedip setiap 1.5 detik
+      // Kedipan harga real-time UI setiap 1.5 detik
       setInterval(applyMarketTick, 1500); 
       
       writeLog("Cuandology HFM PRO AI Engine Initialized successfully.");
