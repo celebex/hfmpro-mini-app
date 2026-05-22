@@ -88,75 +88,53 @@
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col pb-16 md:pb-0">
 
-  <!-- TOP BRANDING NAVIGATION -->
+  <!-- TOP BRANDING NAVIGATION (Hanya Berisi Logo & Navigasi) -->
   <header class="border-b border-slate-100 bg-white/85 backdrop-blur-md px-3 py-2.5 sticky top-0 z-50 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.015)]">
-    <div class="max-w-7xl mx-auto flex flex-col gap-2.5">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
       
-      <!-- ROW 1: BRANDING & LOGO (PALING ATAS) -->
-      <div class="flex items-center justify-between w-full border-b border-gray-100/80 pb-2">
-        <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
-            <img src="logo.jpg" alt="HFM PRO AI Logo" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/150?text=HFM'" />
-          </div>
-          <div>
-            <h1 class="text-base md:text-lg font-black tracking-tight text-gray-900 flex items-center gap-1.5">
-              𝐂𝐔𝐀𝐍𝐎𝐋𝐎𝐆𝐘 <span class="text-brand-500">|</span> 𝐇𝐅𝐌 𝐏𝐑𝐎 𝐀𝐈
-            </h1>
-            <p class="text-[10px] md:text-xs text-gray-500">MoE Signal Intelligence Engine</p>
-          </div>
+      <!-- Logo and Brand Name -->
+      <div class="flex items-center gap-2.5 w-full md:w-auto">
+        <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+          <img src="logo.jpg" alt="HFM PRO AI Logo" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/150?text=HFM'" />
         </div>
-        <!-- Online Status Indicator -->
-        <div class="flex items-center gap-1.5 bg-emerald-50 px-2.5 py-1.5 rounded-full border border-emerald-100 shadow-inner">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-          <span class="hidden md:inline text-[9px] font-black text-emerald-600 tracking-wider uppercase">System Online</span>
-          <span class="md:hidden text-[9px] font-black text-emerald-600 tracking-wider uppercase">Online</span>
+        <div>
+          <h1 class="text-base md:text-lg font-black tracking-tight text-gray-900 flex items-center gap-1.5">
+            𝐂𝐔𝐀𝐍𝐎𝐋𝐎𝐆𝐘 <span class="text-brand-500">|</span> 𝐇𝐅𝐌 𝐏𝐑𝐎 𝐀𝐈
+          </h1>
+          <p class="text-[10px] md:text-xs text-gray-500 flex items-center gap-1.5">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            MoE Signal Intelligence Engine
+          </p>
         </div>
       </div>
 
-      <!-- ROW 2: TABS & MARKET SESSIONS -->
-      <div class="flex flex-col md:flex-row items-center justify-between gap-3">
-        <!-- Desktop Tab Buttons -->
-        <div class="hidden md:flex items-center gap-1 bg-gray-100 border border-gray-150 rounded-xl p-1 shadow-inner w-full md:w-auto">
-          <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-all">Dashboard</button>
-          <button onclick="switchTab('forex-market')" id="btn-tab-forex-market" class="tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all">Forex Market</button>
-          <button onclick="switchTab('hfm-broker')" id="btn-tab-hfm-broker" class="tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all">HFM Register</button>
-        </div>
-
-        <!-- Clock & Sessions -->
-        <div class="w-full md:w-auto flex items-center justify-between md:justify-end gap-3 flex-wrap">
-          <div class="w-full md:w-auto flex items-center justify-between gap-3 bg-gray-50 border border-gray-150 rounded-xl px-3 py-1.5 text-[11px] font-mono shadow-inner">
-            <div class="flex items-center gap-1.5 text-gray-700 border-r border-gray-200 pr-3">
-              <i class="fa-regular fa-clock text-brand-500 animate-pulse"></i>
-              <span id="live-clock" class="font-bold text-gray-900">00:00:00 WIB</span>
-            </div>
-            <div class="flex items-center gap-2.5">
-              <div id="sess-sydney" class="flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">SYD</span>
-              </div>
-              <div id="sess-tokyo" class="flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">TYO</span>
-              </div>
-              <div id="sess-london" class="flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">LDN</span>
-              </div>
-              <div id="sess-newyork" class="flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">NYC</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Desktop Tab Buttons inside header (hidden on mobile) -->
+      <div class="hidden md:flex items-center gap-1 bg-gray-100 border border-gray-150 rounded-xl p-1 shadow-inner w-full md:w-auto">
+        <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-all">Dashboard</button>
+        <button onclick="switchTab('forex-market')" id="btn-tab-forex-market" class="tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all">Forex Market</button>
+        <button onclick="switchTab('hfm-broker')" id="btn-tab-hfm-broker" class="tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all">HFM Register</button>
       </div>
 
-      <!-- ROW 3: TELEGRAM USERNAME (PALING BAWAH HEADER) -->
-      <div class="flex items-center justify-between w-full pt-1">
-        <div class="flex items-center gap-2 bg-gray-50/80 border border-gray-200 px-3 py-1.5 rounded-xl w-full justify-between shadow-inner">
-          <div class="flex flex-col">
-            <span id="user-first-name" class="text-[11px] font-bold text-gray-800">Guest User</span>
-            <span id="tg-username" class="text-[9px] text-gray-400 font-mono tracking-wide">@guest_mode</span>
+      <!-- Clock & Sessions -->
+      <div class="w-full md:w-auto flex items-center justify-between md:justify-end gap-3 flex-wrap">
+        <div class="w-full md:w-auto flex items-center justify-between gap-3 bg-gray-50 border border-gray-150 rounded-xl px-3 py-1.5 text-[11px] font-mono shadow-inner">
+          <div class="flex items-center gap-1.5 text-gray-700 border-r border-gray-200 pr-3">
+            <i class="fa-regular fa-clock text-brand-500 animate-pulse"></i>
+            <span id="live-clock" class="font-bold text-gray-900">00:00:00 WIB</span>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-[9px] font-bold text-brand-500 uppercase tracking-widest bg-red-50 px-2 py-0.5 rounded border border-brand-100 hidden md:inline-block">AUTHORIZED ACCESS</span>
-            <i class="fa-brands fa-telegram text-brand-500 text-lg opacity-80"></i>
+          <div class="flex items-center gap-2.5">
+            <div id="sess-sydney" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">SYD</span>
+            </div>
+            <div id="sess-tokyo" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">TYO</span>
+            </div>
+            <div id="sess-london" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">LDN</span>
+            </div>
+            <div id="sess-newyork" class="flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">NYC</span>
+            </div>
           </div>
         </div>
       </div>
@@ -471,7 +449,7 @@
         </div>
       </div>
 
-      <!-- FOREX MARKET OVERVIEW WIDGET (TANPA KOLOM ASK) -->
+      <!-- FOREX MARKET OVERVIEW WIDGET (Hanya BID) -->
       <div class="premium-card rounded-2xl p-3 md:p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -485,7 +463,7 @@
             <thead>
               <tr class="bg-gray-50 border-b border-gray-100 text-gray-500 font-extrabold uppercase whitespace-nowrap">
                 <th class="p-2.5 md:p-3">ASSET</th>
-                <th class="p-2.5 md:p-3 text-right">BID</th>
+                <th class="p-2.5 md:p-3 text-right">BID PRICE</th>
                 <th class="p-2.5 md:p-3 text-center">CHG</th>
                 <th class="p-2.5 md:p-3 text-center">STATUS</th>
               </tr>
@@ -641,8 +619,31 @@
 
   </main>
 
-  <!-- RE-ENGINEERING CONTEXT SYSTEM LOGS -->
-  <footer class="max-w-7xl w-full mx-auto p-3 pt-0">
+  <!-- RE-ENGINEERING CONTEXT SYSTEM LOGS & TELEGRAM PROFILE -->
+  <footer class="max-w-7xl w-full mx-auto p-3 pt-0 flex flex-col gap-3">
+    
+    <!-- Telegram User Profile Container (Hanya 1 dan Paling Bawah) -->
+    <div id="tg-profile-footer" class="premium-card rounded-2xl p-3 bg-white border border-gray-150 flex items-center justify-between shadow-sm hidden">
+      <div class="flex items-center gap-3">
+        <!-- Avatar / Foto Profil -->
+        <img id="user-photo" src="" alt="user" class="w-9 h-9 rounded-full border border-brand-500 object-cover shadow-sm hidden" />
+        <!-- Fallback jika tidak ada foto -->
+        <div id="user-photo-fallback" class="w-9 h-9 rounded-full border border-brand-200 bg-gray-50 flex items-center justify-center shadow-sm">
+          <i class="fa-solid fa-user text-gray-400"></i>
+        </div>
+        <!-- Nama & Username -->
+        <div class="flex flex-col">
+          <span id="user-first-name" class="text-xs font-bold text-gray-800">Guest User</span>
+          <span id="tg-username" class="text-[10px] text-gray-400 font-mono tracking-wide">@guest_mode</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+         <span class="text-[9px] font-bold text-brand-500 uppercase tracking-widest bg-red-50 px-2 py-0.5 rounded border border-brand-100 hidden md:inline-block">AUTHORIZED ACCESS</span>
+         <i class="fa-brands fa-telegram text-brand-500 text-xl opacity-80"></i>
+      </div>
+    </div>
+
+    <!-- System Logs -->
     <div class="premium-card rounded-2xl p-3 bg-gray-50 border border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs">
       <div class="flex items-center gap-2 font-mono text-[10px] w-full sm:w-auto">
         <span class="text-brand-500 font-extrabold uppercase bg-red-50 border border-red-100/50 px-2 py-0.5 rounded-md">System Log:</span>
@@ -668,10 +669,21 @@
         webapp.ready();
         webapp.expand();
         tgUser = webapp.initDataUnsafe.user;
+        
         if (tgUser) {
-          const usernameStr = '@' + (tgUser.username || tgUser.first_name);
+          // Tampilkan container footer profile
+          document.getElementById('tg-profile-footer').classList.remove('hidden');
+          
+          const usernameStr = '@' + (tgUser.username || tgUser.first_name.toLowerCase().replace(/\s/g, ''));
           document.getElementById('tg-username').innerText = usernameStr;
           document.getElementById('user-first-name').innerText = tgUser.first_name;
+          
+          if (tgUser.photo_url) {
+            const photoEl = document.getElementById('user-photo');
+            photoEl.src = tgUser.photo_url;
+            photoEl.classList.remove('hidden');
+            document.getElementById('user-photo-fallback').classList.add('hidden');
+          }
           writeLog("Telegram Mini App Session active for user " + tgUser.first_name);
         }
       }
@@ -689,7 +701,7 @@
       if (pair === 'EURUSD' || pair === 'GBPUSD') return 5;
       if (pair === 'USDJPY' || pair === 'GBPJPY') return 3;
       if (pair === 'USDIDR') return 2;
-      return 2;
+      return 2; // Default for XAU, BTC, etc
     }
 
     // Custom Smart Anti-Block HFM Registration Link Handler
@@ -823,11 +835,13 @@
       writeLog(`Timeframe updated to: ${tf === 'D' ? 'DAILY (MTF)' : tf + 'M'}`);
     }
 
+    // FUNGSI UNTUK SINKRONISASI CHART DENGAN SUMBER DATA BINANCE/LIVE API
     function loadTradingViewChart(pair, timeframe) {
+      // Memilih Symbol TV yang paling mirip/identik dengan sumber tarikan harga dari API Binance/OANDA
       let tvSymbol = "OANDA:XAUUSD";
-      if (pair === 'EURUSD') tvSymbol = "FX:EURUSD";
+      if (pair === 'EURUSD') tvSymbol = "BINANCE:EURUSDT";
       if (pair === 'BTCUSD') tvSymbol = "BINANCE:BTCUSDT";
-      if (pair === 'GBPUSD') tvSymbol = "FX:GBPUSD";
+      if (pair === 'GBPUSD') tvSymbol = "BINANCE:GBPUSDT";
       if (pair === 'GBPJPY') tvSymbol = "FX:GBPJPY";
       if (pair === 'USDIDR') tvSymbol = "FX_IDC:USDIDR"; 
 
@@ -1159,53 +1173,48 @@
       if (e3El) e3El.innerText = param.expert3;
     }
 
-    // Fungsi Latar Belakang (Ambil Harga dari Server Asli tiap 15 detik)
+    // FUNGSI UTAMA 1: Fetch API Live Realtime ke Sumber Bursa (Binance Ticker)
     async function fetchRealtimePrices() {
       try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pax-gold,bitcoin&vs_currencies=usd');
-        if (response.ok) {
-          const data = await response.json();
-          if (data['pax-gold']?.usd) assetParameters['XAUUSD'].basePrice = data['pax-gold'].usd;
-          if (data.bitcoin?.usd) assetParameters['BTCUSD'].basePrice = data.bitcoin.usd;
+        const response = await fetch('https://api.binance.com/api/v3/ticker/price');
+        const data = await response.json();
+        
+        let prices = {};
+        for(let i=0; i<data.length; i++) {
+            prices[data[i].symbol] = parseFloat(data[i].price);
         }
-      } catch (e) { console.warn("CoinGecko fetch failed:", e); }
 
-      try {
-        const response = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.rates?.EUR) assetParameters['EURUSD'].basePrice = 1 / data.rates.EUR;
-          if (data.rates?.GBP) assetParameters['GBPUSD'].basePrice = 1 / data.rates.GBP;
-          if (data.rates?.GBP && data.rates?.JPY) assetParameters['GBPJPY'].basePrice = data.rates.JPY / data.rates.GBP;
-          if (data.rates?.IDR) assetParameters['USDIDR'].basePrice = data.rates.IDR;
+        const processNewPrice = (pair, newPrice) => {
+            if(!newPrice) return;
+            const oldPrice = assetParameters[pair].basePrice;
+            assetParameters[pair].basePrice = newPrice;
+            evaluateMarketTrend(pair, newPrice);
+            updatePriceUI(pair, newPrice, oldPrice);
+        };
+
+        if(prices['PAXGUSDT']) processNewPrice('XAUUSD', prices['PAXGUSDT']);
+        if(prices['BTCUSDT']) processNewPrice('BTCUSD', prices['BTCUSDT']);
+        if(prices['EURUSDT']) processNewPrice('EURUSD', prices['EURUSDT']);
+        if(prices['GBPUSDT']) processNewPrice('GBPUSD', prices['GBPUSDT']);
+        if(prices['USDTIDRT']) processNewPrice('USDIDR', prices['USDTIDRT']);
+
+        if(prices['BTCJPY'] && prices['BTCUSDT']) {
+            const usdJpy = prices['BTCJPY'] / prices['BTCUSDT'];
+            if(prices['GBPUSDT']) {
+                processNewPrice('GBPJPY', prices['GBPUSDT'] * usdJpy);
+            }
         }
-      } catch (e) { console.warn("OpenER fetch failed:", e); }
+        
+        updateDashboardPrices();
+        updateSignalUI(currentAsset);
+      } catch(e) {
+        console.warn("API fetch failed, falling back...", e);
+      }
     }
 
-    // FUNGSI BARU: Tick Market Organik UI Super Cepat (Real-time setiap 1.5 detik)
-    function applyMarketTick() {
-      Object.keys(assetParameters).forEach(pair => {
-        const oldPrice = assetParameters[pair].basePrice;
-        
-        // Volatilitas tick UI yang disesuaikan
-        let volatility = 0.00015;
-        if(pair === 'BTCUSD') volatility = 0.0003;
-        else if(pair === 'USDIDR') volatility = 0.00005;
-
-        // Simulasi naik-turun selayaknya ticker bursa betulan
-        const newPrice = oldPrice * (1 + (Math.random() - 0.5) * volatility);
-        assetParameters[pair].basePrice = newPrice;
-        
-        evaluateMarketTrend(pair, newPrice);
-        updatePriceUI(pair, newPrice, oldPrice);
-      });
-      
-      updateDashboardPrices();
-      updateSignalUI(currentAsset);
-    }
-
+    // FUNGSI UTAMA 2: Update UI Market (Memastikan Sinkronisasi Penuh di Seluruh Menu)
     function updatePriceUI(pair, newPrice, oldPrice) {
-      // 1. Update Market Selection Button Price
+      // 1. Update Tombol Market Selection 
       const el = document.getElementById(`price-${pair}`);
       const precision = getPrecision(pair);
       
@@ -1221,10 +1230,19 @@
         }
       }
 
-      // 2. Update Table Row Price in Forex Market Tab (tanpa kolom ASK)
+      // 2. Update Table Row Price di Tab "Forex Market"
       const rowBid = document.getElementById(`row-bid-${pair}`);
       if (rowBid) {
         rowBid.innerText = newPrice.toFixed(precision);
+        
+        // Animasi Ticker Flash pada tabel
+        if(newPrice > oldPrice) {
+            rowBid.parentElement.classList.add('bg-emerald-50/50');
+            setTimeout(() => rowBid.parentElement.classList.remove('bg-emerald-50/50'), 500);
+        } else if (newPrice < oldPrice) {
+            rowBid.parentElement.classList.add('bg-red-50/50');
+            setTimeout(() => rowBid.parentElement.classList.remove('bg-red-50/50'), 500);
+        }
       }
     }
 
@@ -1278,15 +1296,12 @@
       selectAsset('XAUUSD', 'METAL');
       updateMarketClockAndSessions();
       
-      // Detak Jam WIB (Setiap 1 Detik)
+      // Detak Jam WIB
       setInterval(updateMarketClockAndSessions, 1000);
       
-      // Ambil Harga dari API ke Latar Belakang (Setiap 15 Detik)
+      // Ambil Harga dari API Binance secara sangat cepat & Real-time (Sesuai dengan Chart TV) 
       fetchRealtimePrices();
-      setInterval(fetchRealtimePrices, 15000);
-      
-      // UI Tick Pergerakan Real-Time (Setiap 1.5 Detik agar UI selalu berkedip hidup)
-      setInterval(applyMarketTick, 1500);
+      setInterval(fetchRealtimePrices, 3000); // Sinkronisasi setiap 3 detik!
       
       writeLog("Cuandology HFM PRO AI Engine Initialized successfully.");
     }
