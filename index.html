@@ -41,18 +41,6 @@
               900: '#7f1d1d',
               950: '#450a0a',
             }
-          },
-          animation: {
-            'music-bar-1': 'musicBar 1s ease-in-out infinite alternate',
-            'music-bar-2': 'musicBar 0.8s ease-in-out infinite alternate 0.2s',
-            'music-bar-3': 'musicBar 1.2s ease-in-out infinite alternate 0.4s',
-            'music-bar-4': 'musicBar 0.9s ease-in-out infinite alternate 0.1s',
-          },
-          keyframes: {
-            musicBar: {
-              '0%': { height: '4px' },
-              '100%': { height: '24px' }
-            }
           }
         }
       }
@@ -97,8 +85,11 @@
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col pb-16 md:pb-0">
 
+  <!-- TOP BRANDING NAVIGATION -->
   <header class="border-b border-slate-100 bg-white/85 backdrop-blur-md px-3 py-2.5 sticky top-0 z-50 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.015)]">
     <div class="max-w-7xl mx-auto flex flex-col gap-2.5">
+      
+      <!-- ROW 1: BRANDING & LOGO -->
       <div class="flex items-center justify-between w-full border-b border-gray-100/80 pb-2">
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
@@ -121,6 +112,7 @@
         </div>
       </div>
 
+      <!-- ROW 2: TABS & MARKET SESSIONS -->
       <div class="flex flex-col md:flex-row items-center justify-between gap-3">
         <div class="hidden md:flex items-center gap-1 bg-gray-100 border border-gray-150 rounded-xl p-1 shadow-inner w-full md:w-auto">
           <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-all">Dashboard</button>
@@ -146,6 +138,7 @@
     </div>
   </header>
 
+  <!-- BOTTOM NAVIGATION BAR FOR MOBILE -->
   <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 flex justify-around py-2.5 px-4 shadow-[0_-5px_25px_rgba(0,0,0,0.025)] md:hidden">
     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center gap-1 text-brand-500 font-extrabold text-[10px]">
       <i class="fa-solid fa-chart-line text-lg"></i><span>Dashboard</span>
@@ -159,6 +152,7 @@
   </div>
 
   <main class="flex-1 max-w-7xl w-full mx-auto p-3">
+
     <!-- TAB 1: DASHBOARD -->
     <div id="tab-dashboard" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-3.5">
       <section class="lg:col-span-4 flex flex-col gap-3.5">
@@ -420,54 +414,62 @@
         </div>
       </div>
 
-      <!-- TRADING LOUNGE MUSIC PLAYER (YOUTUBE API - Mini App Friendly) -->
+      <!-- TRADING LOUNGE MUSIC PLAYER (ANTI-BLOKIR NATIVE EMBED) -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
             <i class="fa-solid fa-music text-brand-500"></i> Trading Lounge Music
           </h3>
           <span class="text-[8px] md:text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-            <i class="fa-brands fa-youtube text-brand-500"></i> YOUTUBE API
+            <i class="fa-brands fa-youtube text-brand-500"></i> NATIVE YOUTUBE
           </span>
         </div>
 
-        <div class="w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-900 to-black p-4 border border-gray-800 shadow-inner flex flex-col">
-          
-          <!-- Animated Music Visualizer -->
-          <div id="yt-visualizer" class="absolute right-4 bottom-3 flex items-end gap-1 opacity-0 transition-opacity duration-300 pointer-events-none">
-            <div class="w-1 bg-brand-500 rounded-t-sm animate-music-bar-1"></div>
-            <div class="w-1 bg-brand-400 rounded-t-sm animate-music-bar-2"></div>
-            <div class="w-1 bg-brand-600 rounded-t-sm animate-music-bar-3"></div>
-            <div class="w-1 bg-brand-500 rounded-t-sm animate-music-bar-4"></div>
-          </div>
-
-          <div class="relative z-10 flex items-center justify-between w-full">
-            <div class="flex items-center gap-3">
-              <button onclick="toggleYtMusic()" id="yt-play-btn" class="w-11 h-11 shrink-0 rounded-full bg-gradient-to-tr from-brand-600 to-red-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.4)] hover:scale-105 transition-all active:scale-95 border border-brand-400/50">
-                <i id="yt-play-icon" class="fa-solid fa-play ml-0.5"></i>
-              </button>
-              <div class="flex flex-col">
-                <span id="yt-track-title" class="text-xs font-bold text-white max-w-[150px] sm:max-w-[200px] md:max-w-[300px] truncate">Lounge Playlist (Indo & Barat)</span>
-                <span class="text-[9px] text-gray-400 flex items-center gap-1 mt-0.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-gray-500" id="yt-status-dot"></span> 
-                  <span id="yt-status-text">Ready to Play</span>
-                </span>
-              </div>
+        <!-- Dropdown Pilihan Lagu Interaktif -->
+        <div class="mb-3">
+          <label class="text-[10px] text-gray-500 font-bold mb-1.5 block uppercase tracking-wider">🎧 Pilih Musik Bebas Hambatan:</label>
+          <div class="relative">
+            <select id="yt-song-selector" onchange="changeYtSong()" class="w-full bg-white border border-gray-200 text-gray-700 text-[11px] font-bold rounded-xl focus:ring-brand-500 focus:border-brand-500 block p-2.5 shadow-sm appearance-none cursor-pointer">
+              <optgroup label="Pop Indo Hits (Full Lagu)">
+                <option value="wQ8eA7E4F5Q" selected>Tulus - Hati-Hati di Jalan</option>
+                <option value="aUWwgqEAM1w">Mahalini - Sisa Rasa</option>
+                <option value="Y2E71oe0aSM">Andmesh - Cinta Luar Biasa</option>
+                <option value="9R5Xv6i3lY0">Tiara Andini - Menjadi Dia</option>
+              </optgroup>
+              <optgroup label="Pop Barat Hits (Full Lagu)">
+                <option value="fLexgOxsZu0">Bruno Mars - The Lazy Song</option>
+                <option value="9HDEHj2yzew">Dua Lipa - Don't Start Now</option>
+                <option value="09R8_2nJtjg">Maroon 5 - Sugar</option>
+                <option value="T9GvDajEE2s">NIKI - Every Summertime</option>
+              </optgroup>
+              <optgroup label="Fokus & Santai">
+                <option value="jfKfPfyJRdk">🔴 LIVE 24/7 - Lofi Hip Hop Radio</option>
+              </optgroup>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
             </div>
-            
-            <div class="flex items-center gap-2 relative z-20">
-              <button onclick="nextYtTrack()" id="yt-next-btn" class="w-9 h-9 rounded-full bg-gray-800 border border-gray-700 text-white flex items-center justify-center hover:bg-gray-700 transition-all active:scale-95">
-                <i class="fa-solid fa-forward-step"></i>
-              </button>
-            </div>
-          </div>
-          
-          <!-- Hidden YouTube Player Container (Anti-blokir Webview HP) -->
-          <div style="position: absolute; top: -9999px; left: -9999px; width: 200px; height: 200px; opacity: 0.01; pointer-events: none;">
-             <div id="youtube-player"></div>
           </div>
         </div>
+        
+        <!-- Native Iframe Player (Terlihat, user tinggal klik Play, lolos 100% dari blokir Webview HP) -->
+        <div class="w-full overflow-hidden rounded-xl bg-black border border-gray-100 shadow-inner">
+          <iframe 
+             id="yt-native-iframe" 
+             width="100%" 
+             height="180" 
+             src="https://www.youtube.com/embed/wQ8eA7E4F5Q?rel=0&playsinline=1" 
+             title="YouTube video player" 
+             frameborder="0" 
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+             allowfullscreen>
+          </iframe>
+        </div>
+        <p class="text-[9px] text-gray-400 mt-2 text-center font-mono">
+          Tekan icon putar (Play) pada video di atas. Lagu diputar penuh dan lancar tanpa masalah.
+        </p>
       </div>
+
     </div>
 
     <!-- TAB 3: HFM BROKER -->
@@ -596,132 +598,22 @@
       if (logEl) logEl.innerText = message;
     }
 
-    /* ==============================================================
-       YOUTUBE MUSIC API INTEGRATION (Mini App Webview Secure)
-       ============================================================== */
-    let ytPlayer;
-    let isYtPlaying = false;
-    let isYtReady = false;
-
-    // Koleksi Playlist Video Lirik/Audio (Anti-Copyright Block) - Indo & Barat
-    const ytPlaylistIds = [
-      'wQ8eA7E4F5Q', // Tulus - Hati-Hati di Jalan
-      'fLexgOxsZu0', // Bruno Mars - The Lazy Song
-      'aUWwgqEAM1w', // Mahalini - Sisa Rasa
-      '9HDEHj2yzew', // Dua Lipa - Don't Start Now
-      'Y2E71oe0aSM', // Andmesh - Cinta Luar Biasa
-      '09R8_2nJtjg', // Maroon 5 - Sugar
-      'T9GvDajEE2s'  // NIKI - Every Summertime
-    ];
-
-    // Load API di awal agar saat klik nanti Play bisa dipanggil secara synchronous
-    function initYouTubeAPI() {
-      const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // =========================================================
+    // YOUTUBE NATIVE PLAYER SCRIPT - Sangat ringan tanpa API Block
+    // =========================================================
+    function changeYtSong() {
+      const select = document.getElementById('yt-song-selector');
+      const iframe = document.getElementById('yt-native-iframe');
+      const videoId = select.value;
+      
+      // Mengubah URL Iframe. Browser HP dijamin memberikan izin Play jika ditekan manual.
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
+      writeLog(`Trading Lounge Music diganti ke ID: ${videoId}`);
     }
 
-    window.onYouTubeIframeAPIReady = function() {
-      ytPlayer = new YT.Player('youtube-player', {
-        height: '200',  // Ukuran jangan 1x1 agar tidak diblokir webview HP
-        width: '200',
-        playerVars: {
-          'autoplay': 0, // Jangan autoplay agar mematuhi policy HP
-          'controls': 0,
-          'disablekb': 1,
-          'fs': 0,
-          'playsinline': 1, // Penting untuk Webview iOS/Android
-          'rel': 0,
-          'showinfo': 0,
-          'iv_load_policy': 3,
-          'playlist': ytPlaylistIds.join(',')
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange,
-          'onError': onPlayerError
-        }
-      });
-    };
-
-    function onPlayerReady(event) {
-        isYtReady = true;
-        event.target.setVolume(70);
-        event.target.setLoop(true); 
-    }
-
-    function onPlayerStateChange(event) {
-        const titleEl = document.getElementById('yt-track-title');
-        const statusText = document.getElementById('yt-status-text');
-        const statusDot = document.getElementById('yt-status-dot');
-        const playIcon = document.getElementById('yt-play-icon');
-        const visualizer = document.getElementById('yt-visualizer');
-        
-        if (event.data === YT.PlayerState.PLAYING) {
-            isYtPlaying = true;
-            playIcon.className = "fa-solid fa-pause";
-            statusText.innerText = "Now Playing";
-            statusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
-            visualizer.classList.remove('opacity-0');
-            
-            try {
-                let videoData = ytPlayer.getVideoData();
-                if(videoData && videoData.title) {
-                    let cleanTitle = videoData.title.replace(/\[.*?\]|\(.*?\)/g, '').trim();
-                    titleEl.innerText = cleanTitle || "Lounge Playlist";
-                }
-            } catch(e) {}
-            
-        } else if (event.data === YT.PlayerState.PAUSED) {
-            isYtPlaying = false;
-            playIcon.className = "fa-solid fa-play ml-0.5";
-            statusText.innerText = "Paused";
-            statusDot.className = "w-1.5 h-1.5 rounded-full bg-yellow-500";
-            visualizer.classList.add('opacity-0');
-            
-        } else if (event.data === YT.PlayerState.BUFFERING) {
-            statusText.innerText = "Buffering...";
-            statusDot.className = "w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse";
-            visualizer.classList.add('opacity-0');
-            
-        } else if (event.data === YT.PlayerState.ENDED) {
-            ytPlayer.nextVideo();
-        }
-    }
-
-    function onPlayerError(event) {
-        if (ytPlayer) ytPlayer.nextVideo();
-    }
-
-    // Tombol Play / Pause yang di-trigger User Event Langsung
-    function toggleYtMusic() {
-      if (!isYtReady) {
-          document.getElementById('yt-status-text').innerText = "Loading Player, Wait...";
-          return;
-      }
-      const state = ytPlayer.getPlayerState();
-      if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
-         ytPlayer.pauseVideo();
-      } else {
-         ytPlayer.playVideo(); // Panggilan synchronous ini lolos block iOS/Android Webview
-      }
-    }
-
-    // Tombol Next Logic
-    function nextYtTrack() {
-      if (isYtReady && typeof ytPlayer.nextVideo === 'function') {
-          ytPlayer.nextVideo();
-          document.getElementById('yt-status-text').innerText = "Skipping track...";
-      }
-    }
-    
-    // Inisialisasi API saat halaman dimuat
-    document.addEventListener('DOMContentLoaded', initYouTubeAPI);
-
-    /* ==============================================================
-       SISA KODE SIMULASI DASHBOARD LAMA TETAP SAMA 
-       ============================================================== */
+    // =========================================================
+    // CORE DASHBOARD SCRIPT
+    // =========================================================
 
     function getPrecision(pair) {
       if (pair === 'EURUSD') return 5;
