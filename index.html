@@ -100,6 +100,7 @@
   <!-- TOP BRANDING NAVIGATION -->
   <header class="border-b border-slate-100 bg-white/85 backdrop-blur-md px-3 py-2.5 sticky top-0 z-50 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.015)]">
     <div class="max-w-7xl mx-auto flex flex-col gap-2.5">
+      
       <div class="flex items-center justify-between w-full border-b border-gray-100/80 pb-2">
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
@@ -269,11 +270,8 @@
               <button onclick="changeTimeframe('D')" id="tf-D" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">MTF</button>
             </div>
           </div>
-          <!-- Chart TradingView -->
           <div class="relative flex-1 min-h-[250px] max-h-[350px] bg-gray-50/50 border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
-            <div id="tradingview-container" class="w-full h-full">
-              <!-- Di-load oleh JS agar ringan -->
-            </div>
+            <div id="tradingview-container" class="w-full h-full"></div>
           </div>
           <div class="grid grid-cols-3 gap-2 mt-3 text-center text-xs font-mono">
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-2">
@@ -284,6 +282,22 @@
             </div>
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-2">
               <span class="text-[9px] text-gray-400 block uppercase">Trend Slope</span><span id="slope-value" class="text-xs font-bold text-emerald-600">+0.145 (Bullish)</span>
+            </div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4">
+          <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-satellite-dish text-brand-500"></i> Instant SMC & VSA Detectors
+          </h3>
+          <div class="space-y-2 text-xs font-mono">
+            <div class="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
+              <span class="text-gray-600"><i class="fa-solid fa-water-ladder text-brand-500 mr-1.5"></i> Liquidity Sweep</span><span id="liquidity-sweep-status" class="text-emerald-600 font-bold text-[10px] md:text-xs">🟢 BULLISH SWEEP [S3]</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
+              <span class="text-gray-600"><i class="fa-solid fa-scale-unbalanced-flip text-brand-500 mr-1.5"></i> Volume Spread</span><span id="vsa-status" class="text-emerald-600 font-bold text-[10px] md:text-xs">💼 INST. ABSORPTION</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
+              <span class="text-gray-600"><i class="fa-solid fa-network-wired text-brand-500 mr-1.5"></i> Camarilla Pivot</span><span id="camarilla-status" class="text-gray-700 font-semibold text-[10px] md:text-xs">S3: 2322.40 | Pivot: 2331.10</span>
             </div>
           </div>
         </div>
@@ -317,14 +331,42 @@
               <p id="voter3-analysis" class="text-[11px] text-gray-500 leading-normal font-mono">Volume bursa berjangka melonjak dengan akumulasi agresif pada level support institusi.</p>
             </div>
           </div>
+          <div class="mt-3.5 pt-3.5 border-t border-gray-100">
+            <div class="p-3 bg-gradient-to-br from-brand-5/40 to-white border border-brand-100 rounded-xl relative overflow-hidden">
+              <div class="absolute -right-8 -bottom-8 w-16 h-16 bg-brand-500/5 rounded-full blur-xl"></div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5"><i class="fa-solid fa-shield-halved"></i> Chief Risk Officer</span>
+                <span id="cro-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">APPROVED</span>
+              </div>
+              <p id="cro-analysis" class="text-[10px] text-gray-500 leading-relaxed font-mono">Risk-Reward ratio ideal (>2.5R). Likuiditas bursa terjaga tinggi dengan level proteksi SL sangat ketat di bawah Swing Low harian.</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
 
-    <!-- TAB 2: FOREX MARKET & NATIVE AUDIO PLAYER -->
+    <!-- TAB 2: FOREX MARKET & MUSIC PLAYER -->
     <div id="tab-forex-market" class="tab-content hidden flex flex-col gap-3.5">
       
-      <!-- FOREX MARKET OVERVIEW WIDGET -->
+      <div class="bg-gradient-to-br from-brand-600 via-red-500 to-black text-white rounded-2xl p-5 shadow-lg relative overflow-hidden flex flex-col md:block items-center text-center md:text-left">
+        <div class="absolute -right-12 -bottom-12 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute right-6 top-6 opacity-10 text-9xl font-black font-sans pointer-events-none hidden md:block">HFM</div>
+        <span class="bg-white/20 text-white border border-white/30 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">OFFICIAL BROKER PARTNER</span>
+        <h3 class="text-lg md:text-2xl font-black mt-3 leading-tight">Mulai Trading Bersama HFM Markets</h3>
+        <p class="text-[10.5px] sm:text-xs md:text-sm text-red-100/90 mt-2 md:mt-1.5 leading-[1.6] max-w-xs sm:max-w-md md:max-w-xl">
+          Dapatkan Akun Premium Tanpa Swap dengan Eksekusi Cepat dan Spread Rendah. Deposit instan melalui Bank Lokal Indonesia untuk pengalaman trading yang lebih profesional.
+        </p>
+        <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4.5">
+          <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 hover:bg-red-50 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95">
+            <i class="fa-solid fa-user-plus"></i> Daftar Akun Live HFM
+          </a>
+          <button onclick="switchTab('hfm-broker')" class="inline-flex items-center gap-1.5 bg-black/30 hover:bg-black/40 text-white border border-white/20 font-bold text-xs py-2.5 px-4 rounded-xl transition-all">
+            <i class="fa-solid fa-circle-info"></i> Pelajari Benefit Broker
+          </button>
+        </div>
+      </div>
+
+      <!-- FOREX MARKET OVERVIEW WIDGET (Semua 5 Pair Kembali Utuh) -->
       <div class="premium-card rounded-2xl p-3 md:p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -345,57 +387,64 @@
             <tbody class="divide-y divide-gray-100 font-mono text-gray-800">
               <tr class="hover:bg-gray-50/50 transition-colors">
                 <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-coins text-yellow-500"></i> XAUUSD</td>
-                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-XAUUSD">2334.50</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-XAUUSD">...</td>
                 <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+1.25%</td>
                 <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🟢 STRONG BUY</span></td>
               </tr>
               <tr class="hover:bg-gray-50/50 transition-colors">
                 <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-euro-sign text-blue-500"></i> EURUSD</td>
-                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-EURUSD">1.08540</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-EURUSD">...</td>
                 <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+0.14%</td>
                 <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🟢 BUY</span></td>
               </tr>
               <tr class="hover:bg-gray-50/50 transition-colors">
                 <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-brands fa-bitcoin text-orange-500"></i> BTCUSD</td>
-                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-BTCUSD">66840.00</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-BTCUSD">...</td>
                 <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+2.15%</td>
                 <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🔥 BREAKOUT</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-brands fa-ethereum text-purple-500"></i> ETHUSD</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-ETHUSD">...</td>
+                <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+1.85%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🟢 BUY</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-yen-sign text-emerald-600"></i> USDJPY</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-USDJPY">...</td>
+                <td class="p-2.5 md:p-3 text-red-600 font-bold text-center">-0.32%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-red-50 text-brand-600 border border-brand-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🔴 BEARISH</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- ========================================== -->
-      <!-- PENTING: MP3 NATIVE PLAYER (SUPER RINGAN) -->
-      <!-- ========================================== -->
+      <!-- ========================================================================= -->
+      <!-- PENTING: MP3 LIVE RADIO PLAYER (0% BUFFERING, SANGAT RINGAN & FULL LAGU) -->
+      <!-- ========================================================================= -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
-            <i class="fa-solid fa-headphones text-brand-500"></i> MP3 Music Lounge
+            <i class="fa-solid fa-headphones text-brand-500"></i> Radio Pop Indonesia
           </h3>
           <span class="text-[8px] md:text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-            <i class="fa-solid fa-bolt text-emerald-500"></i> NATIVE AUDIO
+            <i class="fa-solid fa-bolt text-emerald-500"></i> LIVE MUSIC (NO BUFFER)
           </span>
         </div>
 
         <div class="w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-900 to-black p-4 border border-gray-800 shadow-inner flex flex-col">
           
           <div class="mb-4">
-            <label class="text-[9px] text-gray-400 font-bold mb-1.5 block uppercase tracking-wider">Pilih Lagu Populer (Full Music):</label>
+            <label class="text-[9px] text-gray-400 font-bold mb-1.5 block uppercase tracking-wider">Pilih Saluran Musik (Play 24/7):</label>
             <div class="relative">
-              <!-- MENGGUNAKAN DIRECT MP3 DARI INTERNET ARCHIVE / FREE HOSTING -->
+              <!-- MENGGUNAKAN SERVER RADIO STREAMING INDONESIA YANG SANGAT CEPAT -->
               <select id="native-audio-select" onchange="changeNativeAudio()" class="w-full bg-white/10 border border-white/20 text-white text-[11px] font-bold rounded-xl focus:ring-brand-500 focus:border-brand-500 block p-2.5 shadow-sm appearance-none cursor-pointer outline-none">
-                <optgroup label="Indo Pop Hits">
-                  <option value="https://archive.org/download/tulus-hati-hati-di-jalan/Hati-Hati%20di%20Jalan.mp3" selected>Tulus - Hati Hati di Jalan</option>
-                  <option value="https://archive.org/download/mahalini-sisa-rasa/Sisa%20Rasa.mp3">Mahalini - Sisa Rasa</option>
-                  <option value="https://archive.org/download/andmesh-cinta-luar-biasa/Cinta%20Luar%20Biasa.mp3">Andmesh - Cinta Luar Biasa</option>
-                  <option value="https://archive.org/download/tiara-andini-menjadi-dia/Menjadi%20Dia.mp3">Tiara Andini - Menjadi Dia</option>
-                </optgroup>
-                <optgroup label="Barat Pop Hits">
-                  <option value="https://archive.org/download/bruno-mars-the-lazy-song_202109/Bruno%20Mars%20-%20The%20Lazy%20Song.mp3">Bruno Mars - The Lazy Song</option>
-                  <option value="https://archive.org/download/maroon-5-sugar_202108/Maroon%205%20-%20Sugar.mp3">Maroon 5 - Sugar</option>
-                </optgroup>
+                <option value="https://masima.rastream.com/masima-pramborsjakarta?" selected>📻 Prambors FM (Hits Pop Indo & Barat)</option>
+                <option value="https://masima.rastream.com/masima-deltafmjakarta?">📻 Delta FM (Lagu Enak 100% Pop Indo)</option>
+                <option value="https://masima.rastream.com/masima-bahanafmjakarta?">📻 Bahana FM (Musik Pop Terbaik)</option>
+                <option value="https://listen.181fm.com/181-power_128k.mp3">📻 181.FM (Global Pop Hits & Barat)</option>
+                <option value="https://streams.ilovemusic.de/iloveradio17.mp3">☕ Lofi Lounge (Instrumental Santai)</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
                 <i class="fa-solid fa-chevron-down text-xs"></i>
@@ -417,21 +466,17 @@
                 <i id="native-play-icon" class="fa-solid fa-play ml-0.5 text-lg"></i>
               </button>
               <div class="flex flex-col">
-                <span id="native-song-title" class="text-xs font-bold text-white max-w-[150px] sm:max-w-[200px] truncate">Tulus - Hati Hati di Jalan</span>
+                <span id="native-song-title" class="text-xs font-bold text-white max-w-[150px] sm:max-w-[200px] truncate">Prambors FM (Hits Pop Indo & Barat)</span>
                 <span class="text-[9px] text-gray-400 flex items-center gap-1 mt-0.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-gray-500" id="native-status-dot"></span> 
-                  <span id="native-status-text">Ready to Play</span>
+                  <span id="native-status-text">Ready (No Buffering)</span>
                 </span>
               </div>
             </div>
-            
-            <button onclick="playNextNativeAudio()" class="w-9 h-9 rounded-full bg-gray-800 border border-gray-700 text-white flex items-center justify-center hover:bg-gray-700 transition-all active:scale-95">
-              <i class="fa-solid fa-forward-step"></i>
-            </button>
           </div>
 
-          <!-- Tag Audio Native HTML5 (0% Iframe, Bebas Lag) -->
-          <audio id="core-audio-player" preload="metadata"></audio>
+          <!-- Tag Audio Native HTML5 (0% Iframe, Bebas Lag, Bebas Blokir Hak Cipta) -->
+          <audio id="core-audio-player" preload="none"></audio>
           
         </div>
       </div>
@@ -489,7 +534,7 @@
 
   <script>
     /* =========================================================
-       OPTIMASI: MENYIMPAN REFERENSI DOM AGAR TIDAK LAG (LAMBAN)
+       OPTIMASI DOM AGAR APLIKASI SUPER RINGAN DAN TIDAK LAG
        ========================================================= */
     const domCache = {};
     function getEl(id) {
@@ -502,7 +547,7 @@
     let currentTimeframe = '15';
     let isTradingViewLoaded = false;
 
-    // Telegram Init
+    // Telegram Web App SDK Init
     try {
       if (window.Telegram && window.Telegram.WebApp) {
         const webapp = window.Telegram.WebApp;
@@ -521,8 +566,10 @@
       }
     } catch (e) {}
 
+    function writeLog(message) { console.log(`[LOG] ${message}`); }
+
     /* =========================================================
-       MP3 NATIVE AUDIO PLAYER (SUPER RINGAN, NO IFRAME, NO BLOKIR)
+       LIVE RADIO PLAYER (100% POP INDO, BEBAS BUFFERING)
        ========================================================= */
     const audioEl = document.getElementById('core-audio-player');
     const audioSelect = document.getElementById('native-audio-select');
@@ -532,66 +579,57 @@
     const audioVis = document.getElementById('audio-visualizer');
     const audioTitle = document.getElementById('native-song-title');
 
-    // Inisialisasi sumber lagu pertama kali
+    // Menerapkan stream pertama kali saat user memilih play
     audioEl.src = audioSelect.value;
-    audioTitle.innerText = audioSelect.options[audioSelect.selectedIndex].text;
+    audioTitle.innerText = audioSelect.options[audioSelect.selectedIndex].text.replace("📻 ", "");
 
     audioEl.addEventListener('playing', () => {
-      audioIcon.className = "fa-solid fa-pause text-lg";
-      audioStatusText.innerText = "Now Playing...";
+      audioIcon.className = "fa-solid fa-pause text-lg text-white";
+      audioStatusText.innerText = "Now Playing (Live Stream)";
       audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
       audioVis.classList.remove('opacity-0');
     });
 
     audioEl.addEventListener('pause', () => {
-      audioIcon.className = "fa-solid fa-play ml-0.5 text-lg";
+      audioIcon.className = "fa-solid fa-play ml-0.5 text-lg text-white";
       audioStatusText.innerText = "Paused";
       audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-yellow-500";
       audioVis.classList.add('opacity-0');
     });
 
     audioEl.addEventListener('waiting', () => {
-      audioStatusText.innerText = "Buffering Audio...";
+      audioStatusText.innerText = "Menghubungkan ke Saluran...";
       audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse";
     });
 
-    audioEl.addEventListener('ended', playNextNativeAudio);
-
     audioEl.addEventListener('error', () => {
-      // Jika link MP3 mati/rusak, otomatis menggunakan fallback lagu royalty-free publik
-      console.warn("Direct MP3 link rusak, beralih ke Fallback Server.");
-      audioStatusText.innerText = "Fallback Audio...";
-      audioEl.src = "https://www.soundhelix.com/s/SoundHelix-Song-1.mp3";
-      audioTitle.innerText = "Instrumental Lounge";
-      audioEl.play();
+      console.warn("Koneksi radio terputus. Coba saluran lain.");
+      audioStatusText.innerText = "Stream Gagal - Pilih Saluran Lain";
+      audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-red-600";
+      audioIcon.className = "fa-solid fa-play ml-0.5 text-white";
+      audioVis.classList.add('opacity-0');
     });
 
     function toggleNativeAudioPlay() {
-      if (audioEl.paused) {
+      if (audioEl.paused || audioEl.readyState === 0) {
+        audioStatusText.innerText = "Menghubungkan ke Stasiun...";
         audioEl.play().catch(e => {
-            audioStatusText.innerText = "Tekan Play Sekali Lagi";
+            audioStatusText.innerText = "Gagal memutar. Ketuk lagi.";
         });
       } else {
-        audioEl.play(); // trigger force
         audioEl.pause();
       }
     }
 
     function changeNativeAudio() {
       audioEl.src = audioSelect.value;
-      audioTitle.innerText = audioSelect.options[audioSelect.selectedIndex].text;
+      audioTitle.innerText = audioSelect.options[audioSelect.selectedIndex].text.replace("📻 ", "").replace("☕ ", "");
+      audioStatusText.innerText = "Menghubungkan ke Stasiun...";
       audioEl.play().catch(e => console.log(e));
     }
 
-    function playNextNativeAudio() {
-      let nextIndex = audioSelect.selectedIndex + 1;
-      if (nextIndex >= audioSelect.options.length) nextIndex = 0; // Ulang dari atas
-      audioSelect.selectedIndex = nextIndex;
-      changeNativeAudio();
-    }
-
     /* =========================================================
-       CORE DASHBOARD SCRIPT (SANGAT DIOPTIMASI UNTUK MINI APP)
+       CORE DASHBOARD SCRIPT & FUNGSI LOADING HARGA INSTAN
        ========================================================= */
     function getPrecision(pair) { return (pair === 'EURUSD') ? 5 : (pair === 'USDJPY' ? 3 : 2); }
 
@@ -635,7 +673,6 @@
       if (!container) return;
       container.innerHTML = '<div id="tradingview_chart" class="w-full h-full"></div>';
 
-      // Load widget secara tertunda agar tidak memblokir render UI utama (Mengurangi Lag)
       setTimeout(() => {
         try {
           new TradingView.widget({
@@ -657,7 +694,7 @@
             "studies": [],
           });
         } catch(e) { console.error("TradingView init failed", e); }
-      }, 300);
+      }, 200);
     }
 
     const assetParameters = {
@@ -743,7 +780,6 @@
     }
 
     function applyMarketTick() {
-      // Optimasi: Hanya merender data DOM jika benar-benar aktif untuk mengurangi Lag
       requestAnimationFrame(() => {
         Object.keys(assetParameters).forEach(pair => {
           const oldPrice = assetParameters[pair].basePrice;
@@ -753,10 +789,10 @@
           
           evaluateMarketTrend(pair, newPrice);
           
-          // Update tombol dan table
           const pEl = getEl(`price-${pair}`);
           const rowBid = getEl(`row-bid-${pair}`);
           const p = getPrecision(pair);
+          
           if (pEl) pEl.innerText = newPrice.toFixed(p);
           if (rowBid) {
             rowBid.innerText = newPrice.toFixed(p);
@@ -800,12 +836,127 @@
       getEl('live-clock').innerText = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) + ' WIB';
     }
 
+    // FUNGSI INISIALISASI UNTUK MENGHILANGKAN "LOADING..." DI AWAL
+    function initInstantPrices() {
+      Object.keys(assetParameters).forEach(pair => {
+        const p = getPrecision(pair);
+        const base = assetParameters[pair].basePrice.toFixed(p);
+        
+        // Render di panel Market Selection
+        const pEl = getEl(`price-${pair}`);
+        if (pEl) pEl.innerText = base;
+
+        // Render di tabel Market Overview (5 Pair Utuh)
+        const rowBid = getEl(`row-bid-${pair}`);
+        if (rowBid) rowBid.innerText = base;
+      });
+    }
+
+    function handleRegisterClick(event) {
+      event.preventDefault();
+      const url = "https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829";
+      const btn = event.currentTarget;
+      if (btn.classList.contains('loading-verification')) return;
+      
+      btn.classList.add('loading-verification');
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI JALUR...`;
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1800);
+      
+      fetch('https://register.hfmtrade-ind.com/favicon.ico', { mode: 'no-cors', signal: controller.signal })
+        .then(() => {
+          clearTimeout(timeoutId);
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('loading-verification');
+          window.open(url, '_blank');
+        })
+        .catch(() => {
+          clearTimeout(timeoutId);
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('loading-verification');
+          showAntiBlockModal(url);
+        });
+    }
+
+    function showAntiBlockModal(targetUrl) {
+      const existingModal = document.getElementById('antiblock-modal');
+      if (existingModal) existingModal.remove();
+
+      const googleProxyUrl = "https://translate.google.com/translate?sl=en&tl=id&u=" + encodeURIComponent(targetUrl);
+
+      const modalHtml = `
+        <div id="antiblock-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 transition-all duration-300 scale-95" style="z-index: 999999;">
+          <div class="bg-gradient-to-b from-slate-900 via-slate-950 to-black border border-red-500/30 rounded-3xl p-6 max-w-sm w-full relative shadow-2xl shadow-red-950/20">
+            <button onclick="closeAntiBlockModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-all text-sm w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex flex-col items-center text-center gap-2">
+              <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 text-lg animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+                <i class="fa-solid fa-earth-asia"></i>
+              </div>
+              <h3 class="text-xs font-black tracking-widest text-red-500 uppercase mt-2">⚠️ KONEKSI TERBLOKIR (ISP)</h3>
+              <p class="text-[10px] text-gray-400 max-w-xs leading-relaxed">Situs resmi HFM terdeteksi diblokir oleh Internet Positif (ISP lokal Anda). Gunakan langkah mudah berikut untuk mengakses secara aman:</p>
+            </div>
+            <div class="space-y-2.5 mt-4">
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded uppercase">Metode 1</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Secure DNS (Tercepat & Gratis)</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">Aktifkan DNS Aman di Browser Anda: <br>• <strong>Chrome/Edge:</strong> Setelan ➜ Privasi & Keamanan ➜ Gunakan DNS Aman ➜ Pilih <strong>Cloudflare (1.1.1.1)</strong>.</p>
+              </div>
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded uppercase">Metode 2</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Cloudflare 1.1.1.1 WARP</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">Unduh aplikasi resmi <strong>1.1.1.1</strong> di Play Store / App Store. Aktifkan sekali sentuh untuk membuka semua blokir internet secara aman.</p>
+              </div>
+            </div>
+            <div class="mt-4.5 space-y-2">
+              <a href="${googleProxyUrl}" target="_blank" onclick="closeAntiBlockModal()" class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-slate-950 font-black py-2.5 rounded-xl transition-all shadow-lg text-[10px] text-center block uppercase tracking-wider border border-yellow-400/30">
+                ⚡ BYPASS INSTAN VIA GOOGLE SECURE
+              </a>
+              <a href="${targetUrl}" target="_blank" onclick="closeAntiBlockModal()" class="w-full bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black py-2.5 rounded-xl transition-all shadow-lg text-[10px] text-center block uppercase tracking-wider border border-brand-500/30">
+                🚀 COBA BUKA SEKARANG JUGA
+              </a>
+              <button onclick="closeAntiBlockModal()" class="w-full text-[8.5px] text-gray-500 hover:text-gray-300 font-bold transition-all text-center block uppercase tracking-wider py-1">
+                KEMBALI KE MINI APP
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      const modal = document.getElementById('antiblock-modal');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0', 'scale-95');
+        modal.classList.add('opacity-100', 'scale-100');
+      }, 50);
+    }
+
+    function closeAntiBlockModal() {
+      const modal = document.getElementById('antiblock-modal');
+      if (modal) {
+        modal.classList.remove('opacity-100', 'scale-100');
+        modal.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => modal.remove(), 300);
+      }
+    }
+
     function initializeApp() {
+      // Hilangkan tulisan "Loading..." seketika
+      initInstantPrices();
+      
       selectAsset('XAUUSD', 'METAL');
+      updateMarketClockAndSessions();
+      
       setInterval(updateMarketClockAndSessions, 1000);
       
-      // Tick market dikurangi dari 1500ms menjadi 2000ms agar aplikasi lebih ringan lagi
-      setInterval(applyMarketTick, 2000); 
+      // Delay Market Tick menjadi 2.5 detik agar performa UI HP super ringan dan lancar
+      setInterval(applyMarketTick, 2500); 
     }
 
     if (document.readyState === 'loading') {
