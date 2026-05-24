@@ -634,50 +634,91 @@
     }
 
     async function searchMusic() {
-      const input = getEl('music-search-input');
-      const query = input.value.trim();
-      if (!query) return;
+  const input = getEl('music-search-input');
+  const query = input.value.trim();
+  if (!query) return;
 
-      const btn = getEl('search-btn');
-      const status = getEl('player-status');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
-      status.innerText = 'Mencari lagu...';
+  const btn = getEl('search-btn');
+  const status = getEl('player-status');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
+  status.innerText = 'Mencari lagu full...';
 
-      try {
-        // iTunes Search API - CORS enabled, returns MP3 preview URLs
-        const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&country=ID&media=music&limit=25&entity=song`;
-        const res = await fetch(url);
-        const data = await res.json();
+  try {
+    // JioSaavn API - Full Song 320kbps, Gratis, No Auth
+    const apiUrl = `https://saavn.dev/api/search/songs?query=${encodeURIComponent(query)}&limit=25`;
+    const res = await fetch(apiUrl);
+    const data = await res.json();
 
-        if (data.results && data.results.length > 0) {
-          musicPlaylist.length = 0;
-          data.results.forEach(track => {
-            if (track.previewUrl) {
-              musicPlaylist.push({
-                title: track.trackName,
-                artist: track.artistName,
-                cover: track.artworkUrl100.replace('100x100', '400x400'),
-                url: track.previewUrl,
-                duration: track.trackTimeMillis / 1000
-              });
-            }
+    if (data.success && data.data && data.data.results && data.data.results.length > 0) {
+      musicPlaylist.length = 0;
+      
+      data.data.results.forEach(track => {
+        // Cari URL download kualitas terbaik (320kbps > 160kbps > 96kbps)
+        const downloadUrls = track.downloadUrl || [];
+        const bestQuality = downloadUrls.find(u => u.quality === '320kbps') 
+                         || downloadUrls.find(u => u.quality === '160kbps')
+                         || downloadUrls.find(u => u.quality === '96kbps')
+                         || downloadUrls[downloadUrls.length - 1];
+        
+        if (bestQuality && bestQuality.url) {
+          // Bersihkan nama lagu dari HTML entities
+          const cleanTitle = track.name.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+          const artistName = track.artists?.primary?.map(a => a.name).join(', ') || track.primaryArtists || 'Unknown Artist';
+          const coverUrl = track.image?.[track.image.length - 1]?.url || 'https://via.placeholder.com/400x400/1e293b/ef4444?text=%E2%99%AB';
+          
+          musicPlaylist.push({
+            title: cleanTitle,
+            artist: artistName,
+            cover: coverUrl,
+            url: bestQuality.url,
+            duration: track.duration || 0
           });
-          renderPlaylist();
-          status.innerText = `${musicPlaylist.length} lagu ditemukan`;
-          if (musicPlaylist.length > 0) playTrack(0);
-        } else {
-          status.innerText = 'Lagu tidak ditemukan';
-          getEl('playlist-container').innerHTML = `<div class="text-center py-8 text-gray-500 text-[11px]"><i class="fa-solid fa-face-frown text-3xl mb-2 opacity-30 block"></i><p>Tidak ditemukan. Coba kata kunci lain.</p></div>`;
         }
-      } catch (err) {
-        status.innerText = 'Gagal memuat. Coba lagi.';
-        console.error(err);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><span class="hidden sm:inline">Cari</span>';
-      }
+      });
+
+      renderPlaylist();
+      status.innerText = `✨ ${musicPlaylist.length} lagu FULL ditemukan`;
+      if (musicPlaylist.length > 0) playTrack(0);
+    } else {
+      status.innerText = 'Lagu tidak ditemukan';
+      getEl('playlist-container').innerHTML = `<div class="text-center py-8 text-gray-500 text-[11px]"><i class="fa-solid fa-face-frown text-3xl mb-2 opacity-30 block"></i><p>Tidak ditemukan. Coba kata kunci lain.</p></div>`;
     }
+  } catch (err) {
+    console.error('JioSaavn API Error:', err);
+    status.innerText = 'API error - coba lagi';
+    
+    // FALLBACK: Jika JioSaavn down, gunakan iTunes 30s preview
+    try {
+      status.innerText = 'Fallback ke iTunes preview...';
+      const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&country=ID&media=music&limit=25&entity=song`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.results && data.results.length > 0) {
+        musicPlaylist.length = 0;
+        data.results.forEach(track => {
+          if (track.previewUrl) {
+            musicPlaylist.push({
+              title: track.trackName + ' (30s Preview)',
+              artist: track.artistName,
+              cover: track.artworkUrl100.replace('100x100', '400x400'),
+              url: track.previewUrl,
+              duration: 30
+            });
+          }
+        });
+        renderPlaylist();
+        status.innerText = `${musicPlaylist.length} preview (API utama down)`;
+        if (musicPlaylist.length > 0) playTrack(0);
+      }
+    } catch (e) {
+      status.innerText = 'Gagal total. Cek koneksi.';
+    }
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><span class="hidden sm:inline">Cari</span>';
+  }
+}
 
     function quickSearch(query, btn) {
       getEl('music-search-input').value = query;
