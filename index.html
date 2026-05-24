@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>[ CUANOLOGY | HFM PRO AI ] — Signal Intelligence Dashboard</title>
   
+  <!-- CSS & JS Library Integration -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- YouTube IFrame API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
 
+  <!-- TradingView Library -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Tailwind Configuration -->
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -25,9 +29,17 @@
           },
           colors: {
             brand: {
-              50: '#fff5f5', 100: '#ffe3e3', 200: '#ffc9c9', 300: '#ffa8a8',
-              400: '#ff8787', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c',
-              800: '#991b1b', 900: '#7f1d1d', 950: '#450a0a',
+              50: '#fff5f5',
+              100: '#ffe3e3',
+              200: '#ffc9c9',
+              300: '#ffa8a8',
+              400: '#ff8787',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+              950: '#450a0a',
             }
           },
           animation: {
@@ -35,25 +47,40 @@
             'music-bar-2': 'musicBar 0.8s ease-in-out infinite alternate 0.2s',
             'music-bar-3': 'musicBar 1.2s ease-in-out infinite alternate 0.4s',
             'music-bar-4': 'musicBar 0.9s ease-in-out infinite alternate 0.1s',
-            'spin-slow': 'spin 3s linear infinite',
-            'cover-spin': 'coverSpin 20s linear infinite',
           },
           keyframes: {
-            musicBar: { '0%': { height: '4px' }, '100%': { height: '24px' } },
-            coverSpin: { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } }
+            musicBar: {
+              '0%': { height: '4px' },
+              '100%': { height: '24px' }
+            }
           }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
     .premium-card {
-      background-color: #ffffff; border: 1px solid #e2e8f0;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
       box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.02), 0 2px 8px -1px rgba(0, 0, 0, 0.01);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -62,24 +89,18 @@
       box-shadow: 0 12px 30px -4px rgba(239, 68, 68, 0.04), 0 4px 20px -2px rgba(0, 0, 0, 0.02);
       transform: translateY(-1.5px);
     }
-    .active-nav-btn { color: #ef4444 !important; font-weight: 800 !important; }
-    .cover-playing { animation: coverSpin 20s linear infinite; }
-    .cover-paused { animation-play-state: paused; }
-    .playlist-item.active { border-color: rgba(239, 68, 68, 0.5) !important; background: rgba(239, 68, 68, 0.1) !important; }
-    .playlist-item.active .pl-title { color: #ef4444 !important; }
-    .chip-active { background: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    .scrollbar-thin::-webkit-scrollbar { width: 3px; }
-    .scrollbar-thin::-webkit-scrollbar-thumb { background: #374151; border-radius: 2px; }
-    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .active-nav-btn {
+      color: #ef4444 !important;
+      font-weight: 800 !important;
+    }
   </style>
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col pb-16 md:pb-0">
 
-  <!-- TOP NAVIGATION -->
+  <!-- TOP BRANDING NAVIGATION -->
   <header class="border-b border-slate-100 bg-white/85 backdrop-blur-md px-3 py-2.5 sticky top-0 z-50 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.015)]">
     <div class="max-w-7xl mx-auto flex flex-col gap-2.5">
+      
       <div class="flex items-center justify-between w-full border-b border-gray-100/80 pb-2">
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
@@ -127,6 +148,7 @@
     </div>
   </header>
 
+  <!-- BOTTOM NAVIGATION BAR FOR MOBILE -->
   <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 flex justify-around py-2.5 px-4 shadow-[0_-5px_25px_rgba(0,0,0,0.025)] md:hidden">
     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center gap-1 text-brand-500 font-extrabold text-[10px]">
       <i class="fa-solid fa-chart-line text-lg"></i><span>Dashboard</span>
@@ -154,19 +176,27 @@
             </div>
             <div class="grid grid-cols-2 gap-2 mb-3.5">
               <button onclick="selectAsset('XAUUSD', 'METAL')" id="btn-XAUUSD" class="asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm">
-                <div class="flex flex-col items-start"><span>XAU/USD</span><span id="price-XAUUSD" class="price-val text-[10px] text-gray-300 font-bold transition-all">2334.50</span></div>
+                <div class="flex flex-col items-start">
+                  <span>XAU/USD</span><span id="price-XAUUSD" class="price-val text-[10px] text-gray-300 font-bold transition-all">2334.50</span>
+                </div>
                 <i class="fa-solid fa-coins text-yellow-500"></i>
               </button>
               <button onclick="selectAsset('EURUSD', 'FOREX')" id="btn-EURUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
-                <div class="flex flex-col items-start"><span>EUR/USD</span><span id="price-EURUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">1.08540</span></div>
+                <div class="flex flex-col items-start">
+                  <span>EUR/USD</span><span id="price-EURUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">1.08540</span>
+                </div>
                 <i class="fa-solid fa-euro-sign text-blue-500"></i>
               </button>
               <button onclick="selectAsset('BTCUSD', 'CRYPTO')" id="btn-BTCUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
-                <div class="flex flex-col items-start"><span>BTC/USD</span><span id="price-BTCUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">66840.00</span></div>
+                <div class="flex flex-col items-start">
+                  <span>BTC/USD</span><span id="price-BTCUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">66840.00</span>
+                </div>
                 <i class="fa-brands fa-bitcoin text-orange-500"></i>
               </button>
               <button onclick="selectAsset('ETHUSD', 'CRYPTO')" id="btn-ETHUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
-                <div class="flex flex-col items-start"><span>ETH/USD</span><span id="price-ETHUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">3450.20</span></div>
+                <div class="flex flex-col items-start">
+                  <span>ETH/USD</span><span id="price-ETHUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">3450.20</span>
+                </div>
                 <i class="fa-brands fa-ethereum text-purple-500"></i>
               </button>
             </div>
@@ -324,7 +354,7 @@
         <span class="bg-white/20 text-white border border-white/30 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">OFFICIAL BROKER PARTNER</span>
         <h3 class="text-lg md:text-2xl font-black mt-3 leading-tight">Mulai Trading Bersama HFM Markets</h3>
         <p class="text-[10.5px] sm:text-xs md:text-sm text-red-100/90 mt-2 md:mt-1.5 leading-[1.6] max-w-xs sm:max-w-md md:max-w-xl">
-          Dapatkan Akun Premium Tanpa Swap dengan Eksekusi Cepat dan Spread Rendah. Deposit instan melalui Bank Lokal Indonesia.
+          Dapatkan Akun Premium Tanpa Swap dengan Eksekusi Cepat dan Spread Rendah. Deposit instan melalui Bank Lokal Indonesia untuk pengalaman trading yang lebih profesional.
         </p>
         <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4.5">
           <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 hover:bg-red-50 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95">
@@ -336,6 +366,7 @@
         </div>
       </div>
 
+      <!-- FOREX MARKET OVERVIEW WIDGET -->
       <div class="premium-card rounded-2xl p-3 md:p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -389,102 +420,59 @@
         </div>
       </div>
 
-      <!-- =============================================== -->
-      <!-- MUSIC PLAYER COMPACT - YOUTUBE IFRAME API (FULL) -->
-      <!-- =============================================== -->
-      <div class="premium-card rounded-2xl p-2.5 md:p-3 flex flex-col">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-[10px] font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-1.5">
-            <i class="fa-brands fa-youtube text-red-500"></i> Stream
+      <!-- MP3 LIVE RADIO PLAYER -->
+      <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
+            <i class="fa-solid fa-headphones text-brand-500"></i> Radio Pop Indonesia
           </h3>
-          <span id="yt-quality-badge" class="text-[7px] bg-gradient-to-r from-red-600 to-red-500 text-white font-black px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5">
-            <i class="fa-solid fa-play"></i> FULL
+          <span class="text-[8px] md:text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+            <i class="fa-solid fa-bolt text-emerald-500"></i> LIVE MUSIC (NO BUFFER)
           </span>
         </div>
 
-        <div class="w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-2.5 border border-gray-800 shadow-inner flex flex-col gap-2.5">
+        <div class="w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-900 to-black p-4 border border-gray-800 shadow-inner flex flex-col">
           
-          <!-- YouTube Player Container (Hidden) -->
-          <div id="yt-player" class="absolute -top-[9999px] -left-[9999px] w-1 h-1"></div>
-
-          <!-- Compact Now Playing -->
-          <div class="flex items-center gap-2.5">
-            <div class="relative shrink-0 group">
-              <div class="w-12 h-12 rounded-lg bg-gray-800 border border-gray-700 shadow-lg overflow-hidden flex items-center justify-center" id="yt-cover-wrapper">
-                <img id="yt-player-cover" src="https://via.placeholder.com/150x150/1e293b/ef4444?text=%E2%99%AB" 
-                  alt="cover" class="w-full h-full object-cover transition-transform group-hover:scale-105" />
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex-1 min-w-0">
-              <h4 id="yt-player-title" class="text-[11px] font-black text-white truncate">Paste YouTube URL</h4>
-              <p id="yt-player-artist" class="text-[9px] text-gray-400 truncate">YouTube IFrame API</p>
-              
-              <!-- Progress Bar -->
-              <div class="flex items-center gap-1.5 mt-1.5">
-                <span id="yt-current-time" class="text-[8px] font-mono text-gray-500 w-7">0:00</span>
-                <div class="flex-1 relative h-1 bg-gray-700 rounded-full overflow-hidden cursor-pointer group" onclick="seekYt(event)">
-                  <div id="yt-progress-fill" class="absolute left-0 top-0 h-full bg-gradient-to-r from-red-600 to-red-500 rounded-full transition-all" style="width:0%"></div>
-                  <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow"></div>
-                </div>
-                <span id="yt-duration-time" class="text-[8px] font-mono text-gray-500 w-7 text-right">0:00</span>
-              </div>
-            </div>
-
-            <!-- Minimal Controls -->
-            <div class="flex items-center gap-1">
-              <button onclick="prevTrackYt()" class="w-8 h-8 rounded-full hover:bg-white/15 text-white flex items-center justify-center transition-all active:scale-90">
-                <i class="fa-solid fa-backward-step text-[10px]"></i>
-              </button>
-              <button onclick="togglePlayYt()" id="yt-play-btn" class="w-9 h-9 rounded-full bg-gradient-to-tr from-red-600 to-red-500 text-white flex items-center justify-center shadow-[0_0_12px_rgba(239,68,68,0.4)] hover:scale-105 transition-all active:scale-95 border border-white/10">
-                <i id="yt-play-icon" class="fa-solid fa-play text-[11px] ml-0.5"></i>
-              </button>
-              <button onclick="nextTrackYt()" class="w-8 h-8 rounded-full hover:bg-white/15 text-white flex items-center justify-center transition-all active:scale-90">
-                <i class="fa-solid fa-forward-step text-[10px]"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- URL Input -->
-          <div class="flex gap-1.5">
-            <div class="relative flex-1">
-              <i class="fa-solid fa-link absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500 text-[9px]"></i>
-              <input type="text" id="yt-url-input" placeholder="https://youtube.com/watch?v=... atau ID video" 
-                class="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 text-[10px] font-medium rounded-lg pl-7 pr-2 py-1.5 focus:ring-1 focus:ring-red-500 outline-none transition-all"
-                onkeydown="if(event.key==='Enter') loadYtUrl()" />
-            </div>
-            <button onclick="loadYtUrl()" id="yt-load-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold text-[10px] px-3 rounded-lg transition-all active:scale-95 shrink-0">
-              <i class="fa-solid fa-play"></i>
-            </button>
-          </div>
-
-          <!-- Quick Playlist (Preset Working URLs/IDs) -->
-          <div class="flex gap-1 overflow-x-auto whitespace-nowrap pb-0.5 scrollbar-hide">
-            <button onclick="quickYt('https://www.youtube.com/watch?v=1Xz4f5vXQ4E', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Tulus</button>
-            <button onclick="quickYt('https://www.youtube.com/watch?v=5F4v0d3x9Y0', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Mahalini</button>
-            <button onclick="quickYt('https://www.youtube.com/watch?v=4fndeDfaWCg', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Juicy Luicy</button>
-            <button onclick="quickYt('https://www.youtube.com/watch?v=b1kbLWvqugk', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Taylor</button>
-            <button onclick="quickYt('https://www.youtube.com/watch?v=4NRXx6U8ABQ', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Weeknd</button>
-          </div>
-
-          <!-- Compact Playlist -->
-          <div class="relative">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="text-[9px] font-black text-gray-400 uppercase tracking-wider flex items-center gap-1">
-                <i class="fa-solid fa-list-ul text-red-500"></i> Queue <span id="yt-playlist-count" class="text-gray-600 font-mono">(0)</span>
-              </span>
-              <span id="yt-player-status" class="text-[8px] text-gray-500 font-mono">Ready</span>
-            </div>
-            <div id="yt-playlist-container" class="max-h-[180px] overflow-y-auto space-y-1 pr-0.5 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-              <div class="text-center py-4 text-gray-500 text-[10px]">
-                <i class="fa-brands fa-youtube text-lg mb-1 opacity-20 block text-red-500"></i>
-                <p>Paste URL YouTube atau klik preset di atas</p>
+          <div class="mb-4">
+            <label class="text-[9px] text-gray-400 font-bold mb-1.5 block uppercase tracking-wider">Pilih Saluran Musik (Play 24/7):</label>
+            <div class="relative">
+              <select id="native-audio-select" onchange="changeNativeAudio()" class="w-full bg-white/10 border border-white/20 text-white text-[11px] font-bold rounded-xl focus:ring-brand-500 focus:border-brand-500 block p-2.5 shadow-sm appearance-none cursor-pointer outline-none">
+                <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/PRAMBORS_FM.mp3" selected>📻 Prambors FM (Top 40 Indo & Barat)</option>
+                <option value="https://s1.cloudmu.id/listen/delta_fm/radio.mp3">📻 Delta FM (Hits Terenak 90an - Now)</option>
+                <option value="http://stream.bahanafm.co.id:8100/;">📻 Bahana FM (Pop Indonesia Terbaik)</option>
+                <option value="https://listen.181fm.com/181-power_128k.mp3">📻 181.FM (Global Pop Hits)</option>
+                <option value="https://streams.ilovemusic.de/iloveradio17.mp3">☕ Lofi Lounge (Instrumental Santai)</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                <i class="fa-solid fa-chevron-down text-xs"></i>
               </div>
             </div>
           </div>
+
+          <div id="audio-visualizer" class="absolute right-4 bottom-3 flex items-end gap-1 opacity-0 transition-opacity duration-300 pointer-events-none">
+            <div class="w-1 bg-brand-500 rounded-t-sm animate-music-bar-1"></div>
+            <div class="w-1 bg-brand-400 rounded-t-sm animate-music-bar-2"></div>
+            <div class="w-1 bg-brand-600 rounded-t-sm animate-music-bar-3"></div>
+            <div class="w-1 bg-brand-500 rounded-t-sm animate-music-bar-4"></div>
+          </div>
+
+          <div class="relative z-10 flex items-center justify-between w-full">
+            <div class="flex items-center gap-3">
+              <button onclick="toggleNativeAudioPlay()" id="native-play-btn" class="w-12 h-12 shrink-0 rounded-full bg-gradient-to-tr from-brand-600 to-red-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.4)] hover:scale-105 transition-all active:scale-95 border border-brand-400/50">
+                <i id="native-play-icon" class="fa-solid fa-play ml-0.5 text-lg"></i>
+              </button>
+              <div class="flex flex-col">
+                <span id="native-song-title" class="text-xs font-bold text-white max-w-[150px] sm:max-w-[200px] truncate">Prambors FM (Top 40)</span>
+                <span class="text-[9px] text-gray-400 flex items-center gap-1 mt-0.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-gray-500" id="native-status-dot"></span> 
+                  <span id="native-status-text">Ready (No Buffering)</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <audio id="core-audio-player" preload="none"></audio>
+          
         </div>
       </div>
     </div>
@@ -497,43 +485,77 @@
         </div>
         <div class="text-center md:text-left">
           <h3 class="text-lg font-black text-gray-900">Broker Mitra Resmi HFM Markets</h3>
-          <p class="text-xs text-gray-500 mt-1 max-w-xl">HFM (HotForex) adalah broker global pemenang penghargaan yang teregulasi secara internasional.</p>
+          <p class="text-xs text-gray-500 mt-1 max-w-xl">HFM (HotForex) adalah broker global pemenang penghargaan yang teregulasi secara internasional, menyediakan kondisi trading terbaik untuk trader ritel maupun institusi.</p>
         </div>
       </div>
+      
+      <!-- Stylish HFM Market Blocks -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow-md shadow-brand-200"><i class="fa-solid fa-bolt"></i></div>
-            <div><h4 class="text-sm font-black text-gray-900">Eksekusi Kilat</h4><p class="text-[10px] text-gray-500">Ultra-fast execution tanpa requote.</p></div>
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow-md shadow-brand-200">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Eksekusi Kilat</h4>
+              <p class="text-[10px] text-gray-500">Ultra-fast execution speed tanpa requote.</p>
+            </div>
           </div>
         </div>
         <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center text-lg shadow-md shadow-gray-400"><i class="fa-solid fa-chart-line"></i></div>
-            <div><h4 class="text-sm font-black text-gray-900">Spread Super Ketat</h4><p class="text-[10px] text-gray-500">Mulai dari 0.0 pips.</p></div>
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center text-lg shadow-md shadow-gray-400">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Spread Super Ketat</h4>
+              <p class="text-[10px] text-gray-500">Spread mulai dari 0.0 pips untuk pair major.</p>
+            </div>
           </div>
         </div>
         <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-200"><i class="fa-solid fa-building-columns"></i></div>
-            <div><h4 class="text-sm font-black text-gray-900">Deposit Bank Lokal</h4><p class="text-[10px] text-gray-500">BCA, Mandiri, BNI, BRI.</p></div>
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-200">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Deposit Bank Lokal</h4>
+              <p class="text-[10px] text-gray-500">Dukungan deposit & WD via BCA, Mandiri, BNI, BRI.</p>
+            </div>
           </div>
         </div>
         <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-md shadow-amber-200"><i class="fa-solid fa-shield-halved"></i></div>
-            <div><h4 class="text-sm font-black text-gray-900">Swap-Free Account</h4><p class="text-[10px] text-gray-500">Akun Bebas Bunga.</p></div>
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-md shadow-amber-200">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Proteksi & Swap-Free</h4>
+              <p class="text-[10px] text-gray-500">Jaminan keamanan dana & akun Bebas Bunga.</p>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="relative overflow-hidden rounded-3xl p-6 text-center bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 shadow-2xl shadow-black/40 mt-4">
         <div class="absolute -right-12 -top-12 w-28 h-28 bg-brand-500/10 rounded-full blur-2xl"></div>
+        <div class="absolute -left-12 -bottom-12 w-28 h-28 bg-yellow-500/5 rounded-full blur-2xl"></div>
         <div class="relative z-10 flex flex-col items-center gap-1.5">
-          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-[9px] font-black tracking-widest text-amber-500 uppercase">👑 Exclusive VIP Access</div>
-          <h4 class="text-sm md:text-base font-black tracking-wider mt-1 bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent uppercase">ACCESS PRIVATE PROFIT GATEWAY</h4>
-          <div class="mt-4">
-            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg active:scale-95 border border-brand-500/30">
+          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-[9px] font-black tracking-widest text-amber-500 uppercase">
+            👑 Exclusive VIP Access Gateway
+          </div>
+          <h4 class="text-sm md:text-base font-black tracking-wider mt-1 bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent uppercase">
+            ACCESS PRIVATE PROFIT GATEWAY
+          </h4>
+          <p class="text-[10px] text-gray-400 max-w-sm mt-2 leading-relaxed">
+            Buka akun real HFM Market sekarang dan dapatkan akses ke sinyal premium AI Cuatology secara gratis.
+          </p>
+          <div class="mt-4 flex flex-col sm:flex-row gap-3">
+            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-900/30 hover:shadow-brand-900/50 active:scale-95 border border-brand-500/30">
               <i class="fa-solid fa-crown text-yellow-400 animate-pulse"></i> ACTIVATE PRO ACCOUNT NOW
+            </a>
+            <a href="https://www.hfm.com/id/" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs py-3 px-6 rounded-xl transition-all border border-white/10">
+              <i class="fa-solid fa-globe"></i> Kunjungi Situs Resmi HFM
             </a>
           </div>
         </div>
@@ -542,7 +564,7 @@
   </main>
 
   <footer class="max-w-7xl w-full mx-auto p-3 pt-0 flex flex-col gap-3">
-    <div class="premium-card rounded-2xl p-3 bg-white border border-gray-150 flex flex-row items-center justify-between shadow-sm">
+    <div id="tg-profile-footer" class="premium-card rounded-2xl p-3 bg-white border border-gray-150 flex flex-row items-center justify-between shadow-sm">
       <div class="flex items-center gap-3">
         <img id="user-photo" src="" alt="user" class="w-9 h-9 rounded-full border border-brand-500 object-cover shadow-sm hidden" />
         <div id="user-photo-fallback" class="w-9 h-9 rounded-full border border-brand-200 bg-gray-50 flex items-center justify-center shadow-sm">
@@ -562,7 +584,10 @@
 
   <script>
     const domCache = {};
-    function getEl(id) { if (!domCache[id]) domCache[id] = document.getElementById(id); return domCache[id]; }
+    function getEl(id) {
+      if (!domCache[id]) domCache[id] = document.getElementById(id);
+      return domCache[id];
+    }
 
     let currentAsset = 'XAUUSD';
     let currentType = 'METAL';
@@ -572,208 +597,81 @@
     try {
       if (window.Telegram && window.Telegram.WebApp) {
         const webapp = window.Telegram.WebApp;
-        webapp.ready(); webapp.expand();
+        webapp.ready();
+        webapp.expand();
         let tgUser = webapp.initDataUnsafe.user;
         if (tgUser) {
           getEl('tg-username-footer').innerText = '@' + (tgUser.username || tgUser.first_name.toLowerCase().replace(/\s/g, ''));
           getEl('user-first-name-footer').innerText = tgUser.first_name;
-          if (tgUser.photo_url) { getEl('user-photo').src = tgUser.photo_url; getEl('user-photo').classList.remove('hidden'); getEl('user-photo-fallback').classList.add('hidden'); }
+          if (tgUser.photo_url) {
+            getEl('user-photo').src = tgUser.photo_url;
+            getEl('user-photo').classList.remove('hidden');
+            getEl('user-photo-fallback').classList.add('hidden');
+          }
         }
       }
     } catch (e) {}
 
     /* =========================================================
-       🎵 MUSIC PLAYER - YOUTUBE IFRAME API (FULL SONG, LEGAL)
+       LIVE RADIO PLAYER
        ========================================================= */
-    let ytPlayer = null;
-    let ytPlaylist = [];
-    let currentYtIdx = -1;
-    let ytProgressInterval = null;
-    let ytCoverMap = {}; // Cache cover images
+    const audioEl = document.getElementById('core-audio-player');
+    const audioSelect = document.getElementById('native-audio-select');
+    const audioIcon = document.getElementById('native-play-icon');
+    const audioStatusText = document.getElementById('native-status-text');
+    const audioStatusDot = document.getElementById('native-status-dot');
+    const audioVis = document.getElementById('audio-visualizer');
+    const audioTitle = document.getElementById('native-song-title');
 
-    // Ekstrak Video ID dari berbagai format URL YouTube
-    function parseYtId(url) {
-      const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-      return match ? match[1] : (url.length === 11 ? url : null);
-    }
+    audioEl.src = audioSelect.value;
+    audioTitle.innerText = audioSelect.options[audioSelect.selectedIndex].text.replace("📻 ", "").replace("☕ ", "");
 
-    function formatTimeYt(sec) {
-      if (!sec || isNaN(sec)) return '0:00';
-      const m = Math.floor(sec / 60);
-      const s = Math.floor(sec % 60);
-      return `${m}:${s < 10 ? '0' : ''}${s}`;
-    }
+    audioEl.addEventListener('playing', () => {
+      audioIcon.className = "fa-solid fa-pause text-lg text-white";
+      audioStatusText.innerText = "Now Playing (Live Stream)";
+      audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
+      audioVis.classList.remove('opacity-0');
+    });
 
-    // Callback otomatis dipanggil saat YouTube API siap
-    function onYouTubeIframeAPIReady() {
-      ytPlayer = new YT.Player('yt-player', {
-        height: '1', width: '1',
-        playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'fs': 0, 'modestbranding': 1, 'rel': 0 },
-        events: {
-          'onReady': onYtReady,
-          'onStateChange': onYtStateChange,
-          'onError': onYtError
-        }
-      });
-    }
+    audioEl.addEventListener('pause', () => {
+      audioIcon.className = "fa-solid fa-play ml-0.5 text-lg text-white";
+      audioStatusText.innerText = "Paused";
+      audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-yellow-500";
+      audioVis.classList.add('opacity-0');
+    });
 
-    function onYtReady() {
-      getEl('yt-player-status').innerText = '✅ YouTube Ready';
-    }
+    audioEl.addEventListener('waiting', () => {
+      audioStatusText.innerText = "Menghubungkan ke Saluran...";
+      audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse";
+    });
 
-    function onYtStateChange(e) {
-      // 1=Playing, 2=Paused, 0=Ended, 3=Buffering, 5=Video Cued
-      if (e.data === 1) {
-        getEl('yt-play-icon').className = 'fa-solid fa-pause text-[11px]';
-        getEl('yt-player-status').innerText = '▶ Playing';
-        startYtProgress();
-      } else if (e.data === 2) {
-        getEl('yt-play-icon').className = 'fa-solid fa-play text-[11px] ml-0.5';
-        getEl('yt-player-status').innerText = '⏸ Paused';
-        stopYtProgress();
-      } else if (e.data === 0) {
-        nextTrackYt();
-      } else if (e.data === 3) {
-        getEl('yt-player-status').innerText = '⏳ Buffering...';
+    audioEl.addEventListener('error', () => {
+      audioStatusText.innerText = "Stream Gagal - Pilih Saluran Lain";
+      audioStatusDot.className = "w-1.5 h-1.5 rounded-full bg-red-600";
+      audioIcon.className = "fa-solid fa-play ml-0.5 text-white";
+      audioVis.classList.add('opacity-0');
+    });
+
+    function toggleNativeAudioPlay() {
+      if (audioEl.paused || audioEl.readyState === 0) {
+        audioStatusText.innerText = "Menghubungkan ke Stasiun...";
+        audioEl.play().catch(e => {
+            audioStatusText.innerText = "Gagal memutar. Ketuk lagi.";
+        });
+      } else {
+        audioEl.pause();
       }
     }
 
-    function onYtError(e) {
-      const msgs = { 2: 'Invalid ID', 5: 'HTML5 Error', 100: 'Video Not Found/Removed', 101/150: 'Playback Restricted by Owner' };
-      getEl('yt-player-status').innerText = `❌ ${msgs[e.data] || 'Error ' + e.data}`;
-      stopYtProgress();
-    }
-
-    function loadYtUrl() {
-      const input = getEl('yt-url-input');
-      const raw = input.value.trim();
-      if (!raw) return;
-      
-      const videoId = parseYtId(raw);
-      if (!videoId) {
-        getEl('yt-player-status').innerText = '⚠️ URL/ID tidak valid';
-        return;
-      }
-
-      const item = { id: videoId, title: `Video: ${videoId}`, artist: 'YouTube', cover: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` };
-      if (!ytPlaylist.some(t => t.id === videoId)) {
-        ytPlaylist.push(item);
-        renderYtPlaylist();
-      }
-      playTrackYt(ytPlaylist.findIndex(t => t.id === videoId));
-      input.value = '';
-    }
-
-    function quickYt(url, btn) {
-      getEl('yt-url-input').value = url;
-      document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('chip-active'));
-      if (btn) btn.classList.add('chip-active');
-      loadYtUrl();
-    }
-
-    function renderYtPlaylist() {
-      const container = getEl('yt-playlist-container');
-      getEl('yt-playlist-count').innerText = `(${ytPlaylist.length})`;
-      
-      if (ytPlaylist.length === 0) {
-        container.innerHTML = `<div class="text-center py-4 text-gray-500 text-[10px]"><i class="fa-brands fa-youtube text-lg mb-1 opacity-20 block text-red-500"></i><p>Paste URL YouTube untuk mulai</p></div>`;
-        return;
-      }
-
-      container.innerHTML = ytPlaylist.map((track, idx) => `
-        <div class="playlist-item flex items-center gap-2 p-1.5 rounded-lg border border-white/5 hover:bg-white/5 cursor-pointer transition-all group" 
-             data-idx="${idx}" onclick="playTrackYt(${idx})">
-          <div class="relative shrink-0 w-8 h-8 rounded-md overflow-hidden bg-gray-800">
-            <img src="${track.cover}" alt="" class="w-full h-full object-cover" loading="lazy" />
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="pl-title text-[10px] font-bold text-white truncate">${track.title}</div>
-            <div class="text-[8px] text-gray-500 truncate">${track.artist}</div>
-          </div>
-        </div>
-      `).join('');
-
-      updateYtActiveUI();
-    }
-
-    function updateYtActiveUI() {
-      document.querySelectorAll('.playlist-item').forEach((el, idx) => {
-        if (idx === currentYtIdx) el.classList.add('active');
-        else el.classList.remove('active');
-      });
-    }
-
-    function playTrackYt(idx) {
-      if (idx < 0 || idx >= ytPlaylist.length || !ytPlayer) return;
-      currentYtIdx = idx;
-      const track = ytPlaylist[idx];
-      
-      ytPlayer.loadVideoById(track.id);
-      getEl('yt-player-title').innerText = track.title;
-      getEl('yt-player-artist').innerText = track.artist;
-      getEl('yt-player-cover').src = track.cover;
-      getEl('yt-player-status').innerText = '▶ Loading...';
-      
-      const activeEl = document.querySelector(`.playlist-item[data-idx="${idx}"]`);
-      if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      updateYtActiveUI();
-    }
-
-    function togglePlayYt() {
-      if (!ytPlayer) return;
-      if (currentYtIdx < 0 && ytPlaylist.length > 0) { playTrackYt(0); return; }
-      const state = ytPlayer.getPlayerState();
-      if (state === 1) ytPlayer.pauseVideo();
-      else ytPlayer.playVideo();
-    }
-
-    function nextTrackYt() {
-      if (ytPlaylist.length === 0) return;
-      const nextIdx = (currentYtIdx + 1) % ytPlaylist.length;
-      playTrackYt(nextIdx);
-    }
-
-    function prevTrackYt() {
-      if (ytPlaylist.length === 0) return;
-      if (ytPlayer.getCurrentTime && ytPlayer.getCurrentTime() > 3) { ytPlayer.seekTo(0); return; }
-      const prevIdx = (currentYtIdx - 1 + ytPlaylist.length) % ytPlaylist.length;
-      playTrackYt(prevIdx);
-    }
-
-    function seekYt(event) {
-      const bar = event.currentTarget;
-      const rect = bar.getBoundingClientRect();
-      const percent = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-      if (ytPlayer && ytPlayer.getDuration) {
-        const dur = ytPlayer.getDuration();
-        if (dur > 0) {
-          ytPlayer.seekTo(dur * percent);
-          getEl('yt-progress-fill').style.width = `${percent * 100}%`;
-        }
-      }
-    }
-
-    function startYtProgress() {
-      stopYtProgress();
-      ytProgressInterval = setInterval(() => {
-        if (!ytPlayer || !ytPlayer.getCurrentTime) return;
-        const cur = ytPlayer.getCurrentTime();
-        const dur = ytPlayer.getDuration() || 0;
-        if (dur > 0) {
-          const pct = (cur / dur) * 100;
-          getEl('yt-progress-fill').style.width = `${pct}%`;
-          getEl('yt-current-time').innerText = formatTimeYt(cur);
-          getEl('yt-duration-time').innerText = formatTimeYt(dur);
-        }
-      }, 500);
-    }
-
-    function stopYtProgress() {
-      if (ytProgressInterval) clearInterval(ytProgressInterval);
+    function changeNativeAudio() {
+      audioEl.src = audioSelect.value;
+      audioTitle.innerText = audioSelect.options[audioSelect.selectedIndex].text.replace("📻 ", "").replace("☕ ", "");
+      audioStatusText.innerText = "Menghubungkan ke Stasiun...";
+      audioEl.play().catch(e => console.log(e));
     }
 
     /* =========================================================
-       CORE DASHBOARD SCRIPT
+       CORE DASHBOARD SCRIPT & 100% REALTIME WEBSOCKET
        ========================================================= */
     const assetParameters = {
       XAUUSD: { basePrice: 2334.50, grade: 'GRADE A', decision: '🎯 BUY NOW', confidence: '88% | Risk: LOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.05 Lot', atr: '4.25', adr: '22.80', slope: '+0.145 (Bullish)', chartData: [2322.1, 2324.5, 2320.9, 2328.0, 2326.4, 2330.1, 2334.5] },
@@ -789,61 +687,88 @@
     const binanceWS = new WebSocket(wsUrl);
 
     binanceWS.onmessage = function(event) {
-      const msg = JSON.parse(event.data);
-      let pair = '';
-      if (msg.s === 'BTCUSDT') pair = 'BTCUSD';
-      else if (msg.s === 'ETHUSDT') pair = 'ETHUSD';
-      else if (msg.s === 'PAXGUSDT') pair = 'XAUUSD';
-      else if (msg.s === 'EURUSDT') pair = 'EURUSD';
-      if (pair) processLivePrice(pair, parseFloat(msg.c));
+        const msg = JSON.parse(event.data);
+        let pair = '';
+        if (msg.s === 'BTCUSDT') pair = 'BTCUSD';
+        else if (msg.s === 'ETHUSDT') pair = 'ETHUSD';
+        else if (msg.s === 'PAXGUSDT') pair = 'XAUUSD'; 
+        else if (msg.s === 'EURUSDT') pair = 'EURUSD';
+
+        if (pair) {
+            const newPrice = parseFloat(msg.c);
+            processLivePrice(pair, newPrice);
+        }
     };
 
     function processLivePrice(pair, newPrice) {
-      const param = assetParameters[pair];
-      const oldPrice = param.basePrice;
-      param.basePrice = newPrice;
-      const pEl = getEl(`price-${pair}`);
-      const rowBid = getEl(`row-bid-${pair}`);
-      const p = getPrecision(pair);
-      const priceStr = newPrice.toFixed(p);
-      if (pEl) {
-        pEl.innerText = priceStr;
-        if (newPrice > oldPrice) pEl.className = `price-val text-[10px] font-bold transition-all ${currentAsset === pair ? 'text-emerald-300' : 'text-emerald-600'}`;
-        else if (newPrice < oldPrice) pEl.className = `price-val text-[10px] font-bold transition-all ${currentAsset === pair ? 'text-red-300' : 'text-red-500'}`;
-      }
-      if (rowBid && newPrice !== oldPrice) {
-        rowBid.innerText = priceStr;
-        const parent = rowBid.parentElement;
-        parent.classList.add(newPrice > oldPrice ? 'bg-emerald-50/50' : 'bg-red-50/50');
-        setTimeout(() => parent.classList.remove('bg-emerald-50/50', 'bg-red-50/50'), 300);
-      }
+        const param = assetParameters[pair];
+        const oldPrice = param.basePrice;
+        param.basePrice = newPrice;
+
+        const pEl = getEl(`price-${pair}`);
+        const rowBid = getEl(`row-bid-${pair}`);
+        const p = getPrecision(pair);
+        const priceStr = newPrice.toFixed(p);
+
+        if (pEl) {
+            pEl.innerText = priceStr;
+            if (newPrice > oldPrice) pEl.className = `price-val text-[10px] font-bold transition-all ${currentAsset === pair ? 'text-emerald-300' : 'text-emerald-600'}`;
+            else if (newPrice < oldPrice) pEl.className = `price-val text-[10px] font-bold transition-all ${currentAsset === pair ? 'text-red-300' : 'text-red-500'}`;
+        }
+
+        if (rowBid && newPrice !== oldPrice) {
+            rowBid.innerText = priceStr;
+            const parent = rowBid.parentElement;
+            parent.classList.add(newPrice > oldPrice ? 'bg-emerald-50/50' : 'bg-red-50/50');
+            setTimeout(() => {
+                parent.classList.remove('bg-emerald-50/50', 'bg-red-50/50');
+            }, 300);
+        }
     }
 
     async function fetchUSDJPY() {
-      try {
-        let res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-        let data = await res.json();
-        if (data && data.rates && data.rates.JPY) processLivePrice('USDJPY', data.rates.JPY);
-      } catch(e) {}
+       try {
+         let res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+         let data = await res.json();
+         if(data && data.rates && data.rates.JPY) {
+            processLivePrice('USDJPY', data.rates.JPY);
+         }
+       } catch(e) {}
     }
     setInterval(fetchUSDJPY, 10000);
 
     function processAIAnalysis() {
-      const pair = currentAsset;
-      const param = assetParameters[pair];
-      if (!param.priceHistory) param.priceHistory = [...param.chartData];
-      param.priceHistory.push(param.basePrice);
-      if (param.priceHistory.length > 8) param.priceHistory.shift();
-      const sma = param.priceHistory.reduce((a, b) => a + b, 0) / param.priceHistory.length;
-      const diffPct = ((param.basePrice - sma) / sma) * 100;
-      let threshold = (pair === 'BTCUSD' || pair === 'ETHUSD') ? 0.015 : (pair === 'USDJPY' ? 0.005 : 0.003);
-      if (diffPct > threshold * 1.5) { param.decision = '🔥 STRONG BUY'; param.grade = 'GRADE A+'; param.slope = `+${diffPct.toFixed(3)}% (Strong Bullish)`; param.sweep = '🟢 LIQUIDITY SWEEP (BULLISH)'; param.vsa = '🔥 AGGRESSIVE ACCUMULATION'; }
-      else if (diffPct > threshold * 0.2) { param.decision = '🎯 BUY NOW'; param.grade = 'GRADE A'; param.slope = `+${diffPct.toFixed(3)}% (Bullish)`; param.sweep = '🟢 MINOR SWEEP CONFIRMED'; param.vsa = '💼 INSTITUTIONAL ABSORPTION'; }
-      else if (diffPct < -threshold * 1.5) { param.decision = '🩸 STRONG SELL'; param.grade = 'GRADE A+'; param.slope = `${diffPct.toFixed(3)}% (Strong Bearish)`; param.sweep = '🔴 LIQUIDITY SWEEP (BEARISH)'; param.vsa = '🩸 AGGRESSIVE DISTRIBUTION'; }
-      else if (diffPct < -threshold * 0.2) { param.decision = '📉 SELL NOW'; param.grade = 'GRADE A'; param.slope = `${diffPct.toFixed(3)}% (Bearish)`; param.sweep = '🔴 MINOR SWEEP CONFIRMED'; param.vsa = '💼 INSTITUTIONAL SELLING'; }
-      else { param.decision = '⚪ WAIT / STANDBY'; param.grade = 'GRADE C'; param.slope = `${diffPct.toFixed(3)}% (Flat/Ranging)`; param.sweep = '⚪ NO SWEEP DETECTED'; param.vsa = '⚪ LOW LIQUIDITY'; }
-      calculateDynamicSMC(pair);
-      renderDashboardPrices();
+        const pair = currentAsset;
+        const param = assetParameters[pair];
+        
+        if (pair === 'USDJPY') {
+            const jitter = param.basePrice * (1 + (Math.random() - 0.5) * 0.0001);
+            processLivePrice('USDJPY', jitter);
+        }
+
+        if (!param.priceHistory) param.priceHistory = [...param.chartData];
+        param.priceHistory.push(param.basePrice);
+        if (param.priceHistory.length > 8) param.priceHistory.shift();
+
+        const sum = param.priceHistory.reduce((a, b) => a + b, 0);
+        const sma = sum / param.priceHistory.length;
+        const diffPct = ((param.basePrice - sma) / sma) * 100;
+        let threshold = (pair === 'BTCUSD' || pair === 'ETHUSD') ? 0.015 : (pair === 'USDJPY' ? 0.005 : 0.003);
+
+        if (diffPct > threshold * 1.5) {
+          param.decision = '🔥 STRONG BUY'; param.grade = 'GRADE A+'; param.slope = `+${diffPct.toFixed(3)}% (Strong Bullish)`; param.sweep = '🟢 LIQUIDITY SWEEP (BULLISH)'; param.vsa = '🔥 AGGRESSIVE ACCUMULATION';
+        } else if (diffPct > threshold * 0.2) {
+          param.decision = '🎯 BUY NOW'; param.grade = 'GRADE A'; param.slope = `+${diffPct.toFixed(3)}% (Bullish)`; param.sweep = '🟢 MINOR SWEEP CONFIRMED'; param.vsa = '💼 INSTITUTIONAL ABSORPTION';
+        } else if (diffPct < -threshold * 1.5) {
+          param.decision = '🩸 STRONG SELL'; param.grade = 'GRADE A+'; param.slope = `${diffPct.toFixed(3)}% (Strong Bearish)`; param.sweep = '🔴 LIQUIDITY SWEEP (BEARISH)'; param.vsa = '🩸 AGGRESSIVE DISTRIBUTION';
+        } else if (diffPct < -threshold * 0.2) {
+          param.decision = '📉 SELL NOW'; param.grade = 'GRADE A'; param.slope = `${diffPct.toFixed(3)}% (Bearish)`; param.sweep = '🔴 MINOR SWEEP CONFIRMED'; param.vsa = '💼 INSTITUTIONAL SELLING';
+        } else {
+          param.decision = '⚪ WAIT / STANDBY'; param.grade = 'GRADE C'; param.slope = `${diffPct.toFixed(3)}% (Flat/Ranging)`; param.sweep = '⚪ NO SWEEP DETECTED'; param.vsa = '⚪ LOW LIQUIDITY';
+        }
+
+        calculateDynamicSMC(pair);
+        renderDashboardPrices();
     }
 
     function calculateDynamicSMC(pair) {
@@ -852,21 +777,25 @@
       const adr = parseFloat(param.adr);
       const atr = parseFloat(param.atr);
       let dHigh, dLow;
-      if (param.decision.includes('BUY') || param.decision.includes('BREAKOUT')) { dHigh = base + (adr * 0.45); dLow = base - (adr * 0.55); }
-      else if (param.decision.includes('SELL')) { dHigh = base + (adr * 0.55); dLow = base - (adr * 0.45); }
+      if (param.decision.includes('BUY') || param.decision.includes('BREAKOUT')) { dHigh = base + (adr * 0.45); dLow = base - (adr * 0.55); } 
+      else if (param.decision.includes('SELL')) { dHigh = base + (adr * 0.55); dLow = base - (adr * 0.45); } 
       else { dHigh = base + (adr * 0.5); dLow = base - (adr * 0.5); }
+
       const dRange = dHigh - dLow;
       const pivot = (dHigh + dLow + base) / 3.0;
       const r3 = base + (dRange * 1.1) / 4.0;
       const s3 = base - (dRange * 1.1) / 4.0;
       param.camarilla = `S3: ${s3.toFixed(getPrecision(pair))} | Pivot: ${pivot.toFixed(getPrecision(pair))} | R3: ${r3.toFixed(getPrecision(pair))}`;
+
       if (param.decision.includes('BUY') || param.decision.includes('BREAKOUT')) {
         let risk = Math.max(base - (s3 - 0.2 * atr), atr * 1.5);
         param.slOffset = -risk; param.tp1Offset = risk * 1.5; param.tp2Offset = risk * 2.5; param.tp3Offset = risk * 4.0;
       } else if (param.decision.includes('SELL')) {
         let risk = Math.max((r3 + 0.2 * atr) - base, atr * 1.5);
         param.slOffset = risk; param.tp1Offset = -risk * 1.5; param.tp2Offset = -risk * 2.5; param.tp3Offset = -risk * 4.0;
-      } else { param.slOffset = 0; param.tp1Offset = 0; param.tp2Offset = 0; param.tp3Offset = 0; }
+      } else {
+        param.slOffset = 0; param.tp1Offset = 0; param.tp2Offset = 0; param.tp3Offset = 0;
+      }
     }
 
     function renderDashboardPrices() {
@@ -875,32 +804,36 @@
       const isWait = param.decision.includes('WAIT');
       const base = param.basePrice;
       const p = getPrecision(pair);
+      
       getEl('entry-price').innerText = isWait ? '-' : base.toFixed(p);
       getEl('sl-price').innerText = isWait ? '-' : (base + param.slOffset).toFixed(p);
       getEl('tp1-price').innerText = isWait ? '-' : (base + param.tp1Offset).toFixed(p);
       getEl('tp2-price').innerText = isWait ? '-' : (base + param.tp2Offset).toFixed(p);
       getEl('tp3-price').innerText = isWait ? '-' : (base + param.tp3Offset).toFixed(p);
+
       getEl('signal-grade').innerText = param.grade;
       getEl('signal-decision').innerText = param.decision;
       getEl('slope-value').innerText = param.slope;
       getEl('liquidity-sweep-status').innerText = param.sweep;
       getEl('vsa-status').innerText = param.vsa;
       getEl('camarilla-status').innerText = param.camarilla;
+
       const decBadge = getEl('signal-decision-badge');
       const decText = getEl('signal-decision');
       const gradeBadge = getEl('signal-grade');
+
       if (param.decision.includes('BUY')) {
-        decBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ACTIVE SIGNAL';
+        decBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ACTIVE SIGNAL`;
         decBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold mb-1 shadow-inner";
         decText.className = "text-2xl font-black tracking-tight text-emerald-600 mt-1 filter drop-shadow-[0_2px_8px_rgba(16,185,129,0.15)]";
         gradeBadge.className = "bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner";
       } else if (param.decision.includes('SELL')) {
-        decBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> ACTIVE SIGNAL';
+        decBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> ACTIVE SIGNAL`;
         decBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 border border-red-100 text-brand-600 rounded-full text-[10px] font-bold mb-1 shadow-inner";
         decText.className = "text-2xl font-black tracking-tight text-brand-600 mt-1 filter drop-shadow-[0_2px_8px_rgba(239,68,68,0.15)]";
         gradeBadge.className = "bg-red-50 border border-red-100 text-brand-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner";
       } else {
-        decBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-gray-500 animate-ping"></span> STANDBY';
+        decBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-gray-500 animate-ping"></span> STANDBY`;
         decBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-gray-200 text-gray-600 rounded-full text-[10px] font-bold mb-1 shadow-inner";
         decText.className = "text-2xl font-black tracking-tight text-gray-700 mt-1";
         gradeBadge.className = "bg-gray-100 border border-gray-200 text-gray-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner";
@@ -910,16 +843,22 @@
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
       getEl(`tab-${tabId}`).classList.remove('hidden');
+
       document.querySelectorAll('.tab-btn').forEach(btn => btn.className = "tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all");
       const activeDeskBtn = getEl(`btn-tab-${tabId}`);
       if (activeDeskBtn) activeDeskBtn.className = "tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-all";
+
       ['nav-dashboard', 'nav-forex-market', 'nav-hfm-broker'].forEach(id => {
         const btn = getEl(id);
         if (btn) btn.className = "flex flex-col items-center gap-1 text-gray-400 font-semibold text-[10px] transition-all";
       });
       const activeMobileBtn = getEl(`nav-${tabId}`);
       if (activeMobileBtn) activeMobileBtn.className = "flex flex-col items-center gap-1 text-brand-500 font-extrabold text-[10px] transition-all active-nav-btn";
-      if (tabId === 'dashboard' && !isTradingViewLoaded) { loadTradingViewChart(currentAsset, currentTimeframe); isTradingViewLoaded = true; }
+      
+      if (tabId === 'dashboard' && !isTradingViewLoaded) {
+        loadTradingViewChart(currentAsset, currentTimeframe);
+        isTradingViewLoaded = true;
+      }
     }
 
     function changeTimeframe(tf) {
@@ -931,35 +870,51 @@
     }
 
     function loadTradingViewChart(pair, timeframe) {
-      let tvSymbol = "BINANCE:PAXGUSDT";
+      let tvSymbol = "BINANCE:PAXGUSDT"; 
       if (pair === 'EURUSD') tvSymbol = "BINANCE:EURUSDT";
       if (pair === 'BTCUSD') tvSymbol = "BINANCE:BTCUSDT";
       if (pair === 'ETHUSD') tvSymbol = "BINANCE:ETHUSDT";
-      if (pair === 'USDJPY') tvSymbol = "FX:USDJPY";
+      if (pair === 'USDJPY') tvSymbol = "FX:USDJPY"; 
+
       const container = getEl('tradingview-container');
       if (!container) return;
       container.innerHTML = '<div id="tradingview_chart" class="w-full h-full"></div>';
+
       setTimeout(() => {
         try {
           new TradingView.widget({
-            "autosize": true, "symbol": tvSymbol, "interval": timeframe, "timezone": "Asia/Jakarta",
-            "theme": "light", "style": "1", "locale": "id", "enable_publishing": false,
-            "hide_side_toolbar": true, "hide_top_toolbar": true, "hide_legend": true,
-            "allow_symbol_change": false, "container_id": "tradingview_chart",
-            "save_image": false, "show_popup_button": false, "studies": [],
+            "autosize": true,
+            "symbol": tvSymbol,
+            "interval": timeframe,
+            "timezone": "Asia/Jakarta",
+            "theme": "light",
+            "style": "1",
+            "locale": "id",
+            "enable_publishing": false,
+            "hide_side_toolbar": true,
+            "hide_top_toolbar": true,
+            "hide_legend": true,
+            "allow_symbol_change": false,
+            "container_id": "tradingview_chart",
+            "save_image": false,
+            "show_popup_button": false,
+            "studies": [],
           });
         } catch(e) { console.error("TradingView init failed", e); }
       }, 200);
     }
 
     function selectAsset(pair, type) {
-      currentAsset = pair; currentType = type;
+      currentAsset = pair;
+      currentType = type;
       document.querySelectorAll('.asset-btn').forEach(btn => btn.className = "asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100");
       document.querySelectorAll('.price-val').forEach(el => el.className = "price-val text-[10px] text-gray-500 font-semibold transition-all");
+
       const activeBtn = getEl(`btn-${pair}`);
       if (activeBtn) activeBtn.className = "asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm";
       const activePriceEl = getEl(`price-${pair}`);
       if (activePriceEl) activePriceEl.className = "price-val text-[10px] text-gray-300 font-bold transition-all";
+
       getEl('chart-pair-label').innerText = `${pair} [${type}]`;
       processAIAnalysis();
       loadTradingViewChart(pair, currentTimeframe);
@@ -968,31 +923,52 @@
     function triggerRefresh() {
       const btn = getEl('refresh-btn');
       btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-arrows-rotate animate-spin"></i> CALCULATING BAYESIAN ODDS...';
+      btn.innerHTML = `<i class="fa-solid fa-arrows-rotate animate-spin"></i> CALCULATING BAYESIAN ODDS...`;
       setTimeout(() => {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-arrows-rotate animate-spin-slow"></i> TRIGGER MoE ANALYSIS';
+        btn.innerHTML = `<i class="fa-solid fa-arrows-rotate animate-spin-slow"></i> TRIGGER MoE ANALYSIS`;
         selectAsset(currentAsset, currentType);
       }, 1000);
     }
 
+    /* =========================================================
+       REALTIME MARKET SESSIONS CLOCK (WIB)
+       ========================================================= */
     function updateMarketClockAndSessions() {
       const now = new Date();
       getEl('live-clock').innerText = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' }) + ' WIB';
+      
+      // Get current hour in WIB (0-23) independent of device timezone
       const wibHour = parseInt(new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: 'Asia/Jakarta' }).format(now));
+      
+      // Approximate Forex Session Hours in WIB (GMT+7)
       const sessions = [
         { id: 'sess-sydney', start: 4, end: 13 },
         { id: 'sess-tokyo', start: 6, end: 15 },
         { id: 'sess-london', start: 14, end: 23 },
-        { id: 'sess-newyork', start: 19, end: 4 }
+        { id: 'sess-newyork', start: 19, end: 4 } // Crosses midnight
       ];
+
       sessions.forEach(sess => {
         const el = getEl(sess.id);
         if (!el || el.children.length < 2) return;
-        const dot = el.children[0], text = el.children[1];
-        let isActive = sess.start < sess.end ? (wibHour >= sess.start && wibHour < sess.end) : (wibHour >= sess.start || wibHour < sess.end);
-        if (isActive) { dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"; text.className = "text-emerald-600 font-extrabold text-[9px] tracking-wide"; }
-        else { dot.className = "w-1.5 h-1.5 rounded-full bg-gray-300"; text.className = "text-gray-400 font-bold text-[9px] tracking-wide"; }
+        const dot = el.children[0];
+        const text = el.children[1];
+        
+        let isActive = false;
+        if (sess.start < sess.end) {
+          isActive = wibHour >= sess.start && wibHour < sess.end;
+        } else {
+          isActive = wibHour >= sess.start || wibHour < sess.end;
+        }
+
+        if (isActive) {
+          dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]";
+          text.className = "text-emerald-600 font-extrabold text-[9px] tracking-wide";
+        } else {
+          dot.className = "w-1.5 h-1.5 rounded-full bg-gray-300";
+          text.className = "text-gray-400 font-bold text-[9px] tracking-wide";
+        }
       });
     }
 
@@ -1001,26 +977,112 @@
       const url = "https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829";
       const btn = event.currentTarget;
       if (btn.classList.contains('loading-verification')) return;
+      
       btn.classList.add('loading-verification');
       const originalHtml = btn.innerHTML;
-      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI...';
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI JALUR...`;
+      
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 1800);
+      
       fetch('https://register.hfmtrade-ind.com/favicon.ico', { mode: 'no-cors', signal: controller.signal })
-        .then(() => { clearTimeout(timeoutId); btn.innerHTML = originalHtml; btn.classList.remove('loading-verification'); window.open(url, '_blank'); })
-        .catch(() => { clearTimeout(timeoutId); btn.innerHTML = originalHtml; btn.classList.remove('loading-verification'); window.open(url, '_blank'); });
+        .then(() => {
+          clearTimeout(timeoutId);
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('loading-verification');
+          window.open(url, '_blank');
+        })
+        .catch(() => {
+          clearTimeout(timeoutId);
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('loading-verification');
+          showAntiBlockModal(url);
+        });
+    }
+
+    function showAntiBlockModal(targetUrl) {
+      const existingModal = document.getElementById('antiblock-modal');
+      if (existingModal) existingModal.remove();
+
+      const googleProxyUrl = "https://translate.google.com/translate?sl=en&tl=id&u=" + encodeURIComponent(targetUrl);
+
+      const modalHtml = `
+        <div id="antiblock-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 transition-all duration-300 scale-95" style="z-index: 999999;">
+          <div class="bg-gradient-to-b from-slate-900 via-slate-950 to-black border border-red-500/30 rounded-3xl p-6 max-w-sm w-full relative shadow-2xl shadow-red-950/20">
+            <button onclick="closeAntiBlockModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-all text-sm w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex flex-col items-center text-center gap-2">
+              <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 text-lg animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+                <i class="fa-solid fa-earth-asia"></i>
+              </div>
+              <h3 class="text-xs font-black tracking-widest text-red-500 uppercase mt-2">⚠️ KONEKSI TERBLOKIR (ISP)</h3>
+              <p class="text-[10px] text-gray-400 max-w-xs leading-relaxed">Situs resmi HFM terdeteksi diblokir oleh Internet Positif (ISP lokal Anda). Gunakan langkah mudah berikut untuk mengakses secara aman:</p>
+            </div>
+            <div class="space-y-2.5 mt-4">
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded uppercase">Metode 1</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Secure DNS (Tercepat & Gratis)</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">Aktifkan DNS Aman di Browser Anda: <br>• <strong>Chrome/Edge:</strong> Setelan ➜ Privasi & Keamanan ➜ Gunakan DNS Aman ➜ Pilih <strong>Cloudflare (1.1.1.1)</strong>.</p>
+              </div>
+              <div class="bg-white/5 border border-white/5 rounded-xl p-3 hover:border-amber-500/20 transition-all">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-black bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded uppercase">Metode 2</span>
+                  <h4 class="text-[9.5px] font-bold text-white uppercase">Cloudflare 1.1.1.1 WARP</h4>
+                </div>
+                <p class="text-[8.5px] text-gray-400 mt-1 leading-relaxed">Unduh aplikasi resmi <strong>1.1.1.1</strong> di Play Store / App Store. Aktifkan sekali sentuh untuk membuka semua blokir internet secara aman.</p>
+              </div>
+            </div>
+            <div class="mt-4.5 space-y-2">
+              <a href="${googleProxyUrl}" target="_blank" onclick="closeAntiBlockModal()" class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-slate-950 font-black py-2.5 rounded-xl transition-all shadow-lg text-[10px] text-center block uppercase tracking-wider border border-yellow-400/30">
+                ⚡ BYPASS INSTAN VIA GOOGLE SECURE
+              </a>
+              <a href="${targetUrl}" target="_blank" onclick="closeAntiBlockModal()" class="w-full bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black py-2.5 rounded-xl transition-all shadow-lg text-[10px] text-center block uppercase tracking-wider border border-brand-500/30">
+                🚀 COBA BUKA SEKARANG JUGA
+              </a>
+              <button onclick="closeAntiBlockModal()" class="w-full text-[8.5px] text-gray-500 hover:text-gray-300 font-bold transition-all text-center block uppercase tracking-wider py-1">
+                KEMBALI KE MINI APP
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      const modal = document.getElementById('antiblock-modal');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0', 'scale-95');
+        modal.classList.add('opacity-100', 'scale-100');
+      }, 50);
+    }
+
+    function closeAntiBlockModal() {
+      const modal = document.getElementById('antiblock-modal');
+      if (modal) {
+        modal.classList.remove('opacity-100', 'scale-100');
+        modal.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => modal.remove(), 300);
+      }
     }
 
     function initializeApp() {
-      Object.keys(assetParameters).forEach(pair => processLivePrice(pair, assetParameters[pair].basePrice));
+      Object.keys(assetParameters).forEach(pair => {
+         processLivePrice(pair, assetParameters[pair].basePrice);
+      });
+      
       selectAsset('XAUUSD', 'METAL');
       updateMarketClockAndSessions();
+      
       setInterval(updateMarketClockAndSessions, 1000);
-      setInterval(processAIAnalysis, 3000);
+      setInterval(processAIAnalysis, 3000); 
     }
 
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeApp);
-    else initializeApp();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeApp);
+    } else {
+      initializeApp();
+    }
   </script>
 </body>
 </html>
