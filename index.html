@@ -11,8 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- SoundCloud Widget API -->
-  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
     tailwind.config = {
@@ -65,9 +65,9 @@
     .active-nav-btn { color: #ef4444 !important; font-weight: 800 !important; }
     .cover-playing { animation: coverSpin 20s linear infinite; }
     .cover-paused { animation-play-state: paused; }
-    .playlist-item.active { border-color: rgba(249, 115, 22, 0.5) !important; background: rgba(249, 115, 22, 0.1) !important; }
-    .playlist-item.active .pl-title { color: #f97316 !important; }
-    .chip-active { background: #f97316 !important; color: white !important; border-color: #f97316 !important; }
+    .playlist-item.active { border-color: rgba(239, 68, 68, 0.5) !important; background: rgba(239, 68, 68, 0.1) !important; }
+    .playlist-item.active .pl-title { color: #ef4444 !important; }
+    .chip-active { background: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     .scrollbar-thin::-webkit-scrollbar { width: 3px; }
@@ -390,59 +390,59 @@
       </div>
 
       <!-- =============================================== -->
-      <!-- MUSIC PLAYER COMPACT - SOUNDCLOUD WIDGET (FULL) -->
+      <!-- MUSIC PLAYER COMPACT - YOUTUBE IFRAME API (FULL) -->
       <!-- =============================================== -->
       <div class="premium-card rounded-2xl p-2.5 md:p-3 flex flex-col">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-[10px] font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-1.5">
-            <i class="fa-solid fa-cloud text-orange-500"></i> Stream
+            <i class="fa-brands fa-youtube text-red-500"></i> Stream
           </h3>
-          <span id="sc-quality-badge" class="text-[7px] bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5">
-            <i class="fa-solid fa-music"></i> FULL
+          <span id="yt-quality-badge" class="text-[7px] bg-gradient-to-r from-red-600 to-red-500 text-white font-black px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5">
+            <i class="fa-solid fa-play"></i> FULL
           </span>
         </div>
 
         <div class="w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-2.5 border border-gray-800 shadow-inner flex flex-col gap-2.5">
           
-          <!-- SoundCloud Widget Container (Hidden) -->
-          <div id="sc-widget-container" class="absolute -top-[9999px] -left-[9999px] w-1 h-1"></div>
+          <!-- YouTube Player Container (Hidden) -->
+          <div id="yt-player" class="absolute -top-[9999px] -left-[9999px] w-1 h-1"></div>
 
           <!-- Compact Now Playing -->
           <div class="flex items-center gap-2.5">
             <div class="relative shrink-0 group">
-              <div class="w-12 h-12 rounded-lg bg-gray-800 border border-gray-700 shadow-lg overflow-hidden flex items-center justify-center" id="sc-cover-wrapper">
-                <img id="sc-player-cover" src="https://via.placeholder.com/150x150/1e293b/f97316?text=%F0%9F%8E%B5" 
+              <div class="w-12 h-12 rounded-lg bg-gray-800 border border-gray-700 shadow-lg overflow-hidden flex items-center justify-center" id="yt-cover-wrapper">
+                <img id="yt-player-cover" src="https://via.placeholder.com/150x150/1e293b/ef4444?text=%E2%99%AB" 
                   alt="cover" class="w-full h-full object-cover transition-transform group-hover:scale-105" />
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <i class="fa-solid fa-cloud text-orange-400 text-lg"></i>
+                  <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
                 </div>
               </div>
             </div>
 
             <div class="flex-1 min-w-0">
-              <h4 id="sc-player-title" class="text-[11px] font-black text-white truncate">Paste URL Lagu</h4>
-              <p id="sc-player-artist" class="text-[9px] text-gray-400 truncate">SoundCloud Widget</p>
+              <h4 id="yt-player-title" class="text-[11px] font-black text-white truncate">Paste YouTube URL</h4>
+              <p id="yt-player-artist" class="text-[9px] text-gray-400 truncate">YouTube IFrame API</p>
               
               <!-- Progress Bar -->
               <div class="flex items-center gap-1.5 mt-1.5">
-                <span id="sc-current-time" class="text-[8px] font-mono text-gray-500 w-7">0:00</span>
-                <div class="flex-1 relative h-1 bg-gray-700 rounded-full overflow-hidden cursor-pointer group" onclick="seekSc(event)">
-                  <div id="sc-progress-fill" class="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-500 to-amber-400 rounded-full transition-all" style="width:0%"></div>
+                <span id="yt-current-time" class="text-[8px] font-mono text-gray-500 w-7">0:00</span>
+                <div class="flex-1 relative h-1 bg-gray-700 rounded-full overflow-hidden cursor-pointer group" onclick="seekYt(event)">
+                  <div id="yt-progress-fill" class="absolute left-0 top-0 h-full bg-gradient-to-r from-red-600 to-red-500 rounded-full transition-all" style="width:0%"></div>
                   <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow"></div>
                 </div>
-                <span id="sc-duration-time" class="text-[8px] font-mono text-gray-500 w-7 text-right">0:00</span>
+                <span id="yt-duration-time" class="text-[8px] font-mono text-gray-500 w-7 text-right">0:00</span>
               </div>
             </div>
 
             <!-- Minimal Controls -->
             <div class="flex items-center gap-1">
-              <button onclick="prevTrackSc()" class="w-8 h-8 rounded-full hover:bg-white/15 text-white flex items-center justify-center transition-all active:scale-90">
+              <button onclick="prevTrackYt()" class="w-8 h-8 rounded-full hover:bg-white/15 text-white flex items-center justify-center transition-all active:scale-90">
                 <i class="fa-solid fa-backward-step text-[10px]"></i>
               </button>
-              <button onclick="togglePlaySc()" id="sc-play-btn" class="w-9 h-9 rounded-full bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center shadow-[0_0_12px_rgba(249,115,22,0.4)] hover:scale-105 transition-all active:scale-95 border border-white/10">
-                <i id="sc-play-icon" class="fa-solid fa-play text-[11px] ml-0.5"></i>
+              <button onclick="togglePlayYt()" id="yt-play-btn" class="w-9 h-9 rounded-full bg-gradient-to-tr from-red-600 to-red-500 text-white flex items-center justify-center shadow-[0_0_12px_rgba(239,68,68,0.4)] hover:scale-105 transition-all active:scale-95 border border-white/10">
+                <i id="yt-play-icon" class="fa-solid fa-play text-[11px] ml-0.5"></i>
               </button>
-              <button onclick="nextTrackSc()" class="w-8 h-8 rounded-full hover:bg-white/15 text-white flex items-center justify-center transition-all active:scale-90">
+              <button onclick="nextTrackYt()" class="w-8 h-8 rounded-full hover:bg-white/15 text-white flex items-center justify-center transition-all active:scale-90">
                 <i class="fa-solid fa-forward-step text-[10px]"></i>
               </button>
             </div>
@@ -452,36 +452,36 @@
           <div class="flex gap-1.5">
             <div class="relative flex-1">
               <i class="fa-solid fa-link absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500 text-[9px]"></i>
-              <input type="text" id="sc-url-input" placeholder="https://soundcloud.com/artist/track" 
-                class="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 text-[10px] font-medium rounded-lg pl-7 pr-2 py-1.5 focus:ring-1 focus:ring-orange-500 outline-none transition-all"
-                onkeydown="if(event.key==='Enter') loadScUrl()" />
+              <input type="text" id="yt-url-input" placeholder="https://youtube.com/watch?v=... atau ID video" 
+                class="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 text-[10px] font-medium rounded-lg pl-7 pr-2 py-1.5 focus:ring-1 focus:ring-red-500 outline-none transition-all"
+                onkeydown="if(event.key==='Enter') loadYtUrl()" />
             </div>
-            <button onclick="loadScUrl()" id="sc-load-btn" class="bg-orange-500 hover:bg-orange-400 text-white font-bold text-[10px] px-3 rounded-lg transition-all active:scale-95 shrink-0">
+            <button onclick="loadYtUrl()" id="yt-load-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold text-[10px] px-3 rounded-lg transition-all active:scale-95 shrink-0">
               <i class="fa-solid fa-play"></i>
             </button>
           </div>
 
-          <!-- Quick Playlist (Preset Working URLs) -->
+          <!-- Quick Playlist (Preset Working URLs/IDs) -->
           <div class="flex gap-1 overflow-x-auto whitespace-nowrap pb-0.5 scrollbar-hide">
-            <button onclick="quickSc('https://soundcloud.com/tulusofficial/monokrom', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Tulus</button>
-            <button onclick="quickSc('https://soundcloud.com/mahaliniofficial/sisa-rasa', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Mahalini</button>
-            <button onclick="quickSc('https://soundcloud.com/juicyluicy/sialan', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Juicy Luicy</button>
-            <button onclick="quickSc('https://soundcloud.com/taylorswift/anti-hero', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Taylor</button>
-            <button onclick="quickSc('https://soundcloud.com/theweeknd/blinding-lights', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Weeknd</button>
+            <button onclick="quickYt('https://www.youtube.com/watch?v=1Xz4f5vXQ4E', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Tulus</button>
+            <button onclick="quickYt('https://www.youtube.com/watch?v=5F4v0d3x9Y0', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Mahalini</button>
+            <button onclick="quickYt('https://www.youtube.com/watch?v=4fndeDfaWCg', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Juicy Luicy</button>
+            <button onclick="quickYt('https://www.youtube.com/watch?v=b1kbLWvqugk', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Taylor</button>
+            <button onclick="quickYt('https://www.youtube.com/watch?v=4NRXx6U8ABQ', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[8px] font-bold px-2 py-0.5 rounded-full transition-all">Weeknd</button>
           </div>
 
           <!-- Compact Playlist -->
           <div class="relative">
             <div class="flex items-center justify-between mb-1.5">
               <span class="text-[9px] font-black text-gray-400 uppercase tracking-wider flex items-center gap-1">
-                <i class="fa-solid fa-list-ul text-orange-500"></i> Queue <span id="sc-playlist-count" class="text-gray-600 font-mono">(0)</span>
+                <i class="fa-solid fa-list-ul text-red-500"></i> Queue <span id="yt-playlist-count" class="text-gray-600 font-mono">(0)</span>
               </span>
-              <span id="sc-player-status" class="text-[8px] text-gray-500 font-mono">Ready</span>
+              <span id="yt-player-status" class="text-[8px] text-gray-500 font-mono">Ready</span>
             </div>
-            <div id="sc-playlist-container" class="max-h-[180px] overflow-y-auto space-y-1 pr-0.5 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+            <div id="yt-playlist-container" class="max-h-[180px] overflow-y-auto space-y-1 pr-0.5 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
               <div class="text-center py-4 text-gray-500 text-[10px]">
-                <i class="fa-solid fa-cloud text-lg mb-1 opacity-20 block text-orange-500"></i>
-                <p>Paste URL SoundCloud atau klik preset di atas</p>
+                <i class="fa-brands fa-youtube text-lg mb-1 opacity-20 block text-red-500"></i>
+                <p>Paste URL YouTube atau klik preset di atas</p>
               </div>
             </div>
           </div>
@@ -583,98 +583,108 @@
     } catch (e) {}
 
     /* =========================================================
-       🎵 MUSIC PLAYER - SOUNDCLOUD WIDGET (FULL SONG, LEGAL)
+       🎵 MUSIC PLAYER - YOUTUBE IFRAME API (FULL SONG, LEGAL)
        ========================================================= */
-    let scWidget = null;
-    let scPlaylist = [];
-    let currentScIdx = -1;
-    let scProgressInterval = null;
+    let ytPlayer = null;
+    let ytPlaylist = [];
+    let currentYtIdx = -1;
+    let ytProgressInterval = null;
+    let ytCoverMap = {}; // Cache cover images
 
-    function initSoundCloud() {
-      if (!window.SC) {
-        getEl('sc-player-status').innerText = '⚠️ SC API Loading...';
-        setTimeout(initSoundCloud, 500);
-        return;
-      }
-      try {
-        // Initialize hidden widget with placeholder
-        scWidget = SC.Widget('https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/soundcloud-system/placeholder&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false');
-        
-        scWidget.bind(SC.Widget.Events.READY, () => {
-          getEl('sc-player-status').innerText = '✅ SoundCloud Ready';
-        });
-        
-        scWidget.bind(SC.Widget.Events.PLAY, () => {
-          getEl('sc-play-icon').className = 'fa-solid fa-pause text-[11px]';
-          getEl('sc-player-status').innerText = '▶ Playing';
-          startScProgress();
-        });
-        
-        scWidget.bind(SC.Widget.Events.PAUSE, () => {
-          getEl('sc-play-icon').className = 'fa-solid fa-play text-[11px] ml-0.5';
-          getEl('sc-player-status').innerText = '⏸ Paused';
-          stopScProgress();
-        });
-        
-        scWidget.bind(SC.Widget.Events.FINISH, () => {
-          nextTrackSc();
-        });
-        
-        scWidget.bind(SC.Widget.Events.ERROR, () => {
-          getEl('sc-player-status').innerText = '❌ Playback Error';
-          stopScProgress();
-        });
-      } catch (err) {
-        console.error('SC Init Error:', err);
-        getEl('sc-player-status').innerText = '❌ Widget Failed';
-      }
+    // Ekstrak Video ID dari berbagai format URL YouTube
+    function parseYtId(url) {
+      const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+      return match ? match[1] : (url.length === 11 ? url : null);
     }
 
-    function formatTime(ms) {
-      if (!ms || isNaN(ms)) return '0:00';
-      const sec = Math.floor(ms / 1000);
+    function formatTimeYt(sec) {
+      if (!sec || isNaN(sec)) return '0:00';
       const m = Math.floor(sec / 60);
-      const s = sec % 60;
+      const s = Math.floor(sec % 60);
       return `${m}:${s < 10 ? '0' : ''}${s}`;
     }
 
-    function loadScUrl() {
-      const input = getEl('sc-url-input');
-      const url = input.value.trim();
-      if (!url || !url.includes('soundcloud.com')) {
-        getEl('sc-player-status').innerText = '⚠️ Masukkan URL SoundCloud valid';
+    // Callback otomatis dipanggil saat YouTube API siap
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('yt-player', {
+        height: '1', width: '1',
+        playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'fs': 0, 'modestbranding': 1, 'rel': 0 },
+        events: {
+          'onReady': onYtReady,
+          'onStateChange': onYtStateChange,
+          'onError': onYtError
+        }
+      });
+    }
+
+    function onYtReady() {
+      getEl('yt-player-status').innerText = '✅ YouTube Ready';
+    }
+
+    function onYtStateChange(e) {
+      // 1=Playing, 2=Paused, 0=Ended, 3=Buffering, 5=Video Cued
+      if (e.data === 1) {
+        getEl('yt-play-icon').className = 'fa-solid fa-pause text-[11px]';
+        getEl('yt-player-status').innerText = '▶ Playing';
+        startYtProgress();
+      } else if (e.data === 2) {
+        getEl('yt-play-icon').className = 'fa-solid fa-play text-[11px] ml-0.5';
+        getEl('yt-player-status').innerText = '⏸ Paused';
+        stopYtProgress();
+      } else if (e.data === 0) {
+        nextTrackYt();
+      } else if (e.data === 3) {
+        getEl('yt-player-status').innerText = '⏳ Buffering...';
+      }
+    }
+
+    function onYtError(e) {
+      const msgs = { 2: 'Invalid ID', 5: 'HTML5 Error', 100: 'Video Not Found/Removed', 101/150: 'Playback Restricted by Owner' };
+      getEl('yt-player-status').innerText = `❌ ${msgs[e.data] || 'Error ' + e.data}`;
+      stopYtProgress();
+    }
+
+    function loadYtUrl() {
+      const input = getEl('yt-url-input');
+      const raw = input.value.trim();
+      if (!raw) return;
+      
+      const videoId = parseYtId(raw);
+      if (!videoId) {
+        getEl('yt-player-status').innerText = '⚠️ URL/ID tidak valid';
         return;
       }
-      
-      if (!scPlaylist.some(t => t.url === url)) {
-        scPlaylist.push({ url, title: url.split('/').pop().replace(/-/g, ' '), artist: url.split('/')[3], cover: 'https://via.placeholder.com/150x150/1e293b/f97316?text=%F0%9F%8E%B5' });
-        renderScPlaylist();
+
+      const item = { id: videoId, title: `Video: ${videoId}`, artist: 'YouTube', cover: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` };
+      if (!ytPlaylist.some(t => t.id === videoId)) {
+        ytPlaylist.push(item);
+        renderYtPlaylist();
       }
-      playTrackSc(scPlaylist.length - 1);
+      playTrackYt(ytPlaylist.findIndex(t => t.id === videoId));
       input.value = '';
     }
 
-    function quickSc(url, btn) {
-      getEl('sc-url-input').value = url;
+    function quickYt(url, btn) {
+      getEl('yt-url-input').value = url;
       document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('chip-active'));
       if (btn) btn.classList.add('chip-active');
-      loadScUrl();
+      loadYtUrl();
     }
 
-    function renderScPlaylist() {
-      const container = getEl('sc-playlist-container');
-      getEl('sc-playlist-count').innerText = `(${scPlaylist.length})`;
+    function renderYtPlaylist() {
+      const container = getEl('yt-playlist-container');
+      getEl('yt-playlist-count').innerText = `(${ytPlaylist.length})`;
       
-      if (scPlaylist.length === 0) {
-        container.innerHTML = `<div class="text-center py-4 text-gray-500 text-[10px]"><i class="fa-solid fa-cloud text-lg mb-1 opacity-20 block text-orange-500"></i><p>Belum ada lagu</p></div>`;
+      if (ytPlaylist.length === 0) {
+        container.innerHTML = `<div class="text-center py-4 text-gray-500 text-[10px]"><i class="fa-brands fa-youtube text-lg mb-1 opacity-20 block text-red-500"></i><p>Paste URL YouTube untuk mulai</p></div>`;
         return;
       }
 
-      container.innerHTML = scPlaylist.map((track, idx) => `
+      container.innerHTML = ytPlaylist.map((track, idx) => `
         <div class="playlist-item flex items-center gap-2 p-1.5 rounded-lg border border-white/5 hover:bg-white/5 cursor-pointer transition-all group" 
-             data-idx="${idx}" onclick="playTrackSc(${idx})">
+             data-idx="${idx}" onclick="playTrackYt(${idx})">
           <div class="relative shrink-0 w-8 h-8 rounded-md overflow-hidden bg-gray-800">
-            <img src="${track.cover}" alt="" class="w-full h-full object-cover" />
+            <img src="${track.cover}" alt="" class="w-full h-full object-cover" loading="lazy" />
           </div>
           <div class="flex-1 min-w-0">
             <div class="pl-title text-[10px] font-bold text-white truncate">${track.title}</div>
@@ -683,106 +693,84 @@
         </div>
       `).join('');
 
-      updateScActiveUI();
+      updateYtActiveUI();
     }
 
-    function updateScActiveUI() {
+    function updateYtActiveUI() {
       document.querySelectorAll('.playlist-item').forEach((el, idx) => {
-        if (idx === currentScIdx) el.classList.add('active');
+        if (idx === currentYtIdx) el.classList.add('active');
         else el.classList.remove('active');
       });
     }
 
-    function playTrackSc(idx) {
-      if (idx < 0 || idx >= scPlaylist.length || !scWidget) return;
-      currentScIdx = idx;
-      const track = scPlaylist[idx];
+    function playTrackYt(idx) {
+      if (idx < 0 || idx >= ytPlaylist.length || !ytPlayer) return;
+      currentYtIdx = idx;
+      const track = ytPlaylist[idx];
       
-      scWidget.load(track.url, { autoPlay: true });
-      getEl('sc-player-title').innerText = track.title;
-      getEl('sc-player-artist').innerText = track.artist;
-      getEl('sc-player-cover').src = track.cover;
-      getEl('sc-player-status').innerText = '▶ Loading...';
+      ytPlayer.loadVideoById(track.id);
+      getEl('yt-player-title').innerText = track.title;
+      getEl('yt-player-artist').innerText = track.artist;
+      getEl('yt-player-cover').src = track.cover;
+      getEl('yt-player-status').innerText = '▶ Loading...';
       
       const activeEl = document.querySelector(`.playlist-item[data-idx="${idx}"]`);
       if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      
-      updateScActiveUI();
+      updateYtActiveUI();
     }
 
-    function togglePlaySc() {
-      if (!scWidget) return;
-      if (currentScIdx < 0 && scPlaylist.length > 0) {
-        playTrackSc(0);
-        return;
-      }
-      scWidget.getPosition(pos => {
-        if (pos > 0) {
-          scWidget.isPaused(paused => {
-            if (paused) scWidget.play();
-            else scWidget.pause();
-          });
-        } else {
-          playTrackSc(currentScIdx);
-        }
-      });
+    function togglePlayYt() {
+      if (!ytPlayer) return;
+      if (currentYtIdx < 0 && ytPlaylist.length > 0) { playTrackYt(0); return; }
+      const state = ytPlayer.getPlayerState();
+      if (state === 1) ytPlayer.pauseVideo();
+      else ytPlayer.playVideo();
     }
 
-    function nextTrackSc() {
-      if (scPlaylist.length === 0) return;
-      const nextIdx = (currentScIdx + 1) % scPlaylist.length;
-      playTrackSc(nextIdx);
+    function nextTrackYt() {
+      if (ytPlaylist.length === 0) return;
+      const nextIdx = (currentYtIdx + 1) % ytPlaylist.length;
+      playTrackYt(nextIdx);
     }
 
-    function prevTrackSc() {
-      if (scPlaylist.length === 0) return;
-      scWidget.getPosition(pos => {
-        if (pos > 3000) {
-          scWidget.seekTo(0);
-        } else {
-          const prevIdx = (currentScIdx - 1 + scPlaylist.length) % scPlaylist.length;
-          playTrackSc(prevIdx);
-        }
-      });
+    function prevTrackYt() {
+      if (ytPlaylist.length === 0) return;
+      if (ytPlayer.getCurrentTime && ytPlayer.getCurrentTime() > 3) { ytPlayer.seekTo(0); return; }
+      const prevIdx = (currentYtIdx - 1 + ytPlaylist.length) % ytPlaylist.length;
+      playTrackYt(prevIdx);
     }
 
-    function seekSc(event) {
+    function seekYt(event) {
       const bar = event.currentTarget;
       const rect = bar.getBoundingClientRect();
       const percent = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-      if (scWidget) {
-        scWidget.getDuration(dur => {
-          if (dur > 0) {
-            scWidget.seekTo(dur * percent);
-            getEl('sc-progress-fill').style.width = `${percent * 100}%`;
-          }
-        });
+      if (ytPlayer && ytPlayer.getDuration) {
+        const dur = ytPlayer.getDuration();
+        if (dur > 0) {
+          ytPlayer.seekTo(dur * percent);
+          getEl('yt-progress-fill').style.width = `${percent * 100}%`;
+        }
       }
     }
 
-    function startScProgress() {
-      stopScProgress();
-      scProgressInterval = setInterval(() => {
-        if (!scWidget) return;
-        scWidget.getPosition(pos => {
-          scWidget.getDuration(dur => {
-            if (dur > 0) {
-              const pct = (pos / dur) * 100;
-              getEl('sc-progress-fill').style.width = `${pct}%`;
-              getEl('sc-current-time').innerText = formatTime(pos);
-              getEl('sc-duration-time').innerText = formatTime(dur);
-            }
-          });
-        });
+    function startYtProgress() {
+      stopYtProgress();
+      ytProgressInterval = setInterval(() => {
+        if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+        const cur = ytPlayer.getCurrentTime();
+        const dur = ytPlayer.getDuration() || 0;
+        if (dur > 0) {
+          const pct = (cur / dur) * 100;
+          getEl('yt-progress-fill').style.width = `${pct}%`;
+          getEl('yt-current-time').innerText = formatTimeYt(cur);
+          getEl('yt-duration-time').innerText = formatTimeYt(dur);
+        }
       }, 500);
     }
 
-    function stopScProgress() {
-      if (scProgressInterval) clearInterval(scProgressInterval);
+    function stopYtProgress() {
+      if (ytProgressInterval) clearInterval(ytProgressInterval);
     }
-
-    // Auto init
-    setTimeout(initSoundCloud, 1000);
 
     /* =========================================================
        CORE DASHBOARD SCRIPT
