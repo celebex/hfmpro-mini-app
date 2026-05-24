@@ -366,7 +366,7 @@
         </div>
       </div>
 
-      <!-- FOREX MARKET OVERVIEW WIDGET (Semua 5 Pair Kembali Utuh) -->
+      <!-- FOREX MARKET OVERVIEW WIDGET -->
       <div class="premium-card rounded-2xl p-3 md:p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -420,9 +420,7 @@
         </div>
       </div>
 
-      <!-- ========================================================================= -->
-      <!-- PENTING: MP3 LIVE RADIO PLAYER (0% BUFFERING, SANGAT RINGAN & FULL LAGU) -->
-      <!-- ========================================================================= -->
+      <!-- MP3 LIVE RADIO PLAYER -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
@@ -438,12 +436,11 @@
           <div class="mb-4">
             <label class="text-[9px] text-gray-400 font-bold mb-1.5 block uppercase tracking-wider">Pilih Saluran Musik (Play 24/7):</label>
             <div class="relative">
-              <!-- MENGGUNAKAN SERVER RADIO STREAMING INDONESIA YANG SANGAT CEPAT -->
               <select id="native-audio-select" onchange="changeNativeAudio()" class="w-full bg-white/10 border border-white/20 text-white text-[11px] font-bold rounded-xl focus:ring-brand-500 focus:border-brand-500 block p-2.5 shadow-sm appearance-none cursor-pointer outline-none">
-                <option value="https://masima.rastream.com/masima-pramborsjakarta?" selected>📻 Prambors FM (Hits Pop Indo & Barat)</option>
-                <option value="https://masima.rastream.com/masima-deltafmjakarta?">📻 Delta FM (Lagu Enak 100% Pop Indo)</option>
-                <option value="https://masima.rastream.com/masima-bahanafmjakarta?">📻 Bahana FM (Musik Pop Terbaik)</option>
-                <option value="https://listen.181fm.com/181-power_128k.mp3">📻 181.FM (Global Pop Hits & Barat)</option>
+                <option value="https://playerservices.streamtheworld.com/api/livestream-redirect/PRAMBORS_FM.mp3" selected>📻 Prambors FM (Top 40 Indo & Barat)</option>
+                <option value="https://s1.cloudmu.id/listen/delta_fm/radio.mp3">📻 Delta FM (Hits Terenak 90an - Now)</option>
+                <option value="http://stream.bahanafm.co.id:8100/;">📻 Bahana FM (Pop Indonesia Terbaik)</option>
+                <option value="https://listen.181fm.com/181-power_128k.mp3">📻 181.FM (Global Pop Hits)</option>
                 <option value="https://streams.ilovemusic.de/iloveradio17.mp3">☕ Lofi Lounge (Instrumental Santai)</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
@@ -452,7 +449,6 @@
             </div>
           </div>
 
-          <!-- Equalizer Animasi CSS murni (sangat ringan) -->
           <div id="audio-visualizer" class="absolute right-4 bottom-3 flex items-end gap-1 opacity-0 transition-opacity duration-300 pointer-events-none">
             <div class="w-1 bg-brand-500 rounded-t-sm animate-music-bar-1"></div>
             <div class="w-1 bg-brand-400 rounded-t-sm animate-music-bar-2"></div>
@@ -466,7 +462,7 @@
                 <i id="native-play-icon" class="fa-solid fa-play ml-0.5 text-lg"></i>
               </button>
               <div class="flex flex-col">
-                <span id="native-song-title" class="text-xs font-bold text-white max-w-[150px] sm:max-w-[200px] truncate">Prambors FM (Hits Pop Indo)</span>
+                <span id="native-song-title" class="text-xs font-bold text-white max-w-[150px] sm:max-w-[200px] truncate">Prambors FM (Top 40)</span>
                 <span class="text-[9px] text-gray-400 flex items-center gap-1 mt-0.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-gray-500" id="native-status-dot"></span> 
                   <span id="native-status-text">Ready (No Buffering)</span>
@@ -475,7 +471,6 @@
             </div>
           </div>
 
-          <!-- Tag Audio Native HTML5 (0% Iframe, Bebas Lag, Bebas Blokir Hak Cipta) -->
           <audio id="core-audio-player" preload="none"></audio>
           
         </div>
@@ -490,9 +485,58 @@
         </div>
         <div class="text-center md:text-left">
           <h3 class="text-lg font-black text-gray-900">Broker Mitra Resmi HFM Markets</h3>
-          <p class="text-xs text-gray-500 mt-1 max-w-xl">HFM (HotForex) adalah broker global pemenang penghargaan yang teregulasi secara internasional.</p>
+          <p class="text-xs text-gray-500 mt-1 max-w-xl">HFM (HotForex) adalah broker global pemenang penghargaan yang teregulasi secara internasional, menyediakan kondisi trading terbaik untuk trader ritel maupun institusi.</p>
         </div>
       </div>
+      
+      <!-- Stylish HFM Market Blocks -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow-md shadow-brand-200">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Eksekusi Kilat</h4>
+              <p class="text-[10px] text-gray-500">Ultra-fast execution speed tanpa requote.</p>
+            </div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center text-lg shadow-md shadow-gray-400">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Spread Super Ketat</h4>
+              <p class="text-[10px] text-gray-500">Spread mulai dari 0.0 pips untuk pair major.</p>
+            </div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-200">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Deposit Bank Lokal</h4>
+              <p class="text-[10px] text-gray-500">Dukungan deposit & WD via BCA, Mandiri, BNI, BRI.</p>
+            </div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-md shadow-amber-200">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-gray-900">Proteksi & Swap-Free</h4>
+              <p class="text-[10px] text-gray-500">Jaminan keamanan dana & akun Bebas Bunga.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="relative overflow-hidden rounded-3xl p-6 text-center bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 shadow-2xl shadow-black/40 mt-4">
         <div class="absolute -right-12 -top-12 w-28 h-28 bg-brand-500/10 rounded-full blur-2xl"></div>
         <div class="absolute -left-12 -bottom-12 w-28 h-28 bg-yellow-500/5 rounded-full blur-2xl"></div>
@@ -503,9 +547,15 @@
           <h4 class="text-sm md:text-base font-black tracking-wider mt-1 bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent uppercase">
             ACCESS PRIVATE PROFIT GATEWAY
           </h4>
-          <div class="mt-4">
-            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-900/30 hover:shadow-brand-900/50 active:scale-95 border border-brand-500/30">
+          <p class="text-[10px] text-gray-400 max-w-sm mt-2 leading-relaxed">
+            Buka akun real HFM Market sekarang dan dapatkan akses ke sinyal premium AI Cuatology secara gratis.
+          </p>
+          <div class="mt-4 flex flex-col sm:flex-row gap-3">
+            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-900/30 hover:shadow-brand-900/50 active:scale-95 border border-brand-500/30">
               <i class="fa-solid fa-crown text-yellow-400 animate-pulse"></i> ACTIVATE PRO ACCOUNT NOW
+            </a>
+            <a href="https://www.hfm.com/id/" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs py-3 px-6 rounded-xl transition-all border border-white/10">
+              <i class="fa-solid fa-globe"></i> Kunjungi Situs Resmi HFM
             </a>
           </div>
         </div>
@@ -533,9 +583,6 @@
   </footer>
 
   <script>
-    /* =========================================================
-       OPTIMASI DOM AGAR APLIKASI SUPER RINGAN DAN TIDAK LAG
-       ========================================================= */
     const domCache = {};
     function getEl(id) {
       if (!domCache[id]) domCache[id] = document.getElementById(id);
@@ -547,7 +594,6 @@
     let currentTimeframe = '15';
     let isTradingViewLoaded = false;
 
-    // Telegram Web App SDK Init
     try {
       if (window.Telegram && window.Telegram.WebApp) {
         const webapp = window.Telegram.WebApp;
@@ -567,7 +613,7 @@
     } catch (e) {}
 
     /* =========================================================
-       LIVE RADIO PLAYER (100% POP INDO, BEBAS BUFFERING)
+       LIVE RADIO PLAYER
        ========================================================= */
     const audioEl = document.getElementById('core-audio-player');
     const audioSelect = document.getElementById('native-audio-select');
@@ -624,7 +670,6 @@
       audioEl.play().catch(e => console.log(e));
     }
 
-
     /* =========================================================
        CORE DASHBOARD SCRIPT & 100% REALTIME WEBSOCKET
        ========================================================= */
@@ -638,7 +683,6 @@
 
     function getPrecision(pair) { return (pair === 'EURUSD') ? 5 : (pair === 'USDJPY' ? 3 : 2); }
 
-    // REAL-TIME WEBSOCKET BINANCE (NO LAG, COCOK 100% DENGAN CHART)
     const wsUrl = "wss://stream.binance.com:9443/ws/btcusdt@ticker/ethusdt@ticker/paxgusdt@ticker/eurusdt@ticker";
     const binanceWS = new WebSocket(wsUrl);
 
@@ -647,7 +691,7 @@
         let pair = '';
         if (msg.s === 'BTCUSDT') pair = 'BTCUSD';
         else if (msg.s === 'ETHUSDT') pair = 'ETHUSD';
-        else if (msg.s === 'PAXGUSDT') pair = 'XAUUSD'; // Emas Proxy Binance (Sama persis di chart TradingView kita)
+        else if (msg.s === 'PAXGUSDT') pair = 'XAUUSD'; 
         else if (msg.s === 'EURUSDT') pair = 'EURUSD';
 
         if (pair) {
@@ -656,7 +700,6 @@
         }
     };
 
-    // Fungsi update harga yang dipisahkan agar super ringan
     function processLivePrice(pair, newPrice) {
         const param = assetParameters[pair];
         const oldPrice = param.basePrice;
@@ -683,7 +726,6 @@
         }
     }
 
-    // Polling ringan untuk USDJPY (Karena Binance tidak ada Forex asli JPY)
     async function fetchUSDJPY() {
        try {
          let res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
@@ -693,21 +735,17 @@
          }
        } catch(e) {}
     }
-    // Sesekali update USDJPY dari API
     setInterval(fetchUSDJPY, 10000);
 
-    // Fungsi Analisis AI dipisahkan agar tidak melambatkan UI setiap kali WS masuk
     function processAIAnalysis() {
         const pair = currentAsset;
         const param = assetParameters[pair];
         
-        // Pura-pura simulasi tik kecil untuk USDJPY agar kelihatan aktif walau tidak ada WS
         if (pair === 'USDJPY') {
             const jitter = param.basePrice * (1 + (Math.random() - 0.5) * 0.0001);
             processLivePrice('USDJPY', jitter);
         }
 
-        // Simpan history untuk slope
         if (!param.priceHistory) param.priceHistory = [...param.chartData];
         param.priceHistory.push(param.basePrice);
         if (param.priceHistory.length > 8) param.priceHistory.shift();
@@ -893,9 +931,45 @@
       }, 1000);
     }
 
+    /* =========================================================
+       REALTIME MARKET SESSIONS CLOCK (WIB)
+       ========================================================= */
     function updateMarketClockAndSessions() {
       const now = new Date();
-      getEl('live-clock').innerText = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) + ' WIB';
+      getEl('live-clock').innerText = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' }) + ' WIB';
+      
+      // Get current hour in WIB (0-23) independent of device timezone
+      const wibHour = parseInt(new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: 'Asia/Jakarta' }).format(now));
+      
+      // Approximate Forex Session Hours in WIB (GMT+7)
+      const sessions = [
+        { id: 'sess-sydney', start: 4, end: 13 },
+        { id: 'sess-tokyo', start: 6, end: 15 },
+        { id: 'sess-london', start: 14, end: 23 },
+        { id: 'sess-newyork', start: 19, end: 4 } // Crosses midnight
+      ];
+
+      sessions.forEach(sess => {
+        const el = getEl(sess.id);
+        if (!el || el.children.length < 2) return;
+        const dot = el.children[0];
+        const text = el.children[1];
+        
+        let isActive = false;
+        if (sess.start < sess.end) {
+          isActive = wibHour >= sess.start && wibHour < sess.end;
+        } else {
+          isActive = wibHour >= sess.start || wibHour < sess.end;
+        }
+
+        if (isActive) {
+          dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]";
+          text.className = "text-emerald-600 font-extrabold text-[9px] tracking-wide";
+        } else {
+          dot.className = "w-1.5 h-1.5 rounded-full bg-gray-300";
+          text.className = "text-gray-400 font-bold text-[9px] tracking-wide";
+        }
+      });
     }
 
     function handleRegisterClick(event) {
@@ -993,7 +1067,6 @@
     }
 
     function initializeApp() {
-      // Inisialisasi harga statis agar loading cepat hilang
       Object.keys(assetParameters).forEach(pair => {
          processLivePrice(pair, assetParameters[pair].basePrice);
       });
@@ -1002,9 +1075,6 @@
       updateMarketClockAndSessions();
       
       setInterval(updateMarketClockAndSessions, 1000);
-      
-      // Update data UI Entry/SL/TP setiap 3 detik agar UI tidak Lag, 
-      // Sedangkan harga tombol/tabel tetap Real-Time setiap milidetik dari WebSocket!
       setInterval(processAIAnalysis, 3000); 
     }
 
