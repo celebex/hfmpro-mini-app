@@ -331,7 +331,7 @@
         <span class="bg-white/20 text-white border border-white/30 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">OFFICIAL BROKER PARTNER</span>
         <h3 class="text-lg md:text-2xl font-black mt-3 leading-tight">Mulai Trading Bersama HFM Markets</h3>
         <p class="text-[10.5px] sm:text-xs md:text-sm text-red-100/90 mt-2 md:mt-1.5 leading-[1.6] max-w-xs sm:max-w-md md:max-w-xl">
-          Dapatkan Akun Premium Tanpa Swap dengan Eksekusi Cepat dan Spread Rendah. Deposit instan melalui Bank Lokal Indonesia untuk pengalaman trading yang lebih profesional.
+          Dapatkan Akun Premium Tanpa Swap dengan Eksekusi Cepat dan Spread Rendah. Deposit instan melalui Bank Lokal Indonesia.
         </p>
         <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4.5">
           <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 hover:bg-red-50 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95">
@@ -396,22 +396,21 @@
         </div>
       </div>
 
-      <!-- ========================================================= -->
-      <!-- MUSIC PLAYER STREAMING (iTunes API - Full Lagu, Bukan Radio) -->
-      <!-- ========================================================= -->
+      <!-- =============================================== -->
+      <!-- MUSIC PLAYER FULL SONG (JioSaavn API 320kbps) -->
+      <!-- =============================================== -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
             <i class="fa-solid fa-compact-disc text-brand-500"></i> Music Player Streaming
           </h3>
-          <span class="text-[8px] md:text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-100 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-            <i class="fa-solid fa-music text-emerald-500"></i> FULL LAGU (VOCAL)
+          <span id="quality-badge" class="text-[8px] md:text-[9px] bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+            <i class="fa-solid fa-crown"></i> FULL SONG HD 320kbps
           </span>
         </div>
 
         <div class="w-full relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-4 border border-gray-800 shadow-inner flex flex-col gap-4">
           
-          <!-- Background Glow -->
           <div id="player-bg-glow" class="absolute -top-20 -right-20 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl transition-all duration-700 pointer-events-none"></div>
           <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -429,26 +428,24 @@
               </button>
             </div>
 
-            <!-- Quick Chips -->
             <div class="flex gap-1.5 mt-2.5 overflow-x-auto whitespace-nowrap pb-1">
               <button onclick="quickSearch('Tulus', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎤 Tulus</button>
               <button onclick="quickSearch('Mahalini', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎤 Mahalini</button>
               <button onclick="quickSearch('Rizky Febian', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎤 Rizky Febian</button>
               <button onclick="quickSearch('Juicy Luicy', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Juicy Luicy</button>
               <button onclick="quickSearch('Bernadya', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Bernadya</button>
-              <button onclick="quickSearch('Pamungkas', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Pamungkas</button>
-              <button onclick="quickSearch('Pop Indo Hits', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🔥 Pop Indo</button>
+              <button onclick="quickSearch('Sal Priadi', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Sal Priadi</button>
+              <button onclick="quickSearch('Pop Indo Hits 2024', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🔥 Pop Indo</button>
             </div>
           </div>
 
           <!-- Now Playing Card -->
           <div class="relative z-10 bg-black/30 border border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row items-center gap-4">
             
-            <!-- Cover Art -->
             <div class="relative shrink-0">
               <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-gray-800 to-black border-4 border-gray-700 shadow-2xl overflow-hidden flex items-center justify-center" id="cover-wrapper">
                 <img id="player-cover" src="https://via.placeholder.com/300x300/1e293b/ef4444?text=%E2%99%AB" 
-                  alt="cover" class="w-full h-full object-cover cover-paused" id="cover-img" />
+                  alt="cover" class="w-full h-full object-cover cover-paused" />
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div class="w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-700"></div>
                 </div>
@@ -461,21 +458,18 @@
               </div>
             </div>
 
-            <!-- Track Info & Controls -->
             <div class="flex-1 w-full flex flex-col gap-3">
               <div class="text-center sm:text-left">
                 <h4 id="player-title" class="text-sm sm:text-base font-black text-white truncate max-w-full">Pilih Lagu Untuk Diputar</h4>
                 <p id="player-artist" class="text-[10px] sm:text-xs text-gray-400 truncate">Ketik di search atau klik chip di atas</p>
               </div>
 
-              <!-- Progress Bar -->
               <div class="flex items-center gap-2">
                 <span id="current-time" class="text-[9px] font-mono text-gray-400 w-8">0:00</span>
                 <input type="range" id="progress-slider" class="progress-bar flex-1" value="0" min="0" max="100" step="0.1" oninput="seekAudio(this.value)" />
                 <span id="duration-time" class="text-[9px] font-mono text-gray-400 w-8 text-right">0:00</span>
               </div>
 
-              <!-- Controls -->
               <div class="flex items-center justify-center sm:justify-start gap-2">
                 <button onclick="toggleShuffle()" id="shuffle-btn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center transition-all text-sm">
                   <i class="fa-solid fa-shuffle"></i>
@@ -504,7 +498,7 @@
               </span>
               <span id="player-status" class="text-[9px] text-gray-500 font-mono">Siap putar</span>
             </div>
-            <div id="playlist-container" class="max-h-[280px] overflow-y-auto space-y-1.5 pr-1 custom-scroll">
+            <div id="playlist-container" class="max-h-[280px] overflow-y-auto space-y-1.5 pr-1">
               <div class="text-center py-8 text-gray-500 text-[11px]">
                 <i class="fa-solid fa-music text-3xl mb-2 opacity-30 block"></i>
                 <p>Belum ada lagu. Cari atau klik chip di atas!</p>
@@ -512,9 +506,7 @@
             </div>
           </div>
 
-          <!-- Audio Element -->
           <audio id="music-audio" preload="metadata"></audio>
-
         </div>
       </div>
     </div>
@@ -552,18 +544,17 @@
         <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-md shadow-amber-200"><i class="fa-solid fa-shield-halved"></i></div>
-            <div><h4 class="text-sm font-black text-gray-900">Swap-Free Account</h4><p class="text-[10px] text-gray-500">Akun Bebas Bunga untuk Muslim.</p></div>
+            <div><h4 class="text-sm font-black text-gray-900">Swap-Free Account</h4><p class="text-[10px] text-gray-500">Akun Bebas Bunga.</p></div>
           </div>
         </div>
       </div>
       <div class="relative overflow-hidden rounded-3xl p-6 text-center bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 shadow-2xl shadow-black/40 mt-4">
         <div class="absolute -right-12 -top-12 w-28 h-28 bg-brand-500/10 rounded-full blur-2xl"></div>
-        <div class="absolute -left-12 -bottom-12 w-28 h-28 bg-yellow-500/5 rounded-full blur-2xl"></div>
         <div class="relative z-10 flex flex-col items-center gap-1.5">
-          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-[9px] font-black tracking-widest text-amber-500 uppercase">👑 Exclusive VIP Access Gateway</div>
+          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-[9px] font-black tracking-widest text-amber-500 uppercase">👑 Exclusive VIP Access</div>
           <h4 class="text-sm md:text-base font-black tracking-wider mt-1 bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent uppercase">ACCESS PRIVATE PROFIT GATEWAY</h4>
           <div class="mt-4">
-            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-900/30 active:scale-95 border border-brand-500/30">
+            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg active:scale-95 border border-brand-500/30">
               <i class="fa-solid fa-crown text-yellow-400 animate-pulse"></i> ACTIVATE PRO ACCOUNT NOW
             </a>
           </div>
@@ -592,9 +583,6 @@
   </footer>
 
   <script>
-    /* =========================================================
-       DOM CACHE & GLOBAL STATE
-       ========================================================= */
     const domCache = {};
     function getEl(id) { if (!domCache[id]) domCache[id] = document.getElementById(id); return domCache[id]; }
 
@@ -617,14 +605,21 @@
     } catch (e) {}
 
     /* =========================================================
-       🎵 MUSIC PLAYER - iTunes Search API
-       Gratis, No-CORS, Super Ringan, Full Lagu Indonesia
+       🎵 MUSIC PLAYER - JioSaavn API (FULL SONG 320kbps)
+       Dengan sistem fallback ke iTunes jika API utama down
        ========================================================= */
     const musicAudio = document.getElementById('music-audio');
     const musicPlaylist = [];
     let currentTrackIdx = -1;
     let isShuffle = false;
-    let repeatMode = 0; // 0=off, 1=all, 2=one
+    let repeatMode = 0;
+
+    // Multiple API endpoints untuk fallback
+    const JIOSAAVN_APIS = [
+      'https://saavn.dev/api/search/songs',
+      'https://jiosaavn-api-privatecvc2.vercel.app/api/search/songs',
+      'https://jiosaavn-api-nu.vercel.app/api/search/songs'
+    ];
 
     function formatTime(sec) {
       if (!sec || isNaN(sec)) return '0:00';
@@ -634,91 +629,120 @@
     }
 
     async function searchMusic() {
-  const input = getEl('music-search-input');
-  const query = input.value.trim();
-  if (!query) return;
+      const input = getEl('music-search-input');
+      const query = input.value.trim();
+      if (!query) return;
 
-  const btn = getEl('search-btn');
-  const status = getEl('player-status');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
-  status.innerText = 'Mencari lagu full...';
+      const btn = getEl('search-btn');
+      const status = getEl('player-status');
+      const badge = getEl('quality-badge');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
+      status.innerText = '🔍 Mencari lagu FULL...';
 
-  try {
-    // JioSaavn API - Full Song 320kbps, Gratis, No Auth
-    const apiUrl = `https://saavn.dev/api/search/songs?query=${encodeURIComponent(query)}&limit=25`;
-    const res = await fetch(apiUrl);
-    const data = await res.json();
+      let found = false;
+      let apiUsed = '';
 
-    if (data.success && data.data && data.data.results && data.data.results.length > 0) {
-      musicPlaylist.length = 0;
-      
-      data.data.results.forEach(track => {
-        // Cari URL download kualitas terbaik (320kbps > 160kbps > 96kbps)
-        const downloadUrls = track.downloadUrl || [];
-        const bestQuality = downloadUrls.find(u => u.quality === '320kbps') 
-                         || downloadUrls.find(u => u.quality === '160kbps')
-                         || downloadUrls.find(u => u.quality === '96kbps')
-                         || downloadUrls[downloadUrls.length - 1];
-        
-        if (bestQuality && bestQuality.url) {
-          // Bersihkan nama lagu dari HTML entities
-          const cleanTitle = track.name.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
-          const artistName = track.artists?.primary?.map(a => a.name).join(', ') || track.primaryArtists || 'Unknown Artist';
-          const coverUrl = track.image?.[track.image.length - 1]?.url || 'https://via.placeholder.com/400x400/1e293b/ef4444?text=%E2%99%AB';
+      // Coba setiap JioSaavn API endpoint
+      for (let i = 0; i < JIOSAAVN_APIS.length; i++) {
+        try {
+          const apiUrl = `${JIOSAAVN_APIS[i]}?query=${encodeURIComponent(query)}&limit=25`;
+          const res = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
+          if (!res.ok) continue;
           
-          musicPlaylist.push({
-            title: cleanTitle,
-            artist: artistName,
-            cover: coverUrl,
-            url: bestQuality.url,
-            duration: track.duration || 0
-          });
-        }
-      });
-
-      renderPlaylist();
-      status.innerText = `✨ ${musicPlaylist.length} lagu FULL ditemukan`;
-      if (musicPlaylist.length > 0) playTrack(0);
-    } else {
-      status.innerText = 'Lagu tidak ditemukan';
-      getEl('playlist-container').innerHTML = `<div class="text-center py-8 text-gray-500 text-[11px]"><i class="fa-solid fa-face-frown text-3xl mb-2 opacity-30 block"></i><p>Tidak ditemukan. Coba kata kunci lain.</p></div>`;
-    }
-  } catch (err) {
-    console.error('JioSaavn API Error:', err);
-    status.innerText = 'API error - coba lagi';
-    
-    // FALLBACK: Jika JioSaavn down, gunakan iTunes 30s preview
-    try {
-      status.innerText = 'Fallback ke iTunes preview...';
-      const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&country=ID&media=music&limit=25&entity=song`;
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.results && data.results.length > 0) {
-        musicPlaylist.length = 0;
-        data.results.forEach(track => {
-          if (track.previewUrl) {
-            musicPlaylist.push({
-              title: track.trackName + ' (30s Preview)',
-              artist: track.artistName,
-              cover: track.artworkUrl100.replace('100x100', '400x400'),
-              url: track.previewUrl,
-              duration: 30
+          const data = await res.json();
+          const results = data.data?.results || data.results || [];
+          
+          if (results.length > 0) {
+            musicPlaylist.length = 0;
+            
+            results.forEach(track => {
+              const downloadUrls = track.downloadUrl || [];
+              // Prioritas: 320kbps > 160kbps > 96kbps > 48kbps
+              const bestQuality = downloadUrls.find(u => u.quality === '320kbps') 
+                               || downloadUrls.find(u => u.quality === '160kbps')
+                               || downloadUrls.find(u => u.quality === '96kbps')
+                               || downloadUrls.find(u => u.quality === '48kbps')
+                               || downloadUrls[downloadUrls.length - 1];
+              
+              if (bestQuality && bestQuality.url) {
+                const cleanTitle = (track.name || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+                const artistName = track.artists?.primary?.map(a => a.name).join(', ') 
+                                 || track.primaryArtists 
+                                 || track.artist 
+                                 || 'Unknown Artist';
+                const images = track.image || [];
+                const coverUrl = images[images.length - 1]?.url 
+                              || images[0]?.url 
+                              || 'https://via.placeholder.com/400x400/1e293b/ef4444?text=%E2%99%AB';
+                
+                musicPlaylist.push({
+                  title: cleanTitle,
+                  artist: artistName,
+                  cover: coverUrl,
+                  url: bestQuality.url,
+                  quality: bestQuality.quality || '320kbps',
+                  duration: track.duration || 0
+                });
+              }
             });
+
+            if (musicPlaylist.length > 0) {
+              found = true;
+              apiUsed = JIOSAAVN_APIS[i];
+              renderPlaylist();
+              status.innerText = `✨ ${musicPlaylist.length} lagu FULL (${musicPlaylist[0].quality})`;
+              badge.innerHTML = '<i class="fa-solid fa-crown"></i> FULL SONG HD ' + musicPlaylist[0].quality.toUpperCase();
+              badge.className = "text-[8px] md:text-[9px] bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1";
+              playTrack(0);
+              break;
+            }
           }
-        });
-        renderPlaylist();
-        status.innerText = `${musicPlaylist.length} preview (API utama down)`;
-        if (musicPlaylist.length > 0) playTrack(0);
+        } catch (err) {
+          console.log(`API ${i+1} failed:`, err.message);
+          continue;
+        }
       }
-    } catch (e) {
-      status.innerText = 'Gagal total. Cek koneksi.';
+
+      // FALLBACK ke iTunes jika semua JioSaavn API gagal
+      if (!found) {
+        try {
+          status.innerText = '⚠️ API utama sibuk, fallback preview 30s...';
+          badge.innerHTML = '<i class="fa-solid fa-clock"></i> PREVIEW 30s (Fallback)';
+          badge.className = "text-[8px] md:text-[9px] bg-gray-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1";
+          
+          const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&country=ID&media=music&limit=25&entity=song`;
+          const res = await fetch(url);
+          const data = await res.json();
+          
+          if (data.results && data.results.length > 0) {
+            musicPlaylist.length = 0;
+            data.results.forEach(track => {
+              if (track.previewUrl) {
+                musicPlaylist.push({
+                  title: track.trackName + ' (30s Preview)',
+                  artist: track.artistName,
+                  cover: track.artworkUrl100.replace('100x100', '400x400'),
+                  url: track.previewUrl,
+                  quality: '128kbps',
+                  duration: 30
+                });
+              }
+            });
+            renderPlaylist();
+            status.innerText = `${musicPlaylist.length} preview (API utama down)`;
+            if (musicPlaylist.length > 0) playTrack(0);
+          } else {
+            status.innerText = 'Tidak ditemukan. Coba lagi.';
+          }
+        } catch (e) {
+          status.innerText = 'Gagal total. Cek koneksi.';
+        }
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><span class="hidden sm:inline">Cari</span>';
     }
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><span class="hidden sm:inline">Cari</span>';
-  }
-}
 
     function quickSearch(query, btn) {
       getEl('music-search-input').value = query;
@@ -749,7 +773,10 @@
             <div class="pl-title text-[11px] font-bold text-white truncate">${track.title}</div>
             <div class="text-[9px] text-gray-500 truncate">${track.artist}</div>
           </div>
-          <div class="text-[9px] font-mono text-gray-600 shrink-0">${formatTime(track.duration)}</div>
+          <div class="flex flex-col items-end shrink-0">
+            <div class="text-[8px] font-black ${track.duration > 30 ? 'text-amber-500' : 'text-gray-600'} uppercase">${track.duration > 30 ? 'FULL' : '30s'}</div>
+            <div class="text-[8px] font-mono text-gray-600">${formatTime(track.duration)}</div>
+          </div>
         </div>
       `).join('');
 
@@ -772,15 +799,14 @@
       musicAudio.play().catch(e => console.log('Play failed:', e));
 
       getEl('player-title').innerText = track.title;
-      getEl('player-artist').innerText = track.artist;
+      getEl('player-artist').innerText = `${track.artist} • ${track.quality}`;
       getEl('player-cover').src = track.cover;
-      getEl('cover-img').classList.add('cover-playing');
-      getEl('cover-img').classList.remove('cover-paused');
+      getEl('player-cover').classList.add('cover-playing');
+      getEl('player-cover').classList.remove('cover-paused');
       getEl('music-equalizer').classList.remove('opacity-0');
       getEl('play-icon').className = 'fa-solid fa-pause text-lg';
-      getEl('player-status').innerText = 'Now Playing';
+      getEl('player-status').innerText = `▶ Now Playing (${track.quality})`;
 
-      // Auto-scroll playlist to active
       const activeEl = document.querySelector(`.playlist-item[data-idx="${idx}"]`);
       if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
@@ -795,26 +821,23 @@
       if (musicAudio.paused) {
         musicAudio.play();
         getEl('play-icon').className = 'fa-solid fa-pause text-lg';
-        getEl('cover-img').classList.add('cover-playing');
-        getEl('cover-img').classList.remove('cover-paused');
+        getEl('player-cover').classList.add('cover-playing');
+        getEl('player-cover').classList.remove('cover-paused');
         getEl('music-equalizer').classList.remove('opacity-0');
       } else {
         musicAudio.pause();
         getEl('play-icon').className = 'fa-solid fa-play ml-1 text-lg';
-        getEl('cover-img').classList.remove('cover-playing');
-        getEl('cover-img').classList.add('cover-paused');
+        getEl('player-cover').classList.remove('cover-playing');
+        getEl('player-cover').classList.add('cover-paused');
         getEl('music-equalizer').classList.add('opacity-0');
       }
     }
 
     function nextTrack() {
       if (musicPlaylist.length === 0) return;
-      let nextIdx;
-      if (isShuffle) {
-        nextIdx = Math.floor(Math.random() * musicPlaylist.length);
-      } else {
-        nextIdx = (currentTrackIdx + 1) % musicPlaylist.length;
-      }
+      let nextIdx = isShuffle 
+        ? Math.floor(Math.random() * musicPlaylist.length)
+        : (currentTrackIdx + 1) % musicPlaylist.length;
       playTrack(nextIdx);
     }
 
@@ -835,17 +858,16 @@
     function toggleRepeat() {
       repeatMode = (repeatMode + 1) % 3;
       const btn = getEl('repeat-btn');
-      btn.classList.remove('text-gray-400', 'text-brand-500', 'bg-brand-500/20');
+      btn.classList.remove('text-gray-400', 'text-brand-500', 'bg-brand-500/20', 'relative');
       if (repeatMode === 0) { btn.classList.add('text-gray-400'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i>'; }
       else if (repeatMode === 1) { btn.classList.add('text-brand-500', 'bg-brand-500/20'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i>'; }
-      else { btn.classList.add('text-brand-500', 'bg-brand-500/20'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i><span class="absolute text-[7px] font-black">1</span>'; btn.classList.add('relative'); }
+      else { btn.classList.add('text-brand-500', 'bg-brand-500/20', 'relative'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i><span class="absolute text-[7px] font-black">1</span>'; }
     }
 
     function seekAudio(val) {
       if (musicAudio.duration) musicAudio.currentTime = (val / 100) * musicAudio.duration;
     }
 
-    // Audio Events
     musicAudio.addEventListener('timeupdate', () => {
       if (musicAudio.duration) {
         const pct = (musicAudio.currentTime / musicAudio.duration) * 100;
@@ -860,22 +882,25 @@
       else if (repeatMode === 1 || currentTrackIdx < musicPlaylist.length - 1) nextTrack();
       else {
         getEl('play-icon').className = 'fa-solid fa-play ml-1 text-lg';
-        getEl('cover-img').classList.remove('cover-playing');
-        getEl('cover-img').classList.add('cover-paused');
+        getEl('player-cover').classList.remove('cover-playing');
+        getEl('player-cover').classList.add('cover-paused');
         getEl('music-equalizer').classList.add('opacity-0');
-        getEl('player-status').innerText = 'Selesai';
+        getEl('player-status').innerText = '✓ Selesai';
       }
     });
 
-    musicAudio.addEventListener('waiting', () => { getEl('player-status').innerText = 'Buffering...'; });
-    musicAudio.addEventListener('playing', () => { getEl('player-status').innerText = 'Now Playing'; });
-    musicAudio.addEventListener('error', () => { getEl('player-status').innerText = 'Error - Coba lagu lain'; });
+    musicAudio.addEventListener('waiting', () => { getEl('player-status').innerText = '⏳ Buffering...'; });
+    musicAudio.addEventListener('playing', () => { 
+      const track = musicPlaylist[currentTrackIdx];
+      if (track) getEl('player-status').innerText = `▶ Playing (${track.quality})`; 
+    });
+    musicAudio.addEventListener('error', () => { getEl('player-status').innerText = '❌ Error - Coba lagu lain'; });
 
-    // Auto-load Top Indo Hits saat pertama buka tab forex
+    // Auto-load saat pertama buka
     setTimeout(() => quickSearch('Pop Indo Hits 2024', null), 1500);
 
     /* =========================================================
-       CORE DASHBOARD SCRIPT & REALTIME WEBSOCKET
+       CORE DASHBOARD SCRIPT
        ========================================================= */
     const assetParameters = {
       XAUUSD: { basePrice: 2334.50, grade: 'GRADE A', decision: '🎯 BUY NOW', confidence: '88% | Risk: LOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.05 Lot', atr: '4.25', adr: '22.80', slope: '+0.145 (Bullish)', chartData: [2322.1, 2324.5, 2320.9, 2328.0, 2326.4, 2330.1, 2334.5] },
@@ -1105,7 +1130,7 @@
       if (btn.classList.contains('loading-verification')) return;
       btn.classList.add('loading-verification');
       const originalHtml = btn.innerHTML;
-      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI JALUR...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI...';
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 1800);
       fetch('https://register.hfmtrade-ind.com/favicon.ico', { mode: 'no-cors', signal: controller.signal })
