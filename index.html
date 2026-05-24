@@ -49,10 +49,16 @@
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     .premium-card {
       background-color: #ffffff; border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.02), 0 2px 8px -1px rgba(0, 0, 0, 0.01);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .premium-card:hover {
+      border-color: rgba(239, 68, 68, 0.15);
+      box-shadow: 0 12px 30px -4px rgba(239, 68, 68, 0.04), 0 4px 20px -2px rgba(0, 0, 0, 0.02);
+      transform: translateY(-1.5px);
     }
     .active-nav-btn { color: #ef4444 !important; font-weight: 800 !important; }
     .cover-playing { animation: coverSpin 20s linear infinite; }
@@ -62,7 +68,13 @@
       height: 4px; background: rgba(255,255,255,0.15); border-radius: 4px; outline: none;
     }
     input[type="range"].progress-bar::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+      -webkit-appearance: none; appearance: none;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #ef4444; cursor: pointer; border: 2px solid #fff;
+      box-shadow: 0 0 8px rgba(239,68,68,0.6);
+    }
+    input[type="range"].progress-bar::-moz-range-thumb {
+      width: 14px; height: 14px; border-radius: 50%;
       background: #ef4444; cursor: pointer; border: 2px solid #fff;
     }
     .playlist-item.active { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.5); }
@@ -72,53 +84,57 @@
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col pb-16 md:pb-0">
 
-  <header class="border-b border-slate-100 bg-white/85 backdrop-blur-md px-3 py-2.5 sticky top-0 z-50">
+  <!-- TOP NAVIGATION -->
+  <header class="border-b border-slate-100 bg-white/85 backdrop-blur-md px-3 py-2.5 sticky top-0 z-50 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.015)]">
     <div class="max-w-7xl mx-auto flex flex-col gap-2.5">
       <div class="flex items-center justify-between w-full border-b border-gray-100/80 pb-2">
         <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center">
-            <img src="logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/150?text=HFM'" />
+          <div class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+            <img src="logo.jpg" alt="HFM PRO AI Logo" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/150?text=HFM'" />
           </div>
           <div>
-            <h1 class="text-base md:text-lg font-black tracking-tight text-gray-900">
+            <h1 class="text-base md:text-lg font-black tracking-tight text-gray-900 flex items-center gap-1.5">
               𝐂𝐔𝐀𝐍𝐎𝐋𝐎𝐆𝐘 <span class="text-brand-500">|</span> 𝐇𝐅𝐌 𝐏𝐑𝐎 𝐀𝐈
             </h1>
-            <p class="text-[10px] text-gray-500 flex items-center gap-1.5">
+            <p class="text-[10px] md:text-xs text-gray-500 flex items-center gap-1.5">
               <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               MoE Signal Intelligence Engine
             </p>
           </div>
         </div>
-        <div class="flex items-center gap-1.5 bg-emerald-50 px-2.5 py-1.5 rounded-full border border-emerald-100">
+        <div class="flex items-center gap-1.5 bg-emerald-50 px-2.5 py-1.5 rounded-full border border-emerald-100 shadow-inner">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-          <span class="text-[9px] font-black text-emerald-600 tracking-wider uppercase">Online</span>
+          <span class="hidden md:inline text-[9px] font-black text-emerald-600 tracking-wider uppercase">System Online</span>
+          <span class="md:hidden text-[9px] font-black text-emerald-600 tracking-wider uppercase">Online</span>
         </div>
       </div>
 
       <div class="flex flex-col md:flex-row items-center justify-between gap-3">
-        <div class="hidden md:flex items-center gap-1 bg-gray-100 rounded-xl p-1 w-full md:w-auto">
-          <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm">Dashboard</button>
-          <button onclick="switchTab('forex-market')" id="btn-tab-forex-market" class="tab-btn text-gray-500 font-semibold text-xs px-4 py-1.5 rounded-lg">Forex Market</button>
-          <button onclick="switchTab('hfm-broker')" id="btn-tab-hfm-broker" class="tab-btn text-gray-500 font-semibold text-xs px-4 py-1.5 rounded-lg">HFM Register</button>
+        <div class="hidden md:flex items-center gap-1 bg-gray-100 border border-gray-150 rounded-xl p-1 shadow-inner w-full md:w-auto">
+          <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-all">Dashboard</button>
+          <button onclick="switchTab('forex-market')" id="btn-tab-forex-market" class="tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all">Forex Market</button>
+          <button onclick="switchTab('hfm-broker')" id="btn-tab-hfm-broker" class="tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all">HFM Register</button>
         </div>
 
-        <div class="w-full md:w-auto flex items-center justify-between gap-3 bg-gray-50 border border-gray-150 rounded-xl px-3 py-1.5 text-[11px] font-mono">
-          <div class="flex items-center gap-1.5 text-gray-700 border-r border-gray-200 pr-3">
-            <i class="fa-regular fa-clock text-brand-500 animate-pulse"></i>
-            <span id="live-clock" class="font-bold text-gray-900">00:00:00 WIB</span>
-          </div>
-          <div class="flex items-center gap-2.5">
-            <div id="sess-sydney" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">SYD</span></div>
-            <div id="sess-tokyo" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">TYO</span></div>
-            <div id="sess-london" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">LDN</span></div>
-            <div id="sess-newyork" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">NYC</span></div>
+        <div class="w-full md:w-auto flex items-center justify-between md:justify-end gap-3 flex-wrap">
+          <div class="w-full md:w-auto flex items-center justify-between gap-3 bg-gray-50 border border-gray-150 rounded-xl px-3 py-1.5 text-[11px] font-mono shadow-inner">
+            <div class="flex items-center gap-1.5 text-gray-700 border-r border-gray-200 pr-3">
+              <i class="fa-regular fa-clock text-brand-500 animate-pulse"></i>
+              <span id="live-clock" class="font-bold text-gray-900">00:00:00 WIB</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div id="sess-sydney" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">SYD</span></div>
+              <div id="sess-tokyo" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">TYO</span></div>
+              <div id="sess-london" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">LDN</span></div>
+              <div id="sess-newyork" class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span><span class="text-gray-400 font-bold text-[9px]">NYC</span></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 flex justify-around py-2.5 px-4 md:hidden">
+  <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 flex justify-around py-2.5 px-4 shadow-[0_-5px_25px_rgba(0,0,0,0.025)] md:hidden">
     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center gap-1 text-brand-500 font-extrabold text-[10px]">
       <i class="fa-solid fa-chart-line text-lg"></i><span>Dashboard</span>
     </button>
@@ -135,72 +151,77 @@
     <!-- TAB 1: DASHBOARD -->
     <div id="tab-dashboard" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-3.5">
       <section class="lg:col-span-4 flex flex-col gap-3.5">
-        <div class="premium-card rounded-2xl p-4">
-          <div class="flex items-center justify-between mb-3.5">
-            <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
-              <i class="fa-solid fa-folder-tree text-brand-500"></i> Market Selection
-            </h3>
-            <span class="text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2 py-0.5 rounded-full animate-pulse">LIVE WS</span>
+        <div class="premium-card rounded-2xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3.5">
+              <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
+                <i class="fa-solid fa-folder-tree text-brand-500"></i> Market Selection
+              </h3>
+              <span class="text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2 py-0.5 rounded-full animate-pulse">LIVE WS</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mb-3.5">
+              <button onclick="selectAsset('XAUUSD', 'METAL')" id="btn-XAUUSD" class="asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm">
+                <div class="flex flex-col items-start"><span>XAU/USD</span><span id="price-XAUUSD" class="price-val text-[10px] text-gray-300 font-bold transition-all">2334.50</span></div>
+                <i class="fa-solid fa-coins text-yellow-500"></i>
+              </button>
+              <button onclick="selectAsset('EURUSD', 'FOREX')" id="btn-EURUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
+                <div class="flex flex-col items-start"><span>EUR/USD</span><span id="price-EURUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">1.08540</span></div>
+                <i class="fa-solid fa-euro-sign text-blue-500"></i>
+              </button>
+              <button onclick="selectAsset('BTCUSD', 'CRYPTO')" id="btn-BTCUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
+                <div class="flex flex-col items-start"><span>BTC/USD</span><span id="price-BTCUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">66840.00</span></div>
+                <i class="fa-brands fa-bitcoin text-orange-500"></i>
+              </button>
+              <button onclick="selectAsset('ETHUSD', 'CRYPTO')" id="btn-ETHUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100">
+                <div class="flex flex-col items-start"><span>ETH/USD</span><span id="price-ETHUSD" class="price-val text-[10px] text-gray-500 font-semibold transition-all">3450.20</span></div>
+                <i class="fa-brands fa-ethereum text-purple-500"></i>
+              </button>
+            </div>
+            <button onclick="triggerRefresh()" id="refresh-btn" class="w-full bg-gradient-to-r from-brand-600 to-red-500 hover:from-brand-500 hover:to-red-400 text-white font-extrabold text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-brand-100 transition-all active:scale-[0.98]">
+              <i class="fa-solid fa-arrows-rotate animate-spin-slow"></i> TRIGGER MoE ANALYSIS
+            </button>
           </div>
-          <div class="grid grid-cols-2 gap-2 mb-3.5">
-            <button onclick="selectAsset('XAUUSD', 'METAL')" id="btn-XAUUSD" class="asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between shadow-sm">
-              <div class="flex flex-col items-start"><span>XAU/USD</span><span id="price-XAUUSD" class="price-val text-[10px] text-gray-300 font-bold">2334.50</span></div>
-              <i class="fa-solid fa-coins text-yellow-500"></i>
-            </button>
-            <button onclick="selectAsset('EURUSD', 'FOREX')" id="btn-EURUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between">
-              <div class="flex flex-col items-start"><span>EUR/USD</span><span id="price-EURUSD" class="price-val text-[10px] text-gray-500 font-semibold">1.08540</span></div>
-              <i class="fa-solid fa-euro-sign text-blue-500"></i>
-            </button>
-            <button onclick="selectAsset('BTCUSD', 'CRYPTO')" id="btn-BTCUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between">
-              <div class="flex flex-col items-start"><span>BTC/USD</span><span id="price-BTCUSD" class="price-val text-[10px] text-gray-500 font-semibold">66840.00</span></div>
-              <i class="fa-brands fa-bitcoin text-orange-500"></i>
-            </button>
-            <button onclick="selectAsset('ETHUSD', 'CRYPTO')" id="btn-ETHUSD" class="asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between">
-              <div class="flex flex-col items-start"><span>ETH/USD</span><span id="price-ETHUSD" class="price-val text-[10px] text-gray-500 font-semibold">3450.20</span></div>
-              <i class="fa-brands fa-ethereum text-purple-500"></i>
-            </button>
-          </div>
-          <button onclick="triggerRefresh()" id="refresh-btn" class="w-full bg-gradient-to-r from-brand-600 to-red-500 text-white font-extrabold text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md">
-            <i class="fa-solid fa-arrows-rotate animate-spin-slow"></i> TRIGGER MoE ANALYSIS
-          </button>
         </div>
 
-        <div class="premium-card rounded-2xl p-4 relative overflow-hidden flex-1">
-          <div class="flex items-center justify-between mb-3.5">
-            <span class="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase">Target Signal Output</span>
-            <span id="signal-grade" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-xs px-2.5 py-0.5 rounded-full">GRADE A</span>
-          </div>
-          <div class="mb-4 text-center py-4 bg-gray-50 border border-gray-150 rounded-xl">
-            <div id="signal-decision-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ACTIVE SIGNAL
+        <div class="premium-card rounded-2xl p-4 relative overflow-hidden flex-1 flex flex-col justify-between">
+          <div id="signal-glow" class="absolute -right-16 -top-16 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl transition-all duration-300"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3.5">
+              <span class="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase">Target Signal Output</span>
+              <span id="signal-grade" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner">GRADE A</span>
             </div>
-            <h2 id="signal-decision" class="text-2xl font-black tracking-tight text-emerald-600 mt-1">🎯 BUY NOW</h2>
-            <p id="signal-confidence" class="text-[11px] text-gray-500 mt-0.5 font-mono">Confidence Score: 88% | Risk: LOW</p>
-          </div>
-          <div class="space-y-2.5 font-mono text-sm">
-            <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
-              <span class="text-xs text-gray-500">ENTRY</span>
-              <span id="entry-price" class="text-xs font-bold text-gray-900">2334.50</span>
+            <div class="mb-4 text-center py-4 bg-gray-50/70 border border-gray-150 rounded-xl">
+              <div id="signal-decision-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold mb-1 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ACTIVE SIGNAL
+              </div>
+              <h2 id="signal-decision" class="text-2xl font-black tracking-tight text-emerald-600 mt-1">🎯 BUY NOW</h2>
+              <p id="signal-confidence" class="text-[11px] text-gray-500 mt-0.5 font-mono">Confidence Score: 88% | Risk: LOW</p>
             </div>
-            <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
-              <span class="text-xs text-gray-500">STOP LOSS</span>
-              <span id="sl-price" class="text-xs font-bold text-brand-600">2322.00</span>
-            </div>
-            <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
-              <span class="text-xs text-gray-500">TAKE PROFIT 1</span>
-              <span id="tp1-price" class="text-xs font-bold text-gray-900">2345.00</span>
-            </div>
-            <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
-              <span class="text-xs text-gray-500">TAKE PROFIT 2</span>
-              <span id="tp2-price" class="text-xs font-bold text-gray-900">2355.00</span>
-            </div>
-            <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
-              <span class="text-xs text-gray-500">TAKE PROFIT 3</span>
-              <span id="tp3-price" class="text-xs font-bold text-gray-900">2370.00</span>
-            </div>
-            <div class="flex justify-between items-center py-1.5">
-              <span class="text-xs text-gray-500">LOT IDEAL</span>
-              <span id="lot-ideal" class="text-xs font-bold text-gray-900">0.05 Lot</span>
+            <div class="space-y-2.5 font-mono text-sm">
+              <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class="fa-solid fa-right-to-bracket text-gray-400"></i> ENTRY</span>
+                <span id="entry-price" class="text-xs font-bold text-gray-900">2334.50</span>
+              </div>
+              <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class="fa-solid fa-circle-stop text-brand-500"></i> STOP LOSS</span>
+                <span id="sl-price" class="text-xs font-bold text-brand-600">2322.00</span>
+              </div>
+              <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class="fa-solid fa-bullseye text-brand-500"></i> TAKE PROFIT 1</span>
+                <span id="tp1-price" class="text-xs font-bold text-gray-900">2345.00</span>
+              </div>
+              <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class="fa-solid fa-bullseye text-brand-500"></i> TAKE PROFIT 2</span>
+                <span id="tp2-price" class="text-xs font-bold text-gray-900">2355.00</span>
+              </div>
+              <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class="fa-solid fa-bullseye text-brand-500"></i> TAKE PROFIT 3</span>
+                <span id="tp3-price" class="text-xs font-bold text-gray-900">2370.00</span>
+              </div>
+              <div class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced text-brand-500"></i> LOT IDEAL</span>
+                <span id="lot-ideal" class="text-xs font-bold text-gray-900">0.05 Lot</span>
+              </div>
             </div>
           </div>
         </div>
@@ -209,43 +230,92 @@
       <section class="lg:col-span-5 flex flex-col gap-3.5">
         <div class="premium-card rounded-2xl p-4 flex-1 flex flex-col">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase">
+            <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
               <i class="fa-solid fa-chart-line text-brand-500"></i> Interactive Market Geometry
             </h3>
-            <span id="chart-pair-label" class="text-[10px] font-mono bg-gray-100 px-2.5 py-1 rounded-lg text-gray-800 font-bold">XAUUSD [METAL]</span>
+            <span id="chart-pair-label" class="text-[10px] font-mono bg-gray-100 border border-gray-150 px-2.5 py-1 rounded-lg text-gray-800 font-bold">XAUUSD [METAL]</span>
           </div>
-          <div class="relative flex-1 min-h-[250px] max-h-[350px] bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between gap-1 mb-3 bg-gray-50 p-1 border border-gray-150 rounded-xl font-mono text-[10px]">
+            <span class="text-[9px] text-gray-400 font-black uppercase pl-1.5">TIMEFRAME</span>
+            <div class="flex items-center gap-1 overflow-x-auto whitespace-nowrap">
+              <button onclick="changeTimeframe('1')" id="tf-1" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">1m</button>
+              <button onclick="changeTimeframe('5')" id="tf-5" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">5m</button>
+              <button onclick="changeTimeframe('15')" id="tf-15" class="tf-btn bg-black text-white font-extrabold px-2 py-0.5 rounded-md transition-all shadow-sm">15m</button>
+              <button onclick="changeTimeframe('30')" id="tf-30" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">30m</button>
+              <button onclick="changeTimeframe('60')" id="tf-60" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">1H</button>
+              <button onclick="changeTimeframe('240')" id="tf-240" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">4H</button>
+              <button onclick="changeTimeframe('D')" id="tf-D" class="tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all">MTF</button>
+            </div>
+          </div>
+          <div class="relative flex-1 min-h-[250px] max-h-[350px] bg-gray-50/50 border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
             <div id="tradingview-container" class="w-full h-full"></div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-3 text-center text-xs font-mono">
+            <div class="bg-gray-50 border border-gray-100 rounded-xl p-2">
+              <span class="text-[9px] text-gray-400 block uppercase">ATR Volatility</span><span id="atr-value" class="text-xs font-bold text-gray-800">4.25</span>
+            </div>
+            <div class="bg-gray-50 border border-gray-100 rounded-xl p-2">
+              <span class="text-[9px] text-gray-400 block uppercase">ADR (10D) Range</span><span id="adr-value" class="text-xs font-bold text-gray-800">22.80</span>
+            </div>
+            <div class="bg-gray-50 border border-gray-100 rounded-xl p-2">
+              <span class="text-[9px] text-gray-400 block uppercase">Trend Slope</span><span id="slope-value" class="text-xs font-bold text-emerald-600">+0.145 (Bullish)</span>
+            </div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4">
+          <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-satellite-dish text-brand-500"></i> Instant SMC & VSA Detectors
+          </h3>
+          <div class="space-y-2 text-xs font-mono">
+            <div class="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
+              <span class="text-gray-600"><i class="fa-solid fa-water-ladder text-brand-500 mr-1.5"></i> Liquidity Sweep</span><span id="liquidity-sweep-status" class="text-emerald-600 font-bold text-[10px] md:text-xs">🟢 BULLISH SWEEP [S3]</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
+              <span class="text-gray-600"><i class="fa-solid fa-scale-unbalanced-flip text-brand-500 mr-1.5"></i> Volume Spread</span><span id="vsa-status" class="text-emerald-600 font-bold text-[10px] md:text-xs">💼 INST. ABSORPTION</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
+              <span class="text-gray-600"><i class="fa-solid fa-network-wired text-brand-500 mr-1.5"></i> Camarilla Pivot</span><span id="camarilla-status" class="text-gray-700 font-semibold text-[10px] md:text-xs">S3: 2322.40 | Pivot: 2331.10</span>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="lg:col-span-3 flex flex-col gap-3.5">
-        <div class="premium-card rounded-2xl p-4 flex-1">
-          <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase mb-3.5">
+        <div class="premium-card rounded-2xl p-4 flex-1 flex flex-col">
+          <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2 mb-3.5">
             <i class="fa-solid fa-users-viewfinder text-brand-500"></i> MoE Voting Cognition
           </h3>
-          <div class="space-y-3">
-            <div class="p-3 bg-gray-50 border border-gray-100 rounded-xl">
+          <div class="space-y-3 flex-1">
+            <div class="p-3 bg-gray-50/70 border border-gray-100 rounded-xl relative">
               <div class="flex items-center justify-between mb-1">
-                <span class="text-xs font-bold text-gray-800">SMC Order Block</span>
-                <span id="voter1-action" class="bg-emerald-50 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full">BUY (92%)</span>
+                <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5"><i class="fa-solid fa-cube text-brand-500"></i> SMC Order Block</span>
+                <span id="voter1-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">BUY (92%)</span>
               </div>
-              <p id="voter1-analysis" class="text-[11px] text-gray-500 font-mono">DXY melemah, Safe Haven ke emas.</p>
+              <p id="voter1-analysis" class="text-[11px] text-gray-500 leading-normal font-mono">DXY melemah tertekan data ketenagakerjaan AS, memicu aliran Safe Haven masif ke emas.</p>
             </div>
-            <div class="p-3 bg-gray-50 border border-gray-100 rounded-xl">
+            <div class="p-3 bg-gray-50/70 border border-gray-100 rounded-xl relative">
               <div class="flex items-center justify-between mb-1">
-                <span class="text-xs font-bold text-gray-800">Volume Profile (POC)</span>
-                <span id="voter2-action" class="bg-emerald-50 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full">BUY (85%)</span>
+                <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5"><i class="fa-solid fa-align-left text-brand-500"></i> Volume Profile (POC)</span>
+                <span id="voter2-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">BUY (85%)</span>
               </div>
-              <p id="voter2-analysis" class="text-[11px] text-gray-500 font-mono">BOS bullish, bounce dari OB H4.</p>
+              <p id="voter2-analysis" class="text-[11px] text-gray-500 leading-normal font-mono">Struktur market Break of Structure (BOS) bullish, harga memantul dari Order Block H4.</p>
             </div>
-            <div class="p-3 bg-gray-50 border border-gray-100 rounded-xl">
+            <div class="p-3 bg-gray-50/70 border border-gray-100 rounded-xl relative">
               <div class="flex items-center justify-between mb-1">
-                <span class="text-xs font-bold text-gray-800">VWAP Bands</span>
-                <span id="voter3-action" class="bg-emerald-50 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full">BUY (80%)</span>
+                <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-brand-500"></i> VWAP Bands</span>
+                <span id="voter3-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">BUY (80%)</span>
               </div>
-              <p id="voter3-analysis" class="text-[11px] text-gray-500 font-mono">Akumulasi agresif di support institusi.</p>
+              <p id="voter3-analysis" class="text-[11px] text-gray-500 leading-normal font-mono">Volume bursa berjangka melonjak dengan akumulasi agresif pada level support institusi.</p>
+            </div>
+          </div>
+          <div class="mt-3.5 pt-3.5 border-t border-gray-100">
+            <div class="p-3 bg-gradient-to-br from-brand-5/40 to-white border border-brand-100 rounded-xl relative overflow-hidden">
+              <div class="absolute -right-8 -bottom-8 w-16 h-16 bg-brand-500/5 rounded-full blur-xl"></div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-extrabold text-brand-600 flex items-center gap-1.5"><i class="fa-solid fa-shield-halved"></i> Chief Risk Officer</span>
+                <span id="cro-action" class="bg-emerald-50 border border-emerald-100 text-emerald-600 font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow-inner">APPROVED</span>
+              </div>
+              <p id="cro-analysis" class="text-[10px] text-gray-500 leading-relaxed font-mono">Risk-Reward ratio ideal (>2.5R). Likuiditas bursa terjaga tinggi dengan level proteksi SL sangat ketat di bawah Swing Low harian.</p>
             </div>
           </div>
         </div>
@@ -255,22 +325,79 @@
     <!-- TAB 2: FOREX MARKET & MUSIC PLAYER -->
     <div id="tab-forex-market" class="tab-content hidden flex flex-col gap-3.5">
       
-      <div class="bg-gradient-to-br from-brand-600 via-red-500 to-black text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
-        <div class="absolute right-6 top-6 opacity-10 text-9xl font-black hidden md:block">HFM</div>
+      <div class="bg-gradient-to-br from-brand-600 via-red-500 to-black text-white rounded-2xl p-5 shadow-lg relative overflow-hidden flex flex-col md:block items-center text-center md:text-left">
+        <div class="absolute -right-12 -bottom-12 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute right-6 top-6 opacity-10 text-9xl font-black font-sans pointer-events-none hidden md:block">HFM</div>
         <span class="bg-white/20 text-white border border-white/30 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">OFFICIAL BROKER PARTNER</span>
-        <h3 class="text-lg md:text-2xl font-black mt-3">Mulai Trading Bersama HFM Markets</h3>
-        <p class="text-xs text-red-100/90 mt-2 max-w-xl">
-          Akun Premium Tanpa Swap, Eksekusi Cepat, Spread Rendah. Deposit Bank Lokal Indonesia.
+        <h3 class="text-lg md:text-2xl font-black mt-3 leading-tight">Mulai Trading Bersama HFM Markets</h3>
+        <p class="text-[10.5px] sm:text-xs md:text-sm text-red-100/90 mt-2 md:mt-1.5 leading-[1.6] max-w-xs sm:max-w-md md:max-w-xl">
+          Dapatkan Akun Premium Tanpa Swap dengan Eksekusi Cepat dan Spread Rendah. Deposit instan melalui Bank Lokal Indonesia.
         </p>
-        <div class="flex flex-wrap gap-2 mt-4">
-          <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 font-black text-xs py-2.5 px-4 rounded-xl shadow-md active:scale-95">
+        <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4.5">
+          <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-1.5 bg-white text-red-600 hover:bg-red-50 font-black text-xs py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95">
             <i class="fa-solid fa-user-plus"></i> Daftar Akun Live HFM
           </a>
+          <button onclick="switchTab('hfm-broker')" class="inline-flex items-center gap-1.5 bg-black/30 hover:bg-black/40 text-white border border-white/20 font-bold text-xs py-2.5 px-4 rounded-xl transition-all">
+            <i class="fa-solid fa-circle-info"></i> Pelajari Benefit Broker
+          </button>
+        </div>
+      </div>
+
+      <div class="premium-card rounded-2xl p-3 md:p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xs font-extrabold tracking-wider text-gray-400 uppercase flex items-center gap-2">
+            <i class="fa-solid fa-globe text-brand-500"></i> Market Overview
+          </h3>
+          <span class="text-[9px] bg-red-50 text-brand-600 border border-brand-100 font-black px-2.5 py-0.5 rounded-full animate-pulse">LIVE WS</span>
+        </div>
+        <div class="w-full rounded-xl border border-gray-100 shadow-inner overflow-hidden">
+          <table class="w-full text-left border-collapse text-[11px] sm:text-xs">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-100 text-gray-500 font-extrabold uppercase whitespace-nowrap">
+                <th class="p-2.5 md:p-3">ASSET</th>
+                <th class="p-2.5 md:p-3 text-right">PRICE (BID)</th>
+                <th class="p-2.5 md:p-3 text-center">CHG</th>
+                <th class="p-2.5 md:p-3 text-center">STATUS</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 font-mono text-gray-800">
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-coins text-yellow-500"></i> XAUUSD</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-XAUUSD">2334.50</td>
+                <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+1.25%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🟢 STRONG BUY</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-euro-sign text-blue-500"></i> EURUSD</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-EURUSD">1.08540</td>
+                <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+0.14%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🟢 BUY</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-brands fa-bitcoin text-orange-500"></i> BTCUSD</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-BTCUSD">66840.00</td>
+                <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+2.15%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🔥 BREAKOUT</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-brands fa-ethereum text-purple-500"></i> ETHUSD</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-ETHUSD">3450.20</td>
+                <td class="p-2.5 md:p-3 text-emerald-600 font-bold text-center">+1.85%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🟢 BUY</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition-colors">
+                <td class="p-2.5 md:p-3 font-sans font-bold whitespace-nowrap flex items-center gap-1.5"><i class="fa-solid fa-yen-sign text-emerald-600"></i> USDJPY</td>
+                <td class="p-2.5 md:p-3 font-bold text-gray-900 text-right" id="row-bid-USDJPY">156.402</td>
+                <td class="p-2.5 md:p-3 text-red-600 font-bold text-center">-0.32%</td>
+                <td class="p-2.5 md:p-3 text-center"><span class="bg-red-50 text-brand-600 border border-brand-100 text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full font-sans font-extrabold whitespace-nowrap">🔴 BEARISH</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <!-- =============================================== -->
-      <!-- 🎵 MUSIC PLAYER FULL SONG DENGAN CORS PROXY -->
+      <!-- MUSIC PLAYER FULL SONG (JioSaavn API 320kbps) -->
       <!-- =============================================== -->
       <div class="premium-card rounded-2xl p-3 md:p-4 flex flex-col mb-4">
         <div class="flex items-center justify-between mb-3">
@@ -278,43 +405,47 @@
             <i class="fa-solid fa-compact-disc text-brand-500"></i> Music Player Streaming
           </h3>
           <span id="quality-badge" class="text-[8px] md:text-[9px] bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-            <i class="fa-solid fa-crown"></i> FULL SONG HD
+            <i class="fa-solid fa-crown"></i> FULL SONG HD 320kbps
           </span>
         </div>
 
-        <div class="w-full relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-4 border border-gray-800 flex flex-col gap-4">
+        <div class="w-full relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-4 border border-gray-800 shadow-inner flex flex-col gap-4">
           
-          <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div id="player-bg-glow" class="absolute -top-20 -right-20 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl transition-all duration-700 pointer-events-none"></div>
+          <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <!-- Search Bar -->
           <div class="relative z-10">
             <div class="flex gap-2">
               <div class="relative flex-1">
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
-                <input type="text" id="music-search-input" placeholder="Cari: Tulus, Mahalini, Nadin..." 
-                  class="w-full bg-white/10 border border-white/15 text-white placeholder-gray-500 text-[11px] font-semibold rounded-xl pl-9 pr-3 py-2.5 focus:ring-2 focus:ring-brand-500 outline-none"
+                <input type="text" id="music-search-input" placeholder="Cari lagu: Tulus, Mahalini, Nadin..." 
+                  class="w-full bg-white/10 border border-white/15 text-white placeholder-gray-500 text-[11px] font-semibold rounded-xl pl-9 pr-3 py-2.5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
                   onkeydown="if(event.key==='Enter') searchMusic()" />
               </div>
-              <button onclick="searchMusic()" id="search-btn" class="bg-brand-600 hover:bg-brand-500 text-white font-black text-xs px-4 rounded-xl active:scale-95 flex items-center gap-1.5 shrink-0">
+              <button onclick="searchMusic()" id="search-btn" class="bg-brand-600 hover:bg-brand-500 text-white font-black text-xs px-4 rounded-xl transition-all shadow-lg shadow-brand-900/30 active:scale-95 flex items-center gap-1.5 shrink-0">
                 <i class="fa-solid fa-magnifying-glass"></i><span class="hidden sm:inline">Cari</span>
               </button>
             </div>
 
             <div class="flex gap-1.5 mt-2.5 overflow-x-auto whitespace-nowrap pb-1">
-              <button onclick="quickSearch('Tulus', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full">🎤 Tulus</button>
-              <button onclick="quickSearch('Mahalini', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full">🎤 Mahalini</button>
-              <button onclick="quickSearch('Bernadya', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full">🎵 Bernadya</button>
-              <button onclick="quickSearch('Sal Priadi', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full">🎵 Sal Priadi</button>
-              <button onclick="quickSearch('Juicy Luicy', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full">🎵 Juicy Luicy</button>
-              <button onclick="quickSearch('Pop Indo Hits 2024', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full">🔥 Pop Indo</button>
+              <button onclick="quickSearch('Tulus', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎤 Tulus</button>
+              <button onclick="quickSearch('Mahalini', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎤 Mahalini</button>
+              <button onclick="quickSearch('Rizky Febian', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎤 Rizky Febian</button>
+              <button onclick="quickSearch('Juicy Luicy', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Juicy Luicy</button>
+              <button onclick="quickSearch('Bernadya', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Bernadya</button>
+              <button onclick="quickSearch('Sal Priadi', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🎵 Sal Priadi</button>
+              <button onclick="quickSearch('Pop Indo Hits 2024', this)" class="chip-btn bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[9px] font-bold px-3 py-1 rounded-full transition-all">🔥 Pop Indo</button>
             </div>
           </div>
 
-          <!-- Now Playing -->
+          <!-- Now Playing Card -->
           <div class="relative z-10 bg-black/30 border border-white/5 rounded-2xl p-4 flex flex-col sm:flex-row items-center gap-4">
+            
             <div class="relative shrink-0">
-              <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-gray-800 to-black border-4 border-gray-700 shadow-2xl overflow-hidden flex items-center justify-center">
-                <img id="player-cover" src="https://via.placeholder.com/300x300/1e293b/ef4444?text=%E2%99%AB" class="w-full h-full object-cover cover-paused" />
+              <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-gray-800 to-black border-4 border-gray-700 shadow-2xl overflow-hidden flex items-center justify-center" id="cover-wrapper">
+                <img id="player-cover" src="https://via.placeholder.com/300x300/1e293b/ef4444?text=%E2%99%AB" 
+                  alt="cover" class="w-full h-full object-cover cover-paused" />
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div class="w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-700"></div>
                 </div>
@@ -329,8 +460,8 @@
 
             <div class="flex-1 w-full flex flex-col gap-3">
               <div class="text-center sm:text-left">
-                <h4 id="player-title" class="text-sm sm:text-base font-black text-white truncate">Pilih Lagu Untuk Diputar</h4>
-                <p id="player-artist" class="text-[10px] sm:text-xs text-gray-400 truncate">Ketik atau klik chip di atas</p>
+                <h4 id="player-title" class="text-sm sm:text-base font-black text-white truncate max-w-full">Pilih Lagu Untuk Diputar</h4>
+                <p id="player-artist" class="text-[10px] sm:text-xs text-gray-400 truncate">Ketik di search atau klik chip di atas</p>
               </div>
 
               <div class="flex items-center gap-2">
@@ -340,19 +471,19 @@
               </div>
 
               <div class="flex items-center justify-center sm:justify-start gap-2">
-                <button onclick="toggleShuffle()" id="shuffle-btn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center text-sm">
+                <button onclick="toggleShuffle()" id="shuffle-btn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center transition-all text-sm">
                   <i class="fa-solid fa-shuffle"></i>
                 </button>
-                <button onclick="prevTrack()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90">
+                <button onclick="prevTrack()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all active:scale-90">
                   <i class="fa-solid fa-backward-step text-sm"></i>
                 </button>
-                <button onclick="togglePlay()" id="play-btn" class="w-14 h-14 rounded-full bg-gradient-to-tr from-brand-600 to-red-500 text-white flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.5)] hover:scale-105 active:scale-95 border-2 border-white/20">
+                <button onclick="togglePlay()" id="play-btn" class="w-14 h-14 rounded-full bg-gradient-to-tr from-brand-600 to-red-500 text-white flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.5)] hover:scale-105 transition-all active:scale-95 border-2 border-white/20">
                   <i id="play-icon" class="fa-solid fa-play ml-1 text-lg"></i>
                 </button>
-                <button onclick="nextTrack()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90">
+                <button onclick="nextTrack()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all active:scale-90">
                   <i class="fa-solid fa-forward-step text-sm"></i>
                 </button>
-                <button onclick="toggleRepeat()" id="repeat-btn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center text-sm">
+                <button onclick="toggleRepeat()" id="repeat-btn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center transition-all text-sm">
                   <i class="fa-solid fa-repeat"></i>
                 </button>
               </div>
@@ -382,21 +513,74 @@
 
     <!-- TAB 3: HFM BROKER -->
     <div id="tab-hfm-broker" class="tab-content hidden flex flex-col gap-4">
-      <div class="premium-card rounded-2xl p-5">
-        <h3 class="text-lg font-black text-gray-900">Broker Mitra Resmi HFM Markets</h3>
-        <p class="text-xs text-gray-500 mt-1">HFM (HotForex) broker global pemenang penghargaan.</p>
+      <div class="premium-card rounded-2xl p-5 flex flex-col md:flex-row items-center gap-5">
+        <div class="w-16 h-16 rounded-2xl bg-white p-1 shadow-md border border-gray-150 flex items-center justify-center overflow-hidden shrink-0">
+          <img src="logo.jpg" alt="HFM PRO AI Logo" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/150?text=HFM'" />
+        </div>
+        <div class="text-center md:text-left">
+          <h3 class="text-lg font-black text-gray-900">Broker Mitra Resmi HFM Markets</h3>
+          <p class="text-xs text-gray-500 mt-1 max-w-xl">HFM (HotForex) adalah broker global pemenang penghargaan yang teregulasi secara internasional.</p>
+        </div>
       </div>
-      <div class="relative overflow-hidden rounded-3xl p-6 text-center bg-gradient-to-br from-slate-900 to-black border border-slate-800 shadow-2xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow-md shadow-brand-200"><i class="fa-solid fa-bolt"></i></div>
+            <div><h4 class="text-sm font-black text-gray-900">Eksekusi Kilat</h4><p class="text-[10px] text-gray-500">Ultra-fast execution tanpa requote.</p></div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center text-lg shadow-md shadow-gray-400"><i class="fa-solid fa-chart-line"></i></div>
+            <div><h4 class="text-sm font-black text-gray-900">Spread Super Ketat</h4><p class="text-[10px] text-gray-500">Mulai dari 0.0 pips.</p></div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-200"><i class="fa-solid fa-building-columns"></i></div>
+            <div><h4 class="text-sm font-black text-gray-900">Deposit Bank Lokal</h4><p class="text-[10px] text-gray-500">BCA, Mandiri, BNI, BRI.</p></div>
+          </div>
+        </div>
+        <div class="premium-card rounded-2xl p-4 border-l-4 border-l-brand-600 bg-gradient-to-r from-red-50/50 to-white">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-md shadow-amber-200"><i class="fa-solid fa-shield-halved"></i></div>
+            <div><h4 class="text-sm font-black text-gray-900">Swap-Free Account</h4><p class="text-[10px] text-gray-500">Akun Bebas Bunga.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl p-6 text-center bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 shadow-2xl shadow-black/40 mt-4">
+        <div class="absolute -right-12 -top-12 w-28 h-28 bg-brand-500/10 rounded-full blur-2xl"></div>
         <div class="relative z-10 flex flex-col items-center gap-1.5">
-          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-[9px] font-black tracking-widest text-amber-500 uppercase">👑 VIP Access</div>
-          <h4 class="text-sm md:text-base font-black tracking-wider mt-1 text-white uppercase">ACCESS PRIVATE PROFIT GATEWAY</h4>
-          <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" target="_blank" class="mt-4 inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 text-white font-black text-xs py-3 px-6 rounded-xl shadow-lg active:scale-95">
-            <i class="fa-solid fa-crown text-yellow-400 animate-pulse"></i> ACTIVATE PRO ACCOUNT NOW
-          </a>
+          <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-[9px] font-black tracking-widest text-amber-500 uppercase">👑 Exclusive VIP Access</div>
+          <h4 class="text-sm md:text-base font-black tracking-wider mt-1 bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent uppercase">ACCESS PRIVATE PROFIT GATEWAY</h4>
+          <div class="mt-4">
+            <a href="https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829" onclick="handleRegisterClick(event)" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-red-700 hover:from-brand-500 hover:to-red-600 text-white font-black text-xs py-3 px-6 rounded-xl transition-all shadow-lg active:scale-95 border border-brand-500/30">
+              <i class="fa-solid fa-crown text-yellow-400 animate-pulse"></i> ACTIVATE PRO ACCOUNT NOW
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </main>
+
+  <footer class="max-w-7xl w-full mx-auto p-3 pt-0 flex flex-col gap-3">
+    <div class="premium-card rounded-2xl p-3 bg-white border border-gray-150 flex flex-row items-center justify-between shadow-sm">
+      <div class="flex items-center gap-3">
+        <img id="user-photo" src="" alt="user" class="w-9 h-9 rounded-full border border-brand-500 object-cover shadow-sm hidden" />
+        <div id="user-photo-fallback" class="w-9 h-9 rounded-full border border-brand-200 bg-gray-50 flex items-center justify-center shadow-sm">
+          <i class="fa-solid fa-user text-gray-400"></i>
+        </div>
+        <div class="flex flex-col">
+          <span id="user-first-name-footer" class="text-xs font-bold text-gray-800">Guest User</span>
+          <span id="tg-username-footer" class="text-[10px] text-gray-400 font-mono tracking-wide">@guest_mode</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+         <span class="text-[9px] font-bold text-brand-500 uppercase tracking-widest bg-red-50 px-2 py-0.5 rounded border border-brand-100 hidden md:inline-block">AUTHORIZED ACCESS</span>
+         <i class="fa-brands fa-telegram text-brand-500 text-xl opacity-80 animate-pulse"></i>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const domCache = {};
@@ -413,14 +597,16 @@
         webapp.ready(); webapp.expand();
         let tgUser = webapp.initDataUnsafe.user;
         if (tgUser) {
-          getEl('tg-username-footer') && (getEl('tg-username-footer').innerText = '@' + (tgUser.username || tgUser.first_name));
+          getEl('tg-username-footer').innerText = '@' + (tgUser.username || tgUser.first_name.toLowerCase().replace(/\s/g, ''));
+          getEl('user-first-name-footer').innerText = tgUser.first_name;
+          if (tgUser.photo_url) { getEl('user-photo').src = tgUser.photo_url; getEl('user-photo').classList.remove('hidden'); getEl('user-photo-fallback').classList.add('hidden'); }
         }
       }
     } catch (e) {}
 
     /* =========================================================
-       🎵 MUSIC PLAYER - DENGAN CORS PROXY SYSTEM
-       Sistem ini mencoba beberapa jalur untuk bypass CORS
+       🎵 MUSIC PLAYER - JioSaavn API (FULL SONG 320kbps)
+       Dengan sistem fallback ke iTunes jika API utama down
        ========================================================= */
     const musicAudio = document.getElementById('music-audio');
     const musicPlaylist = [];
@@ -428,20 +614,11 @@
     let isShuffle = false;
     let repeatMode = 0;
 
-    // 🌐 CORS Proxy List - Multiple fallback untuk bypass CORS
-    const CORS_PROXIES = [
-      { name: 'corsproxy.io', url: 'https://corsproxy.io/?' },
-      { name: 'allorigins', url: 'https://api.allorigins.win/raw?url=' },
-      { name: 'cors.sh', url: 'https://proxy.cors.sh/' },
-      { name: 'codetabs', url: 'https://api.codetabs.com/v1/proxy?quest=' },
-      { name: 'direct', url: '' } // tanpa proxy (last resort)
-    ];
-
-    // 🎵 JioSaavn API Endpoints
+    // Multiple API endpoints untuk fallback
     const JIOSAAVN_APIS = [
       'https://saavn.dev/api/search/songs',
       'https://jiosaavn-api-privatecvc2.vercel.app/api/search/songs',
-      'https://saavn-api-web.vercel.app/api/search/songs'
+      'https://jiosaavn-api-nu.vercel.app/api/search/songs'
     ];
 
     function formatTime(sec) {
@@ -449,39 +626,6 @@
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
       return `${m}:${s < 10 ? '0' : ''}${s}`;
-    }
-
-    // Fungsi fetch dengan CORS proxy wrapper
-    async function fetchWithProxy(url, timeoutMs = 10000) {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
-      for (let i = 0; i < CORS_PROXIES.length; i++) {
-        const proxy = CORS_PROXIES[i];
-        try {
-          const proxyUrl = proxy.url ? proxy.url + encodeURIComponent(url) : url;
-          console.log(`🔄 Mencoba proxy ${i+1}/${CORS_PROXIES.length}: ${proxy.name}`);
-          
-          const res = await fetch(proxyUrl, { 
-            signal: controller.signal,
-            headers: proxy.name === 'cors.sh' ? { 'x-cors-api-key': 'temp_' + Math.random().toString(36) } : {}
-          });
-          
-          clearTimeout(timeoutId);
-          
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          
-          const data = await res.json();
-          console.log(`✅ Berhasil via ${proxy.name}`);
-          return { data, proxyUsed: proxy.name };
-        } catch (err) {
-          console.log(`❌ Proxy ${proxy.name} gagal:`, err.message);
-          continue;
-        }
-      }
-      
-      clearTimeout(timeoutId);
-      throw new Error('Semua proxy gagal');
     }
 
     async function searchMusic() {
@@ -492,38 +636,45 @@
       const btn = getEl('search-btn');
       const status = getEl('player-status');
       const badge = getEl('quality-badge');
-      
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
-      status.innerText = '🔍 Mencari via CORS Proxy...';
+      status.innerText = '🔍 Mencari lagu FULL...';
 
       let found = false;
-      let proxyInfo = '';
+      let apiUsed = '';
 
-      // Coba setiap JioSaavn API dengan CORS proxy
-      for (let apiIdx = 0; apiIdx < JIOSAAVN_APIS.length && !found; apiIdx++) {
+      // Coba setiap JioSaavn API endpoint
+      for (let i = 0; i < JIOSAAVN_APIS.length; i++) {
         try {
-          const apiUrl = `${JIOSAAVN_APIS[apiIdx]}?query=${encodeURIComponent(query)}&limit=25`;
-          status.innerText = `🔄 API ${apiIdx+1}/${JIOSAAVN_APIS.length} + Proxy...`;
+          const apiUrl = `${JIOSAAVN_APIS[i]}?query=${encodeURIComponent(query)}&limit=25`;
+          const res = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
+          if (!res.ok) continue;
           
-          const { data, proxyUsed } = await fetchWithProxy(apiUrl);
-          const results = data?.data?.results || data?.results || [];
+          const data = await res.json();
+          const results = data.data?.results || data.results || [];
           
           if (results.length > 0) {
             musicPlaylist.length = 0;
             
             results.forEach(track => {
               const downloadUrls = track.downloadUrl || [];
+              // Prioritas: 320kbps > 160kbps > 96kbps > 48kbps
               const bestQuality = downloadUrls.find(u => u.quality === '320kbps') 
                                || downloadUrls.find(u => u.quality === '160kbps')
                                || downloadUrls.find(u => u.quality === '96kbps')
+                               || downloadUrls.find(u => u.quality === '48kbps')
                                || downloadUrls[downloadUrls.length - 1];
               
               if (bestQuality && bestQuality.url) {
                 const cleanTitle = (track.name || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
-                const artistName = track.artists?.primary?.map(a => a.name).join(', ') || track.primaryArtists || 'Unknown';
+                const artistName = track.artists?.primary?.map(a => a.name).join(', ') 
+                                 || track.primaryArtists 
+                                 || track.artist 
+                                 || 'Unknown Artist';
                 const images = track.image || [];
-                const coverUrl = images[images.length - 1]?.url || images[0]?.url || 'https://via.placeholder.com/400x400/1e293b/ef4444?text=%E2%99%AB';
+                const coverUrl = images[images.length - 1]?.url 
+                              || images[0]?.url 
+                              || 'https://via.placeholder.com/400x400/1e293b/ef4444?text=%E2%99%AB';
                 
                 musicPlaylist.push({
                   title: cleanTitle,
@@ -538,25 +689,26 @@
 
             if (musicPlaylist.length > 0) {
               found = true;
-              proxyInfo = proxyUsed;
+              apiUsed = JIOSAAVN_APIS[i];
               renderPlaylist();
-              status.innerText = `✨ ${musicPlaylist.length} lagu FULL via ${proxyUsed}`;
-              badge.innerHTML = `<i class="fa-solid fa-crown"></i> FULL ${musicPlaylist[0].quality.toUpperCase()}`;
+              status.innerText = `✨ ${musicPlaylist.length} lagu FULL (${musicPlaylist[0].quality})`;
+              badge.innerHTML = '<i class="fa-solid fa-crown"></i> FULL SONG HD ' + musicPlaylist[0].quality.toUpperCase();
               badge.className = "text-[8px] md:text-[9px] bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1";
               playTrack(0);
+              break;
             }
           }
         } catch (err) {
-          console.log(`API ${apiIdx+1} gagal:`, err.message);
+          console.log(`API ${i+1} failed:`, err.message);
           continue;
         }
       }
 
-      // FALLBACK ke iTunes jika semua JioSaavn gagal
+      // FALLBACK ke iTunes jika semua JioSaavn API gagal
       if (!found) {
         try {
-          status.innerText = '⚠️ JioSaavn gagal, fallback iTunes 30s...';
-          badge.innerHTML = '<i class="fa-solid fa-clock"></i> PREVIEW 30s';
+          status.innerText = '⚠️ API utama sibuk, fallback preview 30s...';
+          badge.innerHTML = '<i class="fa-solid fa-clock"></i> PREVIEW 30s (Fallback)';
           badge.className = "text-[8px] md:text-[9px] bg-gray-600 text-white font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1";
           
           const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&country=ID&media=music&limit=25&entity=song`;
@@ -568,7 +720,7 @@
             data.results.forEach(track => {
               if (track.previewUrl) {
                 musicPlaylist.push({
-                  title: track.trackName + ' (30s)',
+                  title: track.trackName + ' (30s Preview)',
                   artist: track.artistName,
                   cover: track.artworkUrl100.replace('100x100', '400x400'),
                   url: track.previewUrl,
@@ -578,11 +730,13 @@
               }
             });
             renderPlaylist();
-            status.innerText = `📻 ${musicPlaylist.length} preview (API utama diblokir)`;
+            status.innerText = `${musicPlaylist.length} preview (API utama down)`;
             if (musicPlaylist.length > 0) playTrack(0);
+          } else {
+            status.innerText = 'Tidak ditemukan. Coba lagi.';
           }
         } catch (e) {
-          status.innerText = '❌ Gagal total. Cek koneksi.';
+          status.innerText = 'Gagal total. Cek koneksi.';
         }
       }
 
@@ -620,7 +774,7 @@
             <div class="text-[9px] text-gray-500 truncate">${track.artist}</div>
           </div>
           <div class="flex flex-col items-end shrink-0">
-            <div class="text-[8px] font-black ${track.duration > 30 ? 'text-amber-500' : 'text-gray-600'} uppercase">${track.duration > 30 ? '✓ FULL' : '30s'}</div>
+            <div class="text-[8px] font-black ${track.duration > 30 ? 'text-amber-500' : 'text-gray-600'} uppercase">${track.duration > 30 ? 'FULL' : '30s'}</div>
             <div class="text-[8px] font-mono text-gray-600">${formatTime(track.duration)}</div>
           </div>
         </div>
@@ -651,6 +805,10 @@
       getEl('player-cover').classList.remove('cover-paused');
       getEl('music-equalizer').classList.remove('opacity-0');
       getEl('play-icon').className = 'fa-solid fa-pause text-lg';
+      getEl('player-status').innerText = `▶ Now Playing (${track.quality})`;
+
+      const activeEl = document.querySelector(`.playlist-item[data-idx="${idx}"]`);
+      if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
       updateActiveTrackUI();
     }
@@ -677,7 +835,9 @@
 
     function nextTrack() {
       if (musicPlaylist.length === 0) return;
-      let nextIdx = isShuffle ? Math.floor(Math.random() * musicPlaylist.length) : (currentTrackIdx + 1) % musicPlaylist.length;
+      let nextIdx = isShuffle 
+        ? Math.floor(Math.random() * musicPlaylist.length)
+        : (currentTrackIdx + 1) % musicPlaylist.length;
       playTrack(nextIdx);
     }
 
@@ -691,15 +851,17 @@
     function toggleShuffle() {
       isShuffle = !isShuffle;
       const btn = getEl('shuffle-btn');
-      btn.classList.toggle('text-brand-500');
-      btn.classList.toggle('bg-brand-500/20');
+      if (isShuffle) { btn.classList.remove('text-gray-400'); btn.classList.add('text-brand-500', 'bg-brand-500/20'); }
+      else { btn.classList.remove('text-brand-500', 'bg-brand-500/20'); btn.classList.add('text-gray-400'); }
     }
 
     function toggleRepeat() {
       repeatMode = (repeatMode + 1) % 3;
       const btn = getEl('repeat-btn');
-      if (repeatMode === 0) { btn.className = "w-9 h-9 rounded-full bg-white/5 text-gray-400 flex items-center justify-center text-sm"; }
-      else { btn.className = "w-9 h-9 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center text-sm"; }
+      btn.classList.remove('text-gray-400', 'text-brand-500', 'bg-brand-500/20', 'relative');
+      if (repeatMode === 0) { btn.classList.add('text-gray-400'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i>'; }
+      else if (repeatMode === 1) { btn.classList.add('text-brand-500', 'bg-brand-500/20'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i>'; }
+      else { btn.classList.add('text-brand-500', 'bg-brand-500/20', 'relative'); btn.innerHTML = '<i class="fa-solid fa-repeat"></i><span class="absolute text-[7px] font-black">1</span>'; }
     }
 
     function seekAudio(val) {
@@ -708,7 +870,8 @@
 
     musicAudio.addEventListener('timeupdate', () => {
       if (musicAudio.duration) {
-        getEl('progress-slider').value = (musicAudio.currentTime / musicAudio.duration) * 100;
+        const pct = (musicAudio.currentTime / musicAudio.duration) * 100;
+        getEl('progress-slider').value = pct;
         getEl('current-time').innerText = formatTime(musicAudio.currentTime);
         getEl('duration-time').innerText = formatTime(musicAudio.duration);
       }
@@ -717,24 +880,41 @@
     musicAudio.addEventListener('ended', () => {
       if (repeatMode === 2) { musicAudio.currentTime = 0; musicAudio.play(); }
       else if (repeatMode === 1 || currentTrackIdx < musicPlaylist.length - 1) nextTrack();
+      else {
+        getEl('play-icon').className = 'fa-solid fa-play ml-1 text-lg';
+        getEl('player-cover').classList.remove('cover-playing');
+        getEl('player-cover').classList.add('cover-paused');
+        getEl('music-equalizer').classList.add('opacity-0');
+        getEl('player-status').innerText = '✓ Selesai';
+      }
     });
 
-    // Auto-load saat buka
+    musicAudio.addEventListener('waiting', () => { getEl('player-status').innerText = '⏳ Buffering...'; });
+    musicAudio.addEventListener('playing', () => { 
+      const track = musicPlaylist[currentTrackIdx];
+      if (track) getEl('player-status').innerText = `▶ Playing (${track.quality})`; 
+    });
+    musicAudio.addEventListener('error', () => { getEl('player-status').innerText = '❌ Error - Coba lagu lain'; });
+
+    // Auto-load saat pertama buka
     setTimeout(() => quickSearch('Pop Indo Hits 2024', null), 1500);
 
     /* =========================================================
        CORE DASHBOARD SCRIPT
        ========================================================= */
     const assetParameters = {
-      XAUUSD: { basePrice: 2334.50, grade: 'GRADE A', decision: '🎯 BUY NOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.05 Lot', atr: '4.25', adr: '22.80', slope: '+0.145', chartData: [2322.1, 2324.5, 2320.9, 2328.0, 2326.4, 2330.1, 2334.5] },
-      EURUSD: { basePrice: 1.08540, grade: 'GRADE B', decision: '🎯 BUY NOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.10 Lot', atr: '0.00045', adr: '0.00680', slope: '+0.00012', chartData: [1.0821, 1.0818, 1.0832, 1.0829, 1.0845, 1.0841, 1.0854] },
-      BTCUSD: { basePrice: 66840.00, grade: 'GRADE A+', decision: '🔥 BREAKOUT', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.02 Lot', atr: '850.00', adr: '3400.00', slope: '+450.20', chartData: [64800, 65100, 64900, 65800, 65600, 66300, 66840] },
-      ETHUSD: { basePrice: 3450.20, grade: 'GRADE A', decision: '🎯 BUY NOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.05 Lot', atr: '45.00', adr: '120.00', slope: '+12.5', chartData: [3380, 3410, 3400, 3460, 3440, 3470, 3450] }
+      XAUUSD: { basePrice: 2334.50, grade: 'GRADE A', decision: '🎯 BUY NOW', confidence: '88% | Risk: LOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.05 Lot', atr: '4.25', adr: '22.80', slope: '+0.145 (Bullish)', chartData: [2322.1, 2324.5, 2320.9, 2328.0, 2326.4, 2330.1, 2334.5] },
+      EURUSD: { basePrice: 1.08540, grade: 'GRADE B', decision: '🎯 BUY NOW', confidence: '74% | Risk: MEDIUM', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.10 Lot', atr: '0.00045', adr: '0.00680', slope: '+0.00012 (Mild Bullish)', chartData: [1.0821, 1.0818, 1.0832, 1.0829, 1.0845, 1.0841, 1.0854] },
+      BTCUSD: { basePrice: 66840.00, grade: 'GRADE A+', decision: '🔥 BUY / BREAKOUT', confidence: '95% | Risk: MEDIUM', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.02 Lot', atr: '850.00', adr: '3400.00', slope: '+450.20 (Strong Bullish)', chartData: [64800, 65100, 64900, 65800, 65600, 66300, 66840] },
+      ETHUSD: { basePrice: 3450.20, grade: 'GRADE A', decision: '🎯 BUY NOW', confidence: '82% | Risk: LOW', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.05 Lot', atr: '45.00', adr: '120.00', slope: '+12.5 (Bullish)', chartData: [3380, 3410, 3400, 3460, 3440, 3470, 3450] },
+      USDJPY: { basePrice: 156.402, grade: 'GRADE B', decision: '📉 SELL NOW', confidence: '71% | Risk: MEDIUM', slOffset: 0, tp1Offset: 0, tp2Offset: 0, tp3Offset: 0, lot: '0.10 Lot', atr: '0.85', adr: '1.50', slope: '-0.15 (Bearish)', chartData: [157.10, 156.80, 156.90, 156.20, 156.50, 156.30, 156.40] }
     };
 
-    function getPrecision(pair) { return (pair === 'EURUSD') ? 5 : 2; }
+    function getPrecision(pair) { return (pair === 'EURUSD') ? 5 : (pair === 'USDJPY' ? 3 : 2); }
 
-    const binanceWS = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker/ethusdt@ticker/paxgusdt@ticker/eurusdt@ticker");
+    const wsUrl = "wss://stream.binance.com:9443/ws/btcusdt@ticker/ethusdt@ticker/paxgusdt@ticker/eurusdt@ticker";
+    const binanceWS = new WebSocket(wsUrl);
+
     binanceWS.onmessage = function(event) {
       const msg = JSON.parse(event.data);
       let pair = '';
@@ -750,12 +930,30 @@
       const oldPrice = param.basePrice;
       param.basePrice = newPrice;
       const pEl = getEl(`price-${pair}`);
+      const rowBid = getEl(`row-bid-${pair}`);
       const p = getPrecision(pair);
+      const priceStr = newPrice.toFixed(p);
       if (pEl) {
-        pEl.innerText = newPrice.toFixed(p);
-        pEl.className = `price-val text-[10px] font-bold ${newPrice > oldPrice ? 'text-emerald-500' : 'text-red-500'}`;
+        pEl.innerText = priceStr;
+        if (newPrice > oldPrice) pEl.className = `price-val text-[10px] font-bold transition-all ${currentAsset === pair ? 'text-emerald-300' : 'text-emerald-600'}`;
+        else if (newPrice < oldPrice) pEl.className = `price-val text-[10px] font-bold transition-all ${currentAsset === pair ? 'text-red-300' : 'text-red-500'}`;
+      }
+      if (rowBid && newPrice !== oldPrice) {
+        rowBid.innerText = priceStr;
+        const parent = rowBid.parentElement;
+        parent.classList.add(newPrice > oldPrice ? 'bg-emerald-50/50' : 'bg-red-50/50');
+        setTimeout(() => parent.classList.remove('bg-emerald-50/50', 'bg-red-50/50'), 300);
       }
     }
+
+    async function fetchUSDJPY() {
+      try {
+        let res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        let data = await res.json();
+        if (data && data.rates && data.rates.JPY) processLivePrice('USDJPY', data.rates.JPY);
+      } catch(e) {}
+    }
+    setInterval(fetchUSDJPY, 10000);
 
     function processAIAnalysis() {
       const pair = currentAsset;
@@ -765,48 +963,98 @@
       if (param.priceHistory.length > 8) param.priceHistory.shift();
       const sma = param.priceHistory.reduce((a, b) => a + b, 0) / param.priceHistory.length;
       const diffPct = ((param.basePrice - sma) / sma) * 100;
-      
-      if (diffPct > 0.005) param.decision = '🔥 STRONG BUY';
-      else if (diffPct > 0.001) param.decision = '🎯 BUY NOW';
-      else if (diffPct < -0.005) param.decision = '🩸 STRONG SELL';
-      else if (diffPct < -0.001) param.decision = '📉 SELL NOW';
-      else param.decision = '⚪ WAIT';
-      
+      let threshold = (pair === 'BTCUSD' || pair === 'ETHUSD') ? 0.015 : (pair === 'USDJPY' ? 0.005 : 0.003);
+      if (diffPct > threshold * 1.5) { param.decision = '🔥 STRONG BUY'; param.grade = 'GRADE A+'; param.slope = `+${diffPct.toFixed(3)}% (Strong Bullish)`; param.sweep = '🟢 LIQUIDITY SWEEP (BULLISH)'; param.vsa = '🔥 AGGRESSIVE ACCUMULATION'; }
+      else if (diffPct > threshold * 0.2) { param.decision = '🎯 BUY NOW'; param.grade = 'GRADE A'; param.slope = `+${diffPct.toFixed(3)}% (Bullish)`; param.sweep = '🟢 MINOR SWEEP CONFIRMED'; param.vsa = '💼 INSTITUTIONAL ABSORPTION'; }
+      else if (diffPct < -threshold * 1.5) { param.decision = '🩸 STRONG SELL'; param.grade = 'GRADE A+'; param.slope = `${diffPct.toFixed(3)}% (Strong Bearish)`; param.sweep = '🔴 LIQUIDITY SWEEP (BEARISH)'; param.vsa = '🩸 AGGRESSIVE DISTRIBUTION'; }
+      else if (diffPct < -threshold * 0.2) { param.decision = '📉 SELL NOW'; param.grade = 'GRADE A'; param.slope = `${diffPct.toFixed(3)}% (Bearish)`; param.sweep = '🔴 MINOR SWEEP CONFIRMED'; param.vsa = '💼 INSTITUTIONAL SELLING'; }
+      else { param.decision = '⚪ WAIT / STANDBY'; param.grade = 'GRADE C'; param.slope = `${diffPct.toFixed(3)}% (Flat/Ranging)`; param.sweep = '⚪ NO SWEEP DETECTED'; param.vsa = '⚪ LOW LIQUIDITY'; }
+      calculateDynamicSMC(pair);
       renderDashboardPrices();
     }
 
-    function renderDashboardPrices() {
-      const param = assetParameters[currentAsset];
+    function calculateDynamicSMC(pair) {
+      const param = assetParameters[pair];
       const base = param.basePrice;
-      const p = getPrecision(currentAsset);
-      
-      getEl('entry-price').innerText = base.toFixed(p);
-      getEl('sl-price').innerText = (base + (param.decision.includes('BUY') ? -5 : 5)).toFixed(p);
-      getEl('tp1-price').innerText = (base + (param.decision.includes('BUY') ? 8 : -8)).toFixed(p);
-      getEl('tp2-price').innerText = (base + (param.decision.includes('BUY') ? 15 : -15)).toFixed(p);
-      getEl('tp3-price').innerText = (base + (param.decision.includes('BUY') ? 25 : -25)).toFixed(p);
+      const adr = parseFloat(param.adr);
+      const atr = parseFloat(param.atr);
+      let dHigh, dLow;
+      if (param.decision.includes('BUY') || param.decision.includes('BREAKOUT')) { dHigh = base + (adr * 0.45); dLow = base - (adr * 0.55); }
+      else if (param.decision.includes('SELL')) { dHigh = base + (adr * 0.55); dLow = base - (adr * 0.45); }
+      else { dHigh = base + (adr * 0.5); dLow = base - (adr * 0.5); }
+      const dRange = dHigh - dLow;
+      const pivot = (dHigh + dLow + base) / 3.0;
+      const r3 = base + (dRange * 1.1) / 4.0;
+      const s3 = base - (dRange * 1.1) / 4.0;
+      param.camarilla = `S3: ${s3.toFixed(getPrecision(pair))} | Pivot: ${pivot.toFixed(getPrecision(pair))} | R3: ${r3.toFixed(getPrecision(pair))}`;
+      if (param.decision.includes('BUY') || param.decision.includes('BREAKOUT')) {
+        let risk = Math.max(base - (s3 - 0.2 * atr), atr * 1.5);
+        param.slOffset = -risk; param.tp1Offset = risk * 1.5; param.tp2Offset = risk * 2.5; param.tp3Offset = risk * 4.0;
+      } else if (param.decision.includes('SELL')) {
+        let risk = Math.max((r3 + 0.2 * atr) - base, atr * 1.5);
+        param.slOffset = risk; param.tp1Offset = -risk * 1.5; param.tp2Offset = -risk * 2.5; param.tp3Offset = -risk * 4.0;
+      } else { param.slOffset = 0; param.tp1Offset = 0; param.tp2Offset = 0; param.tp3Offset = 0; }
+    }
+
+    function renderDashboardPrices() {
+      const pair = currentAsset;
+      const param = assetParameters[pair];
+      const isWait = param.decision.includes('WAIT');
+      const base = param.basePrice;
+      const p = getPrecision(pair);
+      getEl('entry-price').innerText = isWait ? '-' : base.toFixed(p);
+      getEl('sl-price').innerText = isWait ? '-' : (base + param.slOffset).toFixed(p);
+      getEl('tp1-price').innerText = isWait ? '-' : (base + param.tp1Offset).toFixed(p);
+      getEl('tp2-price').innerText = isWait ? '-' : (base + param.tp2Offset).toFixed(p);
+      getEl('tp3-price').innerText = isWait ? '-' : (base + param.tp3Offset).toFixed(p);
+      getEl('signal-grade').innerText = param.grade;
       getEl('signal-decision').innerText = param.decision;
+      getEl('slope-value').innerText = param.slope;
+      getEl('liquidity-sweep-status').innerText = param.sweep;
+      getEl('vsa-status').innerText = param.vsa;
+      getEl('camarilla-status').innerText = param.camarilla;
+      const decBadge = getEl('signal-decision-badge');
+      const decText = getEl('signal-decision');
+      const gradeBadge = getEl('signal-grade');
+      if (param.decision.includes('BUY')) {
+        decBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ACTIVE SIGNAL';
+        decBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold mb-1 shadow-inner";
+        decText.className = "text-2xl font-black tracking-tight text-emerald-600 mt-1 filter drop-shadow-[0_2px_8px_rgba(16,185,129,0.15)]";
+        gradeBadge.className = "bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner";
+      } else if (param.decision.includes('SELL')) {
+        decBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> ACTIVE SIGNAL';
+        decBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 border border-red-100 text-brand-600 rounded-full text-[10px] font-bold mb-1 shadow-inner";
+        decText.className = "text-2xl font-black tracking-tight text-brand-600 mt-1 filter drop-shadow-[0_2px_8px_rgba(239,68,68,0.15)]";
+        gradeBadge.className = "bg-red-50 border border-red-100 text-brand-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner";
+      } else {
+        decBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-gray-500 animate-ping"></span> STANDBY';
+        decBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-gray-200 text-gray-600 rounded-full text-[10px] font-bold mb-1 shadow-inner";
+        decText.className = "text-2xl font-black tracking-tight text-gray-700 mt-1";
+        gradeBadge.className = "bg-gray-100 border border-gray-200 text-gray-600 font-black text-xs px-2.5 py-0.5 rounded-full shadow-inner";
+      }
     }
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
       getEl(`tab-${tabId}`).classList.remove('hidden');
-      
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.className = "tab-btn text-gray-500 font-semibold text-xs px-4 py-1.5 rounded-lg");
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.className = "tab-btn text-gray-500 hover:text-gray-900 font-semibold text-xs px-4 py-1.5 rounded-lg transition-all");
       const activeDeskBtn = getEl(`btn-tab-${tabId}`);
-      if (activeDeskBtn) activeDeskBtn.className = "tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm";
-      
+      if (activeDeskBtn) activeDeskBtn.className = "tab-btn bg-white text-brand-600 font-extrabold text-xs px-4 py-1.5 rounded-lg shadow-sm transition-all";
       ['nav-dashboard', 'nav-forex-market', 'nav-hfm-broker'].forEach(id => {
         const btn = getEl(id);
-        if (btn) btn.className = "flex flex-col items-center gap-1 text-gray-400 font-semibold text-[10px]";
+        if (btn) btn.className = "flex flex-col items-center gap-1 text-gray-400 font-semibold text-[10px] transition-all";
       });
       const activeMobileBtn = getEl(`nav-${tabId}`);
-      if (activeMobileBtn) activeMobileBtn.className = "flex flex-col items-center gap-1 text-brand-500 font-extrabold text-[10px] active-nav-btn";
-      
-      if (tabId === 'dashboard' && !isTradingViewLoaded) { 
-        loadTradingViewChart(currentAsset, currentTimeframe); 
-        isTradingViewLoaded = true; 
-      }
+      if (activeMobileBtn) activeMobileBtn.className = "flex flex-col items-center gap-1 text-brand-500 font-extrabold text-[10px] transition-all active-nav-btn";
+      if (tabId === 'dashboard' && !isTradingViewLoaded) { loadTradingViewChart(currentAsset, currentTimeframe); isTradingViewLoaded = true; }
+    }
+
+    function changeTimeframe(tf) {
+      currentTimeframe = tf;
+      document.querySelectorAll('.tf-btn').forEach(btn => btn.className = "tf-btn bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold px-2 py-0.5 rounded-md transition-all");
+      const activeBtn = getEl(`tf-${tf}`);
+      if (activeBtn) activeBtn.className = "tf-btn bg-black text-white font-extrabold px-2 py-0.5 rounded-md transition-all shadow-sm";
+      loadTradingViewChart(currentAsset, tf);
     }
 
     function loadTradingViewChart(pair, timeframe) {
@@ -814,26 +1062,31 @@
       if (pair === 'EURUSD') tvSymbol = "BINANCE:EURUSDT";
       if (pair === 'BTCUSD') tvSymbol = "BINANCE:BTCUSDT";
       if (pair === 'ETHUSD') tvSymbol = "BINANCE:ETHUSDT";
-      
+      if (pair === 'USDJPY') tvSymbol = "FX:USDJPY";
       const container = getEl('tradingview-container');
       if (!container) return;
       container.innerHTML = '<div id="tradingview_chart" class="w-full h-full"></div>';
-      
       setTimeout(() => {
-        new TradingView.widget({
-          "autosize": true, "symbol": tvSymbol, "interval": timeframe, "timezone": "Asia/Jakarta",
-          "theme": "light", "style": "1", "locale": "id", "hide_side_toolbar": true,
-          "hide_top_toolbar": true, "hide_legend": true, "allow_symbol_change": false,
-          "container_id": "tradingview_chart"
-        });
+        try {
+          new TradingView.widget({
+            "autosize": true, "symbol": tvSymbol, "interval": timeframe, "timezone": "Asia/Jakarta",
+            "theme": "light", "style": "1", "locale": "id", "enable_publishing": false,
+            "hide_side_toolbar": true, "hide_top_toolbar": true, "hide_legend": true,
+            "allow_symbol_change": false, "container_id": "tradingview_chart",
+            "save_image": false, "show_popup_button": false, "studies": [],
+          });
+        } catch(e) { console.error("TradingView init failed", e); }
       }, 200);
     }
 
     function selectAsset(pair, type) {
       currentAsset = pair; currentType = type;
-      document.querySelectorAll('.asset-btn').forEach(btn => btn.className = "asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between");
+      document.querySelectorAll('.asset-btn').forEach(btn => btn.className = "asset-btn bg-gray-50 border border-gray-150 text-gray-600 font-semibold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all hover:bg-gray-100");
+      document.querySelectorAll('.price-val').forEach(el => el.className = "price-val text-[10px] text-gray-500 font-semibold transition-all");
       const activeBtn = getEl(`btn-${pair}`);
-      if (activeBtn) activeBtn.className = "asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between shadow-sm";
+      if (activeBtn) activeBtn.className = "asset-btn bg-black text-white border border-black font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-between transition-all shadow-sm";
+      const activePriceEl = getEl(`price-${pair}`);
+      if (activePriceEl) activePriceEl.className = "price-val text-[10px] text-gray-300 font-bold transition-all";
       getEl('chart-pair-label').innerText = `${pair} [${type}]`;
       processAIAnalysis();
       loadTradingViewChart(pair, currentTimeframe);
@@ -841,8 +1094,10 @@
 
     function triggerRefresh() {
       const btn = getEl('refresh-btn');
-      btn.innerHTML = '<i class="fa-solid fa-arrows-rotate animate-spin"></i> CALCULATING...';
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-arrows-rotate animate-spin"></i> CALCULATING BAYESIAN ODDS...';
       setTimeout(() => {
+        btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-arrows-rotate animate-spin-slow"></i> TRIGGER MoE ANALYSIS';
         selectAsset(currentAsset, currentType);
       }, 1000);
@@ -860,22 +1115,27 @@
       ];
       sessions.forEach(sess => {
         const el = getEl(sess.id);
-        if (!el) return;
+        if (!el || el.children.length < 2) return;
         const dot = el.children[0], text = el.children[1];
         let isActive = sess.start < sess.end ? (wibHour >= sess.start && wibHour < sess.end) : (wibHour >= sess.start || wibHour < sess.end);
-        if (isActive) { 
-          dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"; 
-          text.className = "text-emerald-600 font-extrabold text-[9px]"; 
-        } else { 
-          dot.className = "w-1.5 h-1.5 rounded-full bg-gray-300"; 
-          text.className = "text-gray-400 font-bold text-[9px]"; 
-        }
+        if (isActive) { dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"; text.className = "text-emerald-600 font-extrabold text-[9px] tracking-wide"; }
+        else { dot.className = "w-1.5 h-1.5 rounded-full bg-gray-300"; text.className = "text-gray-400 font-bold text-[9px] tracking-wide"; }
       });
     }
 
     function handleRegisterClick(event) {
       event.preventDefault();
-      window.open("https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829", '_blank');
+      const url = "https://register.hfmtrade-ind.com/sv/id/new-live-account/?refid=30524829";
+      const btn = event.currentTarget;
+      if (btn.classList.contains('loading-verification')) return;
+      btn.classList.add('loading-verification');
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> VERIFIKASI...';
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1800);
+      fetch('https://register.hfmtrade-ind.com/favicon.ico', { mode: 'no-cors', signal: controller.signal })
+        .then(() => { clearTimeout(timeoutId); btn.innerHTML = originalHtml; btn.classList.remove('loading-verification'); window.open(url, '_blank'); })
+        .catch(() => { clearTimeout(timeoutId); btn.innerHTML = originalHtml; btn.classList.remove('loading-verification'); window.open(url, '_blank'); });
     }
 
     function initializeApp() {
